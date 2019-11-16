@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="00_BASE">
+      <UniqueIdentifier>{fa669432-8140-4df6-b38c-d1a98c02ad81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE">
+      <UniqueIdentifier>{4c51acd6-da91-4a7f-ab42-5c462c2cda5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP">
+      <UniqueIdentifier>{b1b6a975-d4cb-42e2-8d24-37c519420823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02_RESOURCE">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="01_CORE\00_EXTERN_HEADER">
+      <UniqueIdentifier>{6558a6b2-9b4a-4a79-b8b0-03fe950b6bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON">
+      <UniqueIdentifier>{8cb21a28-0ba7-4f87-a3f4-82c348d7b1f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER">
+      <UniqueIdentifier>{c69fa552-9a4a-4326-9e09-861e65204fc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\00_GAME_MANAGER">
+      <UniqueIdentifier>{f8b437a6-240e-43f6-8f7c-84b16d6b656a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\RENDER">
+      <UniqueIdentifier>{b9d06a17-94fb-4d21-ba6a-742319354cfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\RESOURCE">
+      <UniqueIdentifier>{586f1125-77a4-486f-8740-c97e3dcabc9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\LOG">
+      <UniqueIdentifier>{fccd9324-9d7b-4ca5-be08-bfc9c7120638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\MONSTER">
+      <UniqueIdentifier>{00b62e83-a371-41fc-9afb-e12f470731b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\SOUND">
+      <UniqueIdentifier>{eaf71559-852b-4c2d-afff-bfa69ac44a9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\STATE">
+      <UniqueIdentifier>{741a264a-1bbf-4853-8de8-6d948897eb42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\OTHER">
+      <UniqueIdentifier>{b3cefb69-609e-4bd0-83c9-7d5803ae5da8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\ANIMATION">
+      <UniqueIdentifier>{873796d5-7eb8-4990-a415-cd86e4526a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\PARTICLE">
+      <UniqueIdentifier>{a6ee6628-dc45-4919-882d-9cce973fdc2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MANAGER\POPUP">
+      <UniqueIdentifier>{fd5acf73-de22-41f6-aacd-0c326e312636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\04_CHARACTER">
+      <UniqueIdentifier>{d09b0e64-4e02-4e44-a909-6d7aee9546b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON\CAMERA">
+      <UniqueIdentifier>{39300f06-75bc-428a-b7c7-f670e03ee7b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON\MCI">
+      <UniqueIdentifier>{2d2afcec-f0e6-4a1e-8d99-bbee40bf1612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON\UI">
+      <UniqueIdentifier>{c7a58f97-9e6f-47e1-93c8-d6f27e965eba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON\UTIL">
+      <UniqueIdentifier>{ba4d4977-43d3-4a85-a1fb-a19590b41c28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON\TIMER">
+      <UniqueIdentifier>{0b5704b2-e59a-4e35-afd6-d788649af283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\06_INVENTORY">
+      <UniqueIdentifier>{91dab7fd-a05f-4348-9b9f-8a0af08f66a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\01_SCENE">
+      <UniqueIdentifier>{b29a12da-aa63-4c17-9099-21021d1c9679}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON\FONT">
+      <UniqueIdentifier>{1c52227c-e953-4528-a96d-51b898f7f2bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\02_TILE_MAP">
+      <UniqueIdentifier>{8a07c3c4-7a69-4782-922e-8c7bc695819a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\03_SKILL">
+      <UniqueIdentifier>{454a19e5-15a0-4837-9ca2-7b0ad9fc47ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>00_BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>00_BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="RPGProject.h">
+      <Filter>00_BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>02_RESOURCE</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>01_CORE\02_MANAGER</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>99_APP\00_GAME_MANAGER</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>01_CORE\00_EXTERN_HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="external.h">
+      <Filter>01_CORE\00_EXTERN_HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageNode.h">
+      <Filter>01_CORE\02_MANAGER\RENDER</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderMgr.h">
+      <Filter>01_CORE\02_MANAGER\RENDER</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>01_CORE\02_MANAGER\RESOURCE</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupMgr.h">
+      <Filter>01_CORE\02_MANAGER\POPUP</Filter>
+    </ClInclude>
+    <ClInclude Include="cEffect.h">
+      <Filter>01_CORE\02_MANAGER\PARTICLE</Filter>
+    </ClInclude>
+    <ClInclude Include="cParticle.h">
+      <Filter>01_CORE\02_MANAGER\PARTICLE</Filter>
+    </ClInclude>
+    <ClInclude Include="AniMgr.h">
+      <Filter>01_CORE\02_MANAGER\ANIMATION</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>01_CORE\02_MANAGER\STATE</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMgr.h">
+      <Filter>01_CORE\02_MANAGER\STATE</Filter>
+    </ClInclude>
+    <ClInclude Include="other_mgr.h">
+      <Filter>01_CORE\02_MANAGER\OTHER</Filter>
+    </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>01_CORE\02_MANAGER\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="monsterMgr.h">
+      <Filter>01_CORE\02_MANAGER\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="JN_LogMgr.h">
+      <Filter>01_CORE\02_MANAGER\LOG</Filter>
+    </ClInclude>
+    <ClInclude Include="unit.h">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClInclude>
+    <ClInclude Include="myType.h">
+      <Filter>01_CORE\00_EXTERN_HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="character.h">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClInclude>
+    <ClInclude Include="level.h">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClInclude>
+    <ClInclude Include="myUTIL.h">
+      <Filter>01_CORE\01_COMMON\UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>01_CORE\01_COMMON\TIMER</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMgr.h">
+      <Filter>01_CORE\02_MANAGER\RESOURCE</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>01_CORE\02_MANAGER\SOUND</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>01_CORE\01_COMMON\CAMERA</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>99_APP\06_INVENTORY</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneIntro.h">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLobby.h">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="MY_FontMgr.h">
+      <Filter>01_CORE\01_COMMON\FONT</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupBox.h">
+      <Filter>01_CORE\01_COMMON\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonClass.h">
+      <Filter>01_CORE\01_COMMON\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePlayGame.h">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="tileMap.h">
+      <Filter>99_APP\02_TILE_MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="cWarrior.h">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClInclude>
+    <ClInclude Include="skillWhole.h">
+      <Filter>99_APP\03_SKILL</Filter>
+    </ClInclude>
+    <ClInclude Include="sphereObject.h">
+      <Filter>99_APP\03_SKILL</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>00_BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="RPGProject.cpp">
+      <Filter>00_BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>99_APP\00_GAME_MANAGER</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageNode.cpp">
+      <Filter>01_CORE\02_MANAGER\RENDER</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderMgr.cpp">
+      <Filter>01_CORE\02_MANAGER\RENDER</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>01_CORE\02_MANAGER\RESOURCE</Filter>
+    </ClCompile>
+    <ClCompile Include="PopupMgr.cpp">
+      <Filter>01_CORE\02_MANAGER\POPUP</Filter>
+    </ClCompile>
+    <ClCompile Include="cEffect.cpp">
+      <Filter>01_CORE\02_MANAGER\PARTICLE</Filter>
+    </ClCompile>
+    <ClCompile Include="cParticle.cpp">
+      <Filter>01_CORE\02_MANAGER\PARTICLE</Filter>
+    </ClCompile>
+    <ClCompile Include="AniMgr.cpp">
+      <Filter>01_CORE\02_MANAGER\ANIMATION</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMgr.cpp">
+      <Filter>01_CORE\02_MANAGER\STATE</Filter>
+    </ClCompile>
+    <ClCompile Include="other_mgr.cpp">
+      <Filter>01_CORE\02_MANAGER\OTHER</Filter>
+    </ClCompile>
+    <ClCompile Include="monster.cpp">
+      <Filter>01_CORE\02_MANAGER\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="monsterMgr.cpp">
+      <Filter>01_CORE\02_MANAGER\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="JN_LogMgr.cpp">
+      <Filter>01_CORE\02_MANAGER\LOG</Filter>
+    </ClCompile>
+    <ClCompile Include="character.cpp">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClCompile>
+    <ClCompile Include="level.cpp">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClCompile>
+    <ClCompile Include="myUTIL.cpp">
+      <Filter>01_CORE\01_COMMON\UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>01_CORE\01_COMMON\TIMER</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMgr.cpp">
+      <Filter>01_CORE\02_MANAGER\RESOURCE</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>01_CORE\02_MANAGER\SOUND</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>01_CORE\01_COMMON\CAMERA</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory.cpp">
+      <Filter>99_APP\06_INVENTORY</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneIntro.cpp">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLobby.cpp">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="MY_FontMgr.cpp">
+      <Filter>01_CORE\01_COMMON\FONT</Filter>
+    </ClCompile>
+    <ClCompile Include="PopupBox.cpp">
+      <Filter>01_CORE\01_COMMON\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonClass.cpp">
+      <Filter>01_CORE\01_COMMON\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePlayGame.cpp">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="tileMap.cpp">
+      <Filter>99_APP\02_TILE_MAP</Filter>
+    </ClCompile>
+    <ClCompile Include="cWarrior.cpp">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClCompile>
+    <ClCompile Include="skillWhole.cpp">
+      <Filter>99_APP\03_SKILL</Filter>
+    </ClCompile>
+    <ClCompile Include="sphereObject.cpp">
+      <Filter>99_APP\03_SKILL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="RPGProject.rc">
+      <Filter>02_RESOURCE</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>02_RESOURCE</Filter>
+    </Image>
+    <Image Include="RPGProject.ico">
+      <Filter>02_RESOURCE</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

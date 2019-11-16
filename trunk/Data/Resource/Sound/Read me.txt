@@ -1,0 +1,10 @@
+enemy_attack - 적 공격
+Ghl_Gethit - 구울 피격
+Gob_Gethit - 고블린 피격
+PC_Attack - 캐릭터 공격
+PC_Death - 캐릭터 사망
+PC_Gethit - 캐릭터 피격
+Popup - 팝업 뜰 때, 버튼 클릭, 아이템 습득 시
+Potion - 포션 사용
+Spc_Gethit - 망령 피격
+Spider_Gethit - 다크 스파이더 피격 
