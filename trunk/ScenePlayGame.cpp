@@ -339,14 +339,18 @@ void ScenePlayGame::render(HDC hdc)
         m_map->renderWall(screenDC);
 
         //< 라이트 맵핑
+#ifdef __RELEASE
         SIZE ltmpSZ = RC_MGR->findImage(imgID_LITE_MAPING)->getSize();
         RENDER_MGR->render(screenDC, imgID_LITE_MAPING, m_player->getPos().x - ltmpSZ.cx / 2 - CAMERA->getX(), m_player->getPos().y - ltmpSZ.cy / 2 - RENDER_OFFSET_Y - CAMERA->getY());
+#endif
 
         //<몬스터출력
-        //MON_MGR->render( screenDC );
+        MON_MGR->render( screenDC );
         MON_MGR->renderUnitList(screenDC);
         //< 시야 효과
+#ifdef __RELEASE
         RENDER_MGR->render(screenDC, imgID_SIGHT, 0, 0);
+#endif
         //<캐릭터 출력
         //m_player->render( screenDC );
 

@@ -553,9 +553,9 @@ void cWarrior::dash(void)
     {
         if (getMP() >= 5)
         {
-            //#ifdef __RELEASE
+#ifdef __RELEASE
             incMP(-5);
-            //#endif
+#endif
             dash_count = 0;
             m_DashAni_Info->flag = true;
         }

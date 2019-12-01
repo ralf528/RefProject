@@ -89,6 +89,9 @@
     <Filter Include="99_APP\03_SKILL">
       <UniqueIdentifier>{454a19e5-15a0-4837-9ca2-7b0ad9fc47ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99_APP\05_MONSTER">
+      <UniqueIdentifier>{9a1c8a70-b9cc-40bb-b4a3-1e9e94b35d68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -217,6 +220,9 @@
     <ClInclude Include="sphereObject.h">
       <Filter>99_APP\03_SKILL</Filter>
     </ClInclude>
+    <ClInclude Include="UnitClass\mon_bug.h">
+      <Filter>99_APP\05_MONSTER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -320,6 +326,9 @@
     </ClCompile>
     <ClCompile Include="sphereObject.cpp">
       <Filter>99_APP\03_SKILL</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitClass\mon_bug.cpp">
+      <Filter>99_APP\05_MONSTER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
