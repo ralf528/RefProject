@@ -1,5 +1,5 @@
 #include "stdafx.h"
-//#include "skillWhole.h"
+#include "skillWhole.h"
 #include "inventory.h"
 #include "character.h"
 
@@ -52,12 +52,12 @@ bool character::init(void)
 	//< 공격 충돌체
 	if( NULL == ball )
 	{
-		//ball = new sphereObject(6,NORMAL_ATTACK_RANGE);
+		ball = new sphereObject(6,NORMAL_ATTACK_RANGE);
 	}
 	//< 전체 스킬
 	if( NULL == skill )
 	{
-		//skill = new skillWhole();
+		skill = new skillWhole();
 	}
 	//< 공격 딜레이
 	attDeley.m_deley = attDeley.m_lastTime = 30;
@@ -75,8 +75,8 @@ bool character::init(void)
 void character::release(void)
 {
 	//SAFE_DELETE( m_inventory );
-	//SAFE_DELETE( ball );
-	//SAFE_DELETE( skill );
+	SAFE_DELETE( ball );
+	SAFE_DELETE( skill );
 }
 //< 갱신
 void character::update(float fDeltaTime)
@@ -175,9 +175,9 @@ void character::render(HDC hdc)
 	}
 
 	//마법 구체 렌더
-	//ball->render(hdc);
+	ball->render(hdc);
 	//< 스킬 랜더
-	//skill->render(hdc);
+	skill->render(hdc);
 #ifdef _DEBUG
 	//주위 타일
 	MoveToEx( hdc, vertex[3].x - CAMERA->getX(), vertex[3].y- CAMERA->getY() , NULL );
@@ -322,38 +322,30 @@ void character::setRect( void )
 //< 공격 충돌체 렉트 반환
 RECT character::getBallRect(void)	
 {
-	//return ball->getRect();	
-    RECT r;
-    r.bottom = 0;
-    return r;
+	return ball->getRect();	
 }
 //< 스킬 렉트 반환
 RECT character::getSkillRect(void)
 {
-	//return skill->getRect();	
-    RECT r;
-    r.bottom = 0;
-    return r;
+	return skill->getRect();
 }
 
 //< 충돌체 상태
 void character::setBallFlag( bool flag )
 {
-	//ball->setFlag( flag );
+	ball->setFlag( flag );
 }
 bool character::getBallFlag( void )	
 {
-	//return ball->getFlag();
-    return false;
+	return ball->getFlag();
 }
 
 //< 마법 충돌체 상태
 void character::setSkillBallFlag( bool flag )	
 {
-	//skill->setFlag( flag );	
+	skill->setFlag( flag );	
 }
 bool character::getSkillBallFlag( void )	
 {	
-	//return skill->getFlag();
-    return false;
+	return skill->getFlag();
 }
