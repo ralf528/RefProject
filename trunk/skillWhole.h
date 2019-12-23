@@ -1,8 +1,8 @@
 #pragma once
 
-#include "sphereObject.h"
+#include "cProjectile.h"
 
-class skillWhole : public sphereObject
+class skillWhole : public cProjectile
 {
 public:
 	skillWhole(void);

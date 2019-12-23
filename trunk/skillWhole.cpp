@@ -3,7 +3,7 @@
 
 //생성자 소멸자
 skillWhole::skillWhole(void)
-	: sphereObject( SCREEN_X/2 , 50 )
+	: cProjectile( SCREEN_X/2 , 50 )
 {
 	RC_MGR->addImage( imgID_SKILL_SCREEN, "Data/Resource/Image/skill/전체스킬.bmp", 0, 0 , RM_TRANS );
 	m_count = m_speed;

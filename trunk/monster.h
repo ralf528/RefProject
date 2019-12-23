@@ -4,7 +4,7 @@
 
 //< 공격 충돌체
 
-class sphereObject; 
+class cProjectile; 
 
 //< 상태
 enum

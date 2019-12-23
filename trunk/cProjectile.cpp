@@ -2,19 +2,19 @@
 #include "sphereObject.h"
 
 //생성자 소멸자
-sphereObject::sphereObject( int damage, int range, int speed )
+cProjectile::cProjectile( int damage, int range, int speed )
 	:m_flag(false)
 {
 	init(damage,range,speed);
 }
-sphereObject::~sphereObject(void)
+cProjectile::~cProjectile(void)
 {
 	release();
 }
 
 //< 인터페이스	
 //초기화
-bool sphereObject::init(int damage, int range, int speed)
+bool cProjectile::init(int damage, int range, int speed)
 {
 	m_speed = speed;
 	m_range = range;
@@ -22,11 +22,11 @@ bool sphereObject::init(int damage, int range, int speed)
 	return true;
 }
 //해제
-void sphereObject::release(void)
+void cProjectile::release(void)
 {
 }
 //업데이트
-void sphereObject::update(void)
+void cProjectile::update(void)
 {
 	//< 충돌체가 활성화 된다면
 	if( true == m_flag )
@@ -48,7 +48,7 @@ void sphereObject::update(void)
 	}
 }
 //그리기
-void sphereObject::render(HDC hdc)
+void cProjectile::render(HDC hdc)
 {
 #ifdef _DEBUG
 	if( true == m_flag )
@@ -59,7 +59,7 @@ void sphereObject::render(HDC hdc)
 }
 
 //< 발사 (방향 지정)
-void sphereObject::shoot( POINT &startPoint, POINT &destPos )
+void cProjectile::shoot( POINT &startPoint, POINT &destPos )
 {
  	if( false == m_flag )
 	{				
@@ -73,11 +73,11 @@ void sphereObject::shoot( POINT &startPoint, POINT &destPos )
 }
 
 //위치 설정
-void sphereObject::setPos(POINT pos)
+void cProjectile::setPos(POINT pos)
 {
 	m_pos = pos;
 }
-void sphereObject::setPos(LONG x, LONG y)
+void cProjectile::setPos(LONG x, LONG y)
 {
 	m_pos.x = x;
 	m_pos.y = y;
@@ -86,7 +86,7 @@ void sphereObject::setPos(LONG x, LONG y)
 //< 내부 함수
 
 //렉트 설정
-void sphereObject::setRect(void)
+void cProjectile::setRect(void)
 {
 	SetRect(&m_rect, 
 		m_pos.x - 10, m_pos.y - 10,

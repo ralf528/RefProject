@@ -1,12 +1,12 @@
 #pragma once
 
 //충돌 오브젝트(공격)
-class sphereObject
+class cProjectile
 {
 public:
 	//생성자 소멸자
-	sphereObject( int damage = 1, int range = 5, int speed = 10 );
-	virtual ~sphereObject(void);
+	cProjectile( int damage = 1, int range = 5, int speed = 10 );
+	virtual ~cProjectile(void);
 
 public:
 	//< 인터페이스	

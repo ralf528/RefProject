@@ -73,7 +73,7 @@ bool cWarrior::init(void)
     //< 공격 충돌체
     if (NULL == ball)
     {
-        ball = new sphereObject(6, NORMAL_ATTACK_RANGE);
+        ball = new cProjectile(6, NORMAL_ATTACK_RANGE);
     }
     //< 전체 스킬
     if (NULL == skill)

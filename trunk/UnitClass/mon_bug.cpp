@@ -48,7 +48,7 @@ bool mon_bug::init(void)
 	//< 공격 충돌체
 	if( NULL == ball )
 	{
-		ball = new sphereObject(10, m_attRange);
+		ball = new cProjectile(10, m_attRange);
 	}
 	//< 딜레이
 	attDeley.m_deley = attDeley.m_lastTime = 30;

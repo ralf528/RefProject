@@ -4,7 +4,7 @@
 #include "level.h"
 
 //< 공격 충돌체
-class sphereObject;
+class cProjectile;
 class skillWhole;
 //< 인벤토리
 class Inventory;
@@ -113,7 +113,7 @@ protected:
 	POINT vertex[8];
 
 	//< 공격 충돌체
-	sphereObject *ball;
+	cProjectile *ball;
 	//< 스킬 충돌체
 	skillWhole *skill;
 

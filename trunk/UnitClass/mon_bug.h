@@ -46,7 +46,7 @@ public:
 //< 멤버
 private:
 	//< 공격 충돌체
-	sphereObject *ball;
+	cProjectile *ball;
 	//< 공격 딜레이
 	DELEY attDeley;
 };
