@@ -68,7 +68,7 @@ void mon_bug::release(void)
 	SAFE_DELETE( ball );
 }
 //< 업데이트
-void mon_bug::update( void )
+void mon_bug::update(float fDeltaTime)
 {
 	//< 애니메이션 갱신
 	updateAni( m_IdleAni_Info );

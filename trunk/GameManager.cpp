@@ -57,7 +57,7 @@ void GameManager::Release()
 void GameManager::Update()
 {
     //씬 업데이트
-    STATE_MGR->updateState();
+    STATE_MGR->updateState(FpsTime::getElapsedTime());
 
     //fps 업데이트
     FpsTime::fpsTimeUpdate();

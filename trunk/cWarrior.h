@@ -17,7 +17,7 @@ public:
 	//< 해제
 	virtual void release(void);
 	//< 갱신
-	virtual void update(void);
+	virtual void update(float fDeltaTime);
 	//< 랜더
 	virtual void render(HDC hdc);
 	//< 하반신 랜더
@@ -28,7 +28,7 @@ public:
 	//< 타격
 	virtual bool beHit(int damage);
 	//< 이동
-	virtual void move( void );
+	virtual void move(float fDeltaTime);
 	//< 대쉬
 	virtual void dash( void );
 

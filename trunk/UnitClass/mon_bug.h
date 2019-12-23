@@ -16,7 +16,7 @@ public:
 	//< 해제
 	virtual void release(void);
 	//< 업데이트
-	virtual void update( void );
+	virtual void update(float fDeltaTime);
 	//< 랜더
 	virtual void render(HDC hdc);
 

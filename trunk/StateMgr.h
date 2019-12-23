@@ -55,7 +55,7 @@ public:
 	}
 
 	//< ¾À ¾÷µ«
-	void updateState( void );
+	void updateState(float fDeltaTime);
 	//< ·£´õ ¾À
 	void renderState( HDC hdc );
 	//< ¾À ¹Ù²Ù±â

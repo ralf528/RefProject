@@ -17,11 +17,11 @@ StateMgr::~StateMgr(void)
 }
 
 //< ¾À ¾÷µ«
-void StateMgr::updateState( void )
+void StateMgr::updateState(float fDeltaTime)
 {
 	if(NULL != m_State)
 	{
-		m_State->update();
+		m_State->update(fDeltaTime);
 	}
 }
 //< ·£´õ ¾À

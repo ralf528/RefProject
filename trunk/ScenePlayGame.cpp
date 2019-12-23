@@ -118,7 +118,7 @@ bool ScenePlayGame::init(void)
     return true;
 }
 //< 업데이트
-void ScenePlayGame::update(void)
+void ScenePlayGame::update(float fDeltaTime)
 {
     static DWORD ffff = GetTickCount();
     if (GetTickCount() - ffff >= 5000)
@@ -130,7 +130,6 @@ void ScenePlayGame::update(void)
 
     CAMERA->update();
 
-
     //< 팝업창이 없을때 갱신
     if (POPUP_MGR->getCheckPopup_ON() != true)
     {
@@ -138,7 +137,7 @@ void ScenePlayGame::update(void)
         //if( chatting->getChatingOn() == false )
         {
             //< 캐릭터 무브&업데이트
-            m_player->update();
+            m_player->update(fDeltaTime);
         }
         //< 캐릭터 주위의 선(벽) 찾기
         m_map->aroundLine(m_player->getPos(), m_player->getAroundVertex());
@@ -225,7 +224,7 @@ void ScenePlayGame::update(void)
             }
         }
         //< 몬스터 업데이트
-        MON_MGR->update();
+        MON_MGR->update(fDeltaTime);
         //< 캐릭터 위치 갱신
         m_player->setRect();
 

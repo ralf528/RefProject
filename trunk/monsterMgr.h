@@ -34,7 +34,7 @@ public:
 	//< 해제
 	void release(void);
 	//< 갱신
-	void update(void);
+	void update(float fDeltaTime);
 	//< 그리기
 	void render(HDC hdc);
 

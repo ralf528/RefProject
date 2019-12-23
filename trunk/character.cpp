@@ -79,10 +79,10 @@ void character::release(void)
 	//SAFE_DELETE( skill );
 }
 //< 갱신
-void character::update(void)
+void character::update(float fDeltaTime)
 {
 	//< 캐릭터 무브
-	move();
+	move(fDeltaTime);
 	//< 공격
 	attack();
 	//< 대쉬

@@ -21,7 +21,7 @@ public :
 	//< 초기화
 	virtual bool init( void ) ;
 	//< 업데이트
-	virtual void update( void ) ;
+	virtual void update(float fDeltaTime) ;
 	//< 랜더
 	virtual void render( HDC hdc ) ;
 	//< 해제

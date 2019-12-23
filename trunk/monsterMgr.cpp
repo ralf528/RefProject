@@ -45,7 +45,7 @@ void MonsterMgr::release(void)
 }
 
 //< 갱신
-void MonsterMgr::update(void)
+void MonsterMgr::update(float fDeltaTime)
 {
 	/////////////////////////////////////////////////////////////////////
 	//아더캐릭터
@@ -115,7 +115,7 @@ void MonsterMgr::update(void)
 				}
 			}
 			//< 업데이트
-			m_monsterList[i]->update();
+			m_monsterList[i]->update(fDeltaTime);
 		}
 	}	
 

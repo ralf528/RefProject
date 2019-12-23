@@ -30,7 +30,7 @@ public:
 	//< 해제
 	virtual void release(void) = 0;
 	//< 업데이트
-	virtual void update( void ) = 0;
+	virtual void update(float fDeltaTime) = 0;
 	//< 랜더
 	virtual void render(HDC hdc) = 0;
 

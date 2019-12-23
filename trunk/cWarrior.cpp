@@ -112,7 +112,7 @@ void cWarrior::release(void)
     releaseAniInfo();
 }
 //< 갱신
-void cWarrior::update(void)
+void cWarrior::update(float fDeltaTime)
 {
     if (m_conDeley.m_lastTime + m_conDeley.m_deley < GetTickCount())
     {
@@ -170,7 +170,7 @@ void cWarrior::update(void)
     }
 
     //< 캐릭터 무브
-    move();
+    move(fDeltaTime);
     //< 공격
     attack();
     //< 대쉬
@@ -444,7 +444,7 @@ bool cWarrior::beHit(int damage)
 }
 
 //< 이동
-void cWarrior::move(void)
+void cWarrior::move(float fDeltaTime)
 {
     //< 공격중이면 이동 불가
     if (m_AtckAni_Info->flag == true || m_DashAni_Info->flag == true)
@@ -458,28 +458,28 @@ void cWarrior::move(void)
     if (m_moveDeley.m_lastTime + m_moveDeley.m_deley < GetTickCount())
     {
         //< 이동속도
-        LONG movespeed = static_cast<LONG>(getMoveSpeed());
+        float fMoveSpeed = getMoveSpeed() / fDeltaTime * 0.02f;
 
         //키입력 & 이동
         if (isKeyDown(VK_LEFT))
         {
             m_dir = DIR_L;
-            m_pos.x -= static_cast<LONG>(movespeed*0.3f);
-            CAMERA->moveCamera(static_cast<LONG>(-movespeed*0.3f), 0);
+            m_pos.x -= static_cast<LONG>(fMoveSpeed*0.3f);
+            CAMERA->moveCamera(static_cast<LONG>(-fMoveSpeed*0.3f), 0);
             m_nowState = STATE_MOVE;
         }
         if (isKeyDown(VK_RIGHT))
         {
             m_dir = DIR_R;
-            m_pos.x += static_cast<LONG>(movespeed*0.3f);
-            CAMERA->moveCamera(static_cast<LONG>(movespeed*0.3f), 0);
+            m_pos.x += static_cast<LONG>(fMoveSpeed*0.3f);
+            CAMERA->moveCamera(static_cast<LONG>(fMoveSpeed*0.3f), 0);
             m_nowState = STATE_MOVE;
         }
         if (isKeyDown(VK_UP))
         {
             m_dir = DIR_U;
-            m_pos.y -= static_cast<LONG>(movespeed*0.2f);
-            CAMERA->moveCamera(0, static_cast<LONG>(-movespeed*0.2f));
+            m_pos.y -= static_cast<LONG>(fMoveSpeed*0.2f);
+            CAMERA->moveCamera(0, static_cast<LONG>(-fMoveSpeed*0.2f));
             m_nowState = STATE_MOVE;
 
             //< 대각선 처리
@@ -496,8 +496,8 @@ void cWarrior::move(void)
         {
 
             m_dir = DIR_D;
-            m_pos.y += static_cast<LONG>(movespeed*0.2f);
-            CAMERA->moveCamera(0, static_cast<LONG>(movespeed*0.2f));
+            m_pos.y += static_cast<LONG>(fMoveSpeed*0.2f);
+            CAMERA->moveCamera(0, static_cast<LONG>(fMoveSpeed*0.2f));
             m_nowState = STATE_MOVE;
 
             //< 대각선 처리

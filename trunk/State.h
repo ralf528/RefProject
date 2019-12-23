@@ -13,7 +13,7 @@ public :
 	//< 초기화
 	virtual bool init() = 0;
 	//< 업데이트
-	virtual void update() = 0;
+	virtual void update(float fDeltaTime) = 0;
 	//< 랜더
 	virtual void render( HDC hdc ) = 0;
 	//< 해제
