@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "../sphereObject.h"
+#include "../cProjectile.h"
 #include "mon_bug.h"
 
 
@@ -28,8 +28,8 @@ bool mon_bug::init(void)
 	
 	//< 스테이터스
 	//< 체력
-	setMaxHP( 5 );
-	setHP( 5 );
+	setMaxHP( 10 );
+	setHP( 10 );
 	//< 마력
 	setMaxMP( 50 );
 	setMP( 50 );
@@ -41,7 +41,7 @@ bool mon_bug::init(void)
 	//< 공격 사거리
 	m_attRange = 55;
 	//< 이동 속도
-	setMoveSpeed( 4 );
+	setMoveSpeed( 2 );
 	m_moveDeley.m_lastTime = GetTickCount();
 	m_moveDeley.m_deley = static_cast<unsigned int>(getMoveSpeed());
 
@@ -381,7 +381,7 @@ void mon_bug::setAniInfo( void )
 	SIZE hitAniSize = RC_MGR->findImage(imgID_GETHIT_3)->getSize();
 	//< 프레임 수
 	m_HitAni_Info->frameCntX = 6;
-	m_HitAni_Info->frameCntY = 8;
+	m_HitAni_Info->frameCntY = 1;
 	//< 프레임당 이미지 사이즈
 	m_HitAni_Info->aniSize.cx = hitAniSize.cx / m_HitAni_Info->frameCntX;
 	m_HitAni_Info->aniSize.cy = hitAniSize.cy / m_HitAni_Info->frameCntY;

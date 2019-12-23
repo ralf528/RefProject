@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "sphereObject.h"
+#include "cProjectile.h"
 
 //생성자 소멸자
-cProjectile::cProjectile( int damage, int range, int speed )
-	:m_flag(false)
+cProjectile::cProjectile( int damage, int range, int speed, float fPrefDelay)
+	:m_flag(false), m_fPrevDelayCount(0.f)
 {
-	init(damage,range,speed);
+	init(damage,range,speed, fPrefDelay);
 }
 cProjectile::~cProjectile(void)
 {
@@ -14,11 +14,13 @@ cProjectile::~cProjectile(void)
 
 //< 인터페이스	
 //초기화
-bool cProjectile::init(int damage, int range, int speed)
+bool cProjectile::init(int damage, int range, int speed, float fPrevDelay)
 {
 	m_speed = speed;
 	m_range = range;
 	m_damage = damage;
+    m_fPrevDelay = fPrevDelay;
+    m_fPrevDelayCount = 0.f;
 	return true;
 }
 //해제
@@ -46,6 +48,14 @@ void cProjectile::update(void)
 		//< 충돌체 업데이트
 		setRect();
 	}
+    else if (m_fPrevDelay > 0.f && m_fPrevDelayCount > 0.f)
+    {
+        m_fPrevDelayCount -= FpsTime::getElapsedTime();
+        if (m_fPrevDelayCount <= 0.f)
+        {
+            m_flag = true;
+        }
+    }
 }
 //그리기
 void cProjectile::render(HDC hdc)
@@ -69,6 +79,12 @@ void cProjectile::shoot( POINT &startPoint, POINT &destPos )
 		m_destPos = destPos;
 		//구체 살리기
 		m_flag = true;
+        if (m_fPrevDelay > 0.f)
+        {
+            m_flag = false;
+            m_fPrevDelayCount = m_fPrevDelay;
+        }
+        setRect();
 	}
 }
 

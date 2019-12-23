@@ -217,11 +217,11 @@
     <ClInclude Include="skillWhole.h">
       <Filter>99_APP\03_SKILL</Filter>
     </ClInclude>
-    <ClInclude Include="sphereObject.h">
-      <Filter>99_APP\03_SKILL</Filter>
-    </ClInclude>
     <ClInclude Include="UnitClass\mon_bug.h">
       <Filter>99_APP\05_MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="cProjectile.h">
+      <Filter>99_APP\03_SKILL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -324,11 +324,11 @@
     <ClCompile Include="skillWhole.cpp">
       <Filter>99_APP\03_SKILL</Filter>
     </ClCompile>
-    <ClCompile Include="sphereObject.cpp">
-      <Filter>99_APP\03_SKILL</Filter>
-    </ClCompile>
     <ClCompile Include="UnitClass\mon_bug.cpp">
       <Filter>99_APP\05_MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="cProjectile.cpp">
+      <Filter>99_APP\03_SKILL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

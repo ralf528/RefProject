@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "sphereObject.h"
+#include "cProjectile.h"
 #include "skillWhole.h"
 #include "inventory.h"
 #include "cWarrior.h"
@@ -73,7 +73,7 @@ bool cWarrior::init(void)
     //< 공격 충돌체
     if (NULL == ball)
     {
-        ball = new cProjectile(6, NORMAL_ATTACK_RANGE);
+        ball = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
     }
     //< 전체 스킬
     if (NULL == skill)
@@ -184,7 +184,7 @@ void cWarrior::update(float fDeltaTime)
     updateAni(m_IdleAni_Info);
     updateAni(m_MoveAni_Info);
     updateAni(m_AtckAni_Info);
-    updateAni(m_HitAni_Info);
+    updateAni(m_HitEff_Info);
     updateAni(m_beHitAni_Info);
     updateAni(m_DashAni_Info);
 }
@@ -253,13 +253,13 @@ void cWarrior::render(HDC hdc)
             siz.cx, siz.cy);
     }
     //< 피격 이펙트
-    if (m_HitAni_Info->flag == true)
+    if (m_HitEff_Info->flag == true)
     {
-        SIZE siz = m_HitAni_Info->aniSize;
+        SIZE siz = m_HitEff_Info->aniSize;
         RENDER_MGR->render(hdc, imgID_GETHIT_1,
             m_pos.x - siz.cx / 2 - CAMERA->getX(), m_pos.y - siz.cy / 2 - CAMERA->getY(),
             siz.cx, siz.cy,
-            m_HitAni_Info->nowFrame * siz.cx, 0,
+            m_HitEff_Info->nowFrame * siz.cx, 0,
             siz.cx, siz.cy);
     }
 
@@ -297,45 +297,45 @@ void cWarrior::attack(void)
             m_nowState = STATE_ATTACK;
             m_AtckAni_Info->flag = true;
 
-            POINT pos = m_pos;
+            POINT destPos = m_pos;
             int dist = 1000;
             //어택 사운드 재생
             //SOUND_MGR->soundPlay(CHAR_ATK);
             switch (m_dir)
             {
             case DIR_L:
-                pos.x = m_pos.x - dist;
+                destPos.x = m_pos.x - dist;
                 break;
             case DIR_LU:
-                pos.x = m_pos.x - dist;
-                pos.y = m_pos.y - dist;
+                destPos.x = m_pos.x - dist;
+                destPos.y = m_pos.y - dist;
                 break;
             case DIR_U:
-                pos.y = m_pos.y - dist;
+                destPos.y = m_pos.y - dist;
                 break;
             case DIR_RU:
-                pos.x = m_pos.x + dist;
-                pos.y = m_pos.y - dist;
+                destPos.x = m_pos.x + dist;
+                destPos.y = m_pos.y - dist;
                 break;
             case DIR_R:
-                pos.x = m_pos.x + dist;
+                destPos.x = m_pos.x + dist;
                 break;
             case DIR_RD:
-                pos.x = m_pos.x + dist;
-                pos.y = m_pos.y + dist;
+                destPos.x = m_pos.x + dist;
+                destPos.y = m_pos.y + dist;
                 break;
             case DIR_D:
-                pos.y = m_pos.y + dist;
+                destPos.y = m_pos.y + dist;
                 break;
             case DIR_LD:
-                pos.x = m_pos.x - dist;
-                pos.y = m_pos.y + dist;
+                destPos.x = m_pos.x - dist;
+                destPos.y = m_pos.y + dist;
                 break;
             }
             attDeley.m_lastTime = 0;
             //공격 사운드
             //SOUND_MGR->soundPlay(SOUND_BGM4);
-            ball->shoot(m_pos, pos);
+            ball->shoot(m_pos, destPos);
 
             //< 공격중
             m_isAttacking = true;
@@ -398,14 +398,17 @@ bool cWarrior::beHit(int damage)
 
         m_state.m_nowHP -= damage;
         //< 카메라 흔들리기
-        if (rand() % 3 == 0)
+        if (damage > 10 && rand() % 3 == 0)
         {
             CAMERA->cameraShaking();
         }
         //피격 사운드
         //SOUND_MGR->soundPlay(CHAR_HIT);
         //< 피격 이펙트
-        m_HitAni_Info->flag = true;
+        if (rand() % 10 == 0)
+        {
+            m_HitEff_Info->flag = true;
+        }
         m_beHitAni_Info->flag = true;
 
         LOG_MGR->addLog("m_state.m_nowHP : %d", m_state.m_nowHP);
@@ -744,23 +747,23 @@ void cWarrior::setAniInfo(void)
     m_beHitAni_Info->playAni = true;
 
     //< 타격 애니메이션
-    SAFE_DELETE(m_HitAni_Info);
-    m_HitAni_Info = new ANI_INFO;
+    SAFE_DELETE(m_HitEff_Info);
+    m_HitEff_Info = new ANI_INFO;
     //< 이미지 사이즈
     SIZE hitAniSize = RC_MGR->findImage(imgID_GETHIT_1)->getSize();
     //< 프레임 수
-    m_HitAni_Info->frameCntX = 6;
-    m_HitAni_Info->frameCntY = 1;
+    m_HitEff_Info->frameCntX = 6;
+    m_HitEff_Info->frameCntY = 1;
     //< 프레임당 이미지 사이즈
-    m_HitAni_Info->aniSize.cx = hitAniSize.cx / m_HitAni_Info->frameCntX;
-    m_HitAni_Info->aniSize.cy = hitAniSize.cy / m_HitAni_Info->frameCntY;
-    m_HitAni_Info->frameSpeed = 50;
-    m_HitAni_Info->nowFrame = 0;
-    m_HitAni_Info->nowFrameY = 0;
-    m_HitAni_Info->lastTime = GetTickCount();
-    m_HitAni_Info->flag = false;
-    m_HitAni_Info->loop = false;
-    m_HitAni_Info->playAni = true;
+    m_HitEff_Info->aniSize.cx = hitAniSize.cx / m_HitEff_Info->frameCntX;
+    m_HitEff_Info->aniSize.cy = hitAniSize.cy / m_HitEff_Info->frameCntY;
+    m_HitEff_Info->frameSpeed = 50;
+    m_HitEff_Info->nowFrame = 0;
+    m_HitEff_Info->nowFrameY = 0;
+    m_HitEff_Info->lastTime = GetTickCount();
+    m_HitEff_Info->flag = false;
+    m_HitEff_Info->loop = false;
+    m_HitEff_Info->playAni = true;
 
 
     //< 대쉬 애니메이션
@@ -818,7 +821,7 @@ void cWarrior::releaseAniInfo(void)
     SAFE_DELETE(m_MoveAni_Info);
     SAFE_DELETE(m_AtckAni_Info);
     SAFE_DELETE(m_DieAni_Info);
-    SAFE_DELETE(m_HitAni_Info);
+    SAFE_DELETE(m_HitEff_Info);
     SAFE_DELETE(m_beHitAni_Info);
     SAFE_DELETE(m_DashAni_Info);
 }

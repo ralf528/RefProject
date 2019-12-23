@@ -5,13 +5,13 @@ class cProjectile
 {
 public:
 	//생성자 소멸자
-	cProjectile( int damage = 1, int range = 5, int speed = 10 );
+	cProjectile( int damage = 1, int range = 5, int speed = 10, float fPrevDelay = 0.f );
 	virtual ~cProjectile(void);
 
 public:
 	//< 인터페이스	
 	//초기화
-	virtual bool init(int damage, int speed, int range);
+	virtual bool init(int damage, int speed, int range, float fPrefDelay);
 	//해제
 	virtual void release(void);
 	//업데이트
@@ -67,4 +67,7 @@ protected:
 	int m_speed;
 	//< 사거리
 	int m_range;
+    //< 시작 딜레이
+    float m_fPrevDelay;
+    float m_fPrevDelayCount;
 };

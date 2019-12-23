@@ -72,7 +72,7 @@ protected:
 	LPANI_INFO		m_AtckAni_Info;
 	LPANI_INFO		m_DieAni_Info;
 	LPANI_INFO		m_beHitAni_Info;
-	LPANI_INFO		m_HitAni_Info;
+	LPANI_INFO		m_HitEff_Info;
 	LPANI_INFO		m_DashAni_Info;
 
 	//< 무적모드 딜레이
