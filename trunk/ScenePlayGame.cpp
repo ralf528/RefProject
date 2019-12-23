@@ -180,15 +180,15 @@ void ScenePlayGame::update(void)
 
 
         //> 혼자만 포탈에 있을때
-        if ((m_map->IsColPortal(m_player->getPos()) == true) && false == POPUP_MGR->getCheckPopup_ON())
-        {
-            POPUP_MGR->changePopup(POPUP_GAME_WAIT_USER);
-            //POPUP_MGR->initPopup();
-        }
-        else if (m_map->IsColPortal(m_player->getPos()) == false && POPUP_GAME_WAIT_USER == POPUP_MGR->GetNowPopUp())
-        {
-            POPUP_MGR->changePopup(POPUP_NONE);
-        }
+        //if ((m_map->IsColPortal(m_player->getPos()) == true) && false == POPUP_MGR->getCheckPopup_ON())
+        //{
+        //    POPUP_MGR->changePopup(POPUP_GAME_WAIT_USER);
+        //    //POPUP_MGR->initPopup();
+        //}
+        //else if (m_map->IsColPortal(m_player->getPos()) == false && POPUP_GAME_WAIT_USER == POPUP_MGR->GetNowPopUp())
+        //{
+        //    POPUP_MGR->changePopup(POPUP_NONE);
+        //}
         //> 호스트
         //if(true == HOST_SERVER->getHostis())
         //{
@@ -203,13 +203,13 @@ void ScenePlayGame::update(void)
         //		}
         //	}
         //	else
-        //	{
-        //		//> 포탈과 충돌 시 이동
-        //		if(m_map->IsColPortal(m_player->getPos()) == true)
-        //		{
-        //			initByPortal(m_player->getPos());
-        //		}
-        //	}
+            {
+                //> 포탈과 충돌 시 이동
+                if (m_map->IsColPortal(m_player->getPos()) == true)
+                {
+                    initByPortal(m_player->getPos());
+                }
+            }
         //}
 
         //< 몬스터와 맵의 충돌 체크
