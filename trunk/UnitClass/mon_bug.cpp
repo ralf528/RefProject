@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-//#include "sphereObject.h"
+#include "../sphereObject.h"
 #include "mon_bug.h"
 
 
@@ -48,7 +48,7 @@ bool mon_bug::init(void)
 	//< 공격 충돌체
 	if( NULL == ball )
 	{
-		//ball = new sphereObject(10, m_attRange);
+		ball = new sphereObject(10, m_attRange);
 	}
 	//< 딜레이
 	attDeley.m_deley = attDeley.m_lastTime = 30;
@@ -65,7 +65,7 @@ bool mon_bug::init(void)
 void mon_bug::release(void)
 {
 	releaseAniInfo();
-	//SAFE_DELETE( ball );
+	SAFE_DELETE( ball );
 }
 //< 업데이트
 void mon_bug::update( void )
@@ -150,7 +150,7 @@ void mon_bug::render(HDC hdc)
 	renderHPbar(hdc);
 
 	//공격 충돌체 렌더
-	//ball->render(hdc);
+	ball->render(hdc);
 }
 
 //< 충돌 체크
@@ -185,13 +185,13 @@ void mon_bug::attack( POINT &destPos )
 		if( m_stateFlag == STATE_ATTACK )
 		{
 			attDeley.m_lastTime = 0;
-			//ball->shoot( m_pos , destPos );
+			ball->shoot( m_pos , destPos );
 			m_AtckAni_Info->flag = true;
 			//SOUND_MGR->soundPlay(BUG_ATK);
 		}
 	}
 	//구체 갱신
-	//ball->update();
+	ball->update();
 }
 //< 인식
 void mon_bug::recog( POINT &destPos )
@@ -256,27 +256,23 @@ bool mon_bug::beHit(int damage)
 //< 공격 충돌체 렉트 반환
 RECT mon_bug::getBallRect(void)
 {
-	//return ball->getRect();
-    RECT rect{ 0,0,0,0 };
-    return rect;
+	return ball->getRect();
 }
 
 //< 충돌체 상태
 void mon_bug::setBallFlag( bool flag )
 {
-	//ball->setFlag( flag );
-	//ball->setPos(m_pos);
+	ball->setFlag( flag );
+	ball->setPos(m_pos);
 }
 bool mon_bug::getBallFlag( void )
 {
-	//return ball->getFlag();
-    return false;
+	return ball->getFlag();
 }
 //< 데미지
 int mon_bug::getDamage(void)
 {
-	//return ball->getDamage();
-    return false;
+	return ball->getDamage();
 }
 
 void mon_bug::setAniInfo( void )
