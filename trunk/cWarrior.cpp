@@ -173,12 +173,13 @@ void cWarrior::update(float fDeltaTime)
     move(fDeltaTime);
     //< 공격
     attack();
-    //< 대쉬
-    dash();
-    //< 무적 상태
-    inbeatable();
+    
     //< 아이템
     useItem();
+
+    ProcessInputKey();
+
+    dash();
 
     //< 애니메이션 갱신
     updateAni(m_IdleAni_Info);
@@ -343,47 +344,25 @@ void cWarrior::attack(void)
     }
 
     //< 스킬 가능 상태
-    //if( wholeSkillDeley.m_deley <= wholeSkillDeley.m_lastTime++ )
-    //{
-    //	// 구체 이동
-    //	if( onceKeyDown( 'S' ) )
-    //	{
-    //		if( getMP() >= 50 )
-    //		{
-    //			incMP(-50);
-    //			POINT pos=m_pos;
-    //			//< 딜레이 카운트
-    //			wholeSkillDeley.m_lastTime = 0;
-    //			//공격 사운드
-    //			//SOUND_MGR->soundPlay(SOUND_BGM4);
-    //			//< 스킬 발동
-    //			skill->shoot( m_pos , pos );
+    if( wholeSkillDeley.m_deley <= wholeSkillDeley.m_lastTime++ )
+    {
+    	// 구체 이동
+    	if( onceKeyDown( 'S' ) )
+    	{
+    		if( getMP() >= 50 )
+    		{
+    			incMP(-50);
+    			POINT pos=m_pos;
+    			//< 딜레이 카운트
+    			wholeSkillDeley.m_lastTime = 0;
+    			//공격 사운드
+    			//SOUND_MGR->soundPlay(SOUND_BGM4);
+    			//< 스킬 발동
+    			skill->shoot( m_pos , pos );
+    		}
+    	}
+    }
 
-    //			//< 스킬 패킷 보내기
-    //			PACKET packet;
-    //			packet.m_skill.m_length = sizeof(P2P_SKILL);
-    //			packet.m_skill.m_type = P2P_PLAYER_SKILL;
-    //			packet.m_skill.pos = m_pos;
-    //			packet.m_skill.skillNum = 'S';
-    //			packet.m_skill.m_index = m_connectionIndex;
-
-    //			//< 호스트라면
-    //			if(true == HOST_SERVER->getHostis())
-    //			{
-    //				LOG_MGR->addLog("[HOST][send] ");
-    //				HOST_SERVER->sendOtherPlayer((char*)&packet, packet.m_charPos.m_length);
-    //			}
-    //			//< 아니라면
-    //			else
-    //			{
-    //				LOG_MGR->addLog("[OTHER][send] ");
-    //				//TCPIP_CLIENT->sendPacket((char*)&packet);
-    //				TCPIP_CLIENT->sendPacket(packet);
-    //			}
-    //			LOG_MGR->addLog("P2P_PLAYER_SKILL");
-    //		}
-    //	}
-    //}
     //충돌체 갱신
     ball->update();
     skill->update();
@@ -552,21 +531,11 @@ void cWarrior::move(float fDeltaTime)
 //< 대쉬
 void cWarrior::dash(void)
 {
-    if (keyInput::onceKeyDown('A'))
-    {
-        if (getMP() >= 5)
-        {
-#ifdef __RELEASE
-            incMP(-5);
-#endif
-            dash_count = 0;
-            m_DashAni_Info->flag = true;
-        }
-    }
     //< 대쉬 거리
     int m_dashDist = CHARACTER_DASH_DIST / 5;
     if (m_AtckAni_Info->flag == true)
     {
+        //if (keyInput::isKeyDown(VK_SHIFT))
         m_dashDist *= -1;
     }
 
@@ -603,16 +572,38 @@ void cWarrior::dash(void)
 //< 무적 모드
 void cWarrior::inbeatable(void)
 {
+    if (m_inbeatDeley.m_lastTime + m_inbeatDeley.m_deley < GetTickCount() && getMP() >= 10)
+    {
+        incMP(-10);
+        setCondition(CONDITION_INBEAT);
+        m_conDeley.m_deley = 300;
+        m_conDeley.m_lastTime = GetTickCount();
+        m_inbeatDeley.m_lastTime = GetTickCount();
+    }
+}
+
+void cWarrior::ProcessInputKey()
+{
+    if (keyInput::onceKeyDown('A'))
+    {
+        DashTrigger();
+    }
+
     if (keyInput::onceKeyDown('S'))
     {
-        if (m_inbeatDeley.m_lastTime + m_inbeatDeley.m_deley < GetTickCount() && getMP() >= 10)
-        {
-            incMP(-10);
-            setCondition(CONDITION_INBEAT);
-            m_conDeley.m_deley = 300;
-            m_conDeley.m_lastTime = GetTickCount();
-            m_inbeatDeley.m_lastTime = GetTickCount();
-        }
+        inbeatable();
+    }
+}
+
+void cWarrior::DashTrigger()
+{
+    if (getMP() >= 5)
+    {
+#ifdef __RELEASE
+        incMP(-5);
+#endif
+        dash_count = 0;
+        m_DashAni_Info->flag = true;
     }
 }
 

@@ -7,15 +7,15 @@ class cWarrior : public character
 {
 //< 생성자 소멸자
 public:
-	cWarrior(void);
-	~cWarrior(void);
+	cWarrior();
+	~cWarrior();
 
 //< 인터페이스
 public:
 	//< 초기화
-	virtual bool init(void);
+	virtual bool init();
 	//< 해제
-	virtual void release(void);
+	virtual void release();
 	//< 갱신
 	virtual void update(float fDeltaTime);
 	//< 랜더
@@ -24,35 +24,35 @@ public:
 	void renderLower(HDC hdc);
 
 	//< 공격
-	virtual void attack( void );
+	virtual void attack();
 	//< 타격
 	virtual bool beHit(int damage);
 	//< 이동
 	virtual void move(float fDeltaTime);
 	//< 대쉬
-	virtual void dash( void );
+	virtual void dash();
 
 	//< 데미지 얻기
-	virtual int getDamage(void);
-
-	//< 커넥션 인덱스 설정, 얻기
-	//virtual inline void setConnectionIndex(int index)	 { m_connectionIndex = index; }
-	//virtual inline int getConnectionIndex(void)			 { return m_connectionIndex; }
+	virtual int getDamage();
 
 	//< 충돌체(아이템 등) 얻기
 	virtual void gainCollider( tileType &obj );
 	//< 렉트 설정
-	void setRect( void );
+	void setRect();
 
 	//애니메이션 설정
-	void setAniInfo(void);
+	void setAniInfo();
 	//갱신
 	void updateAni( LPANI_INFO aniInfo );
 	//해제
-	void releaseAniInfo( void );
+	void releaseAniInfo();
 
 	//< 무적모드
-	void inbeatable( void );
+	void inbeatable();
+
+    void ProcessInputKey();
+
+    void DashTrigger();
 
 //< 멤버 변수
 protected:
