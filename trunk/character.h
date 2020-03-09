@@ -57,10 +57,6 @@ public:
 	//< 렉트 설정
 	virtual void setRect(void);
 
-	//< 커넥션 인덱스 설정, 얻기
-	inline void setConnectionIndex(int index) 	 { m_connectionIndex = index; }
-	inline int getConnectionIndex(void) 		 { return m_connectionIndex; }
-
 	//< 공격 충돌체 렉트 반환
 	RECT getBallRect(void);
 	//< 스킬 렉트 반환
@@ -130,8 +126,6 @@ protected:
 	//< 대쉬
 	unsigned int dash_count;
 
-	//< 네트워크 커넥션 인덱스 번호
-	int m_connectionIndex;
 	//< 공격중
 	bool m_isAttacking;
 };

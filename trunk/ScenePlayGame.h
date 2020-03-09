@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "otherCharacter.h"
 #include "Scene.h"
 #include "MY_FontMgr.h"
 
@@ -30,18 +29,8 @@ public :
 	//< 이벤트처리
 	virtual LRESULT	StateProc( HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam );
 
-	//otherCharacter& GetOtherCharacter() {return *m_other;}
-
-	//< 패킷 처리
-	//void packetProcess(const PACKET *packet);
-	//void hostPacketProcess(const PACKET *packet);
-	//void clientPacketProcess(const PACKET *packet);
-	//void commonPacketProcess(const PACKET *packet);
-
 	//< 포탈 후 초기화
 	void initByPortal(POINT &destPos);
-
-	bool isClientAllInit(void)	{return (m_isMapInit && m_isMonsterInit && m_isPlayerInit);}
 
 private:
 	//< UI 로딩
@@ -58,8 +47,6 @@ private :
 
 	//< 캐릭터 정보
 	character *m_player;
-	//< 아더 캐릭터
-	//otherCharacter *m_other;
 
 	//타일맵 정보
 	tileMap *m_map;
@@ -112,10 +99,4 @@ private : //< UI관련-------------------------------------------
 	ChattingGame *chatting;
 	//< 앤터키 판단
 	int checkEnter;
-	//> 맵 초기화 성공 여부(클라이언트, 호스트x)
-	bool m_isMapInit;
-	//> 몬스터 초기화 성공 여부(클라이언트, 호스트x)
-	bool m_isMonsterInit;
-	//> 플레이어 초기화 성공 여부(클라이언트, 호스트x)
-	bool m_isPlayerInit;
 };

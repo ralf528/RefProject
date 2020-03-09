@@ -67,14 +67,12 @@ bool character::init(void)
 	m_conDeley.m_deley = 0;
 	m_conDeley.m_lastTime = 0;
 
-	//< 호스트 캐릭터는 -1, 나머지는 커넥션 인데스 번호
-	m_connectionIndex = -1;
 	return true;
 }
 //< 해제
 void character::release(void)
 {
-	//SAFE_DELETE( m_inventory );
+	SAFE_DELETE( m_inventory );
 	SAFE_DELETE( ball );
 	SAFE_DELETE( skill );
 }
@@ -195,7 +193,7 @@ void character::gainCollider( tileType &obj )
 	if( obj >= ITEM_FIRST && obj < ITEM_END )
 	{
 		//m_state.m_nowHP+=10;
-		//m_inventory->addItem( obj );
+		m_inventory->addItem( obj );
 	}
 	//< 그 외에는 충돌체크
 	else

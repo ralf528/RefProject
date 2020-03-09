@@ -64,54 +64,19 @@ bool ScenePlayGame::init(void)
     m_player->init();
     //< 몬스터 매니저에 캐릭터 연결
     MON_MGR->setDestPlayer(m_player);
-    //MON_MGR->setOtherPlayer( &m_other );
-
-    //m_other->init();
 
     //캐릭터 위치 초기화
     m_player->setPos(m_map->getCharPos());
-    //m_other->setPos( m_map->getCharPos() );
 
     //게임 배경음 플레이
     //SOUND_MGR->soundPlay(SOUND_INGAME);
 
     LOG_MGR->addLog("%s", "플레이씬 초기화");
 
-
-    //< 납입하는 other일 경우
-    {
-
-        //m_other = new otherCharacter;
-        //m_other->init();
-        //MON_MGR->setOtherPlayer( m_other );
-        //m_other->setPos( m_map->getCharPos() );
-
-        //> 맵 초기화 성공 여부(클라이언트, 호스트x)
-        m_isMapInit = false;
-        //> 몬스터 초기화 성공 여부(클라이언트, 호스트x)
-        m_isMonsterInit = false;
-        //> 플레이어 초기화 성공 여부(클라이언트, 호스트x)
-        m_isPlayerInit = false;
-
-    }
-
     //< UI 초기화
     initUI();
     //< 채팅창
     //chatting->init();
-
-    STATE_MGR->setLoading(90); Sleep(100);
-
-    static DWORD lastTime = GetTickCount();
-    int i = 0;
-    /*while (!m_isMapInit || !m_isMonsterInit || !m_isPlayerInit)
-    {
-        DWORD curTime = GetTickCount();
-        if ((curTime - lastTime) >= 1000)
-        {
-            lastTime = GetTickCount();
-        }
-    }*/
 
     STATE_MGR->setLoading(100); Sleep(500);
 
@@ -148,27 +113,12 @@ void ScenePlayGame::update(float fDeltaTime)
             //< 충돌 되었다면 이전 위치로
             m_player->setPosToPrev();
         }
-        //< 아더 캐릭터와 맵의 충돌체크
-        //if( true == m_map->collision( m_other->getPos(), m_other->getAroundVertex() ) )
-        //{
-        //	//< 충돌 되었다면 이전 위치로
-        //	m_other->setPosToPrev();
-        //}
         //< 캐릭터와 오브젝트 충돌체크
         tileType objTemp = m_map->collisionObject(m_player->getPos());
         if (0 != objTemp)
         {
             m_player->gainCollider(objTemp);
         }
-        //< 아더 캐릭터 충돌체크
-        /*if(NULL != m_other)
-        {
-            objTemp = m_map->collisionObject( m_other->getPos() );
-            if( 0 != objTemp )
-            {
-                m_other->gainCollider( objTemp );
-            }
-        }*/
         //< 포탈과 충돌 체크
         //if( true == m_map->inPortal( m_player->getPos() ) )
         //{
@@ -228,26 +178,6 @@ void ScenePlayGame::update(float fDeltaTime)
         //< 캐릭터 위치 갱신
         m_player->setRect();
 
-        //< 아더가 접속했나
-        //if(NULL != m_other)
-        //{
-        //	//< 아더 캐릭터 주위의 선(벽) 찾기
-        //	m_map->aroundLine( m_other->getPos(), m_other->getAroundVertex() );
-        //	//< 아더 캐릭터와 맵의 충돌체크
-        //	if( true == m_map->collision( m_other->getPos(), m_other->getAroundVertex() ) )
-        //	{
-        //		//< 충돌 되었다면 이전 위치로
-        //		m_other->setPosToPrev();
-        //	}
-        //	objTemp = m_map->collisionObject( m_other->getPos() );
-        //	if( 0 != objTemp )
-        //	{
-        //		m_other->gainCollider( objTemp );
-        //	}
-        //	//< 아더캐릭터
-        //	m_other->update();
-        //}
-
         //< 공격 버튼-------------------------------------------------
         if (m_button_Skill[0].getPlayButtonAni() == true)
         {
@@ -291,32 +221,6 @@ void ScenePlayGame::update(float fDeltaTime)
             //< 팝업창 끄기
         }
     }
-
-    //< 캐릭터 위치 갱신
-    /*if(true == HOST_SERVER->getHostis() && true == HOST_SERVER->getIsConnector())
-    {
-        static DWORD flag = GetTickCount();
-        if(GetTickCount() - flag >= 1000)
-        {
-            LOG_MGR->addLog("[HOST][SEND]");
-            LOG_MGR->addLog("P2P_CHAR_POS_UPDATE");
-            PACKET packet;
-            packet.m_charPosUpdate.m_length = sizeof(P2P_CHARPOSUPDATE);
-            packet.m_charPosUpdate.m_type = P2P_CHAR_POS_UPDATE;
-            packet.m_charPosUpdate.host = m_player->getPos();
-            if(NULL == m_other)
-            {
-                POINT unPos = {0, 0};
-                packet.m_charPosUpdate.other = unPos;
-            }
-            else
-            {
-                packet.m_charPosUpdate.other = m_other->getPos();
-            }
-            HOST_SERVER->sendOtherPlayer((char*)&packet, packet.m_monster.m_length);
-            flag = GetTickCount();
-        }
-    }*/
 }
 
 //< 랜더
@@ -353,12 +257,6 @@ void ScenePlayGame::render(HDC hdc)
         //<캐릭터 출력
         //m_player->render( screenDC );
 
-        //< 아더가 접속했나
-        /*if(NULL != m_other)
-        {
-            m_other->render( screenDC );
-        }*/
-
         //< 게임 화면 랜더
         imgScreen->render(hdc, 0, 0);
         //< UI 랜더
@@ -388,7 +286,6 @@ void ScenePlayGame::release(void)
     //SAFE_DELETE( chatting );
 
     SAFE_DELETE(m_player);
-    //SAFE_DELETE( m_other );
     SAFE_DELETE(m_map);
     //SOUND_MGR->soundStop(SOUND_INGAME);
 }
