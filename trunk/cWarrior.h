@@ -47,12 +47,12 @@ public:
 	//해제
 	void releaseAniInfo();
 
-	//< 무적모드
-	void inbeatable();
+    virtual void ProcessSkill(int nIndex);
 
-    void ProcessInputKey();
-
+    void AttackTrigger();
+    void Inbeatable();
     void DashTrigger();
+    void ShootWholeSkill();
 
 //< 멤버 변수
 protected:

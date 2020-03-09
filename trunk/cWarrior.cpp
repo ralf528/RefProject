@@ -171,13 +171,14 @@ void cWarrior::update(float fDeltaTime)
 
     //< 캐릭터 무브
     move(fDeltaTime);
+
+    //ProcessInputKey();
+
     //< 공격
     attack();
     
     //< 아이템
     useItem();
-
-    ProcessInputKey();
 
     dash();
 
@@ -291,76 +292,6 @@ void cWarrior::attack(void)
     {
         //< 공격중 아님
         m_isAttacking = false;
-
-        // 구체 이동
-        if (isKeyDown(VK_SPACE))
-        {
-            m_nowState = STATE_ATTACK;
-            m_AtckAni_Info->flag = true;
-
-            POINT destPos = m_pos;
-            int dist = 1000;
-            //어택 사운드 재생
-            //SOUND_MGR->soundPlay(CHAR_ATK);
-            switch (m_dir)
-            {
-            case DIR_L:
-                destPos.x = m_pos.x - dist;
-                break;
-            case DIR_LU:
-                destPos.x = m_pos.x - dist;
-                destPos.y = m_pos.y - dist;
-                break;
-            case DIR_U:
-                destPos.y = m_pos.y - dist;
-                break;
-            case DIR_RU:
-                destPos.x = m_pos.x + dist;
-                destPos.y = m_pos.y - dist;
-                break;
-            case DIR_R:
-                destPos.x = m_pos.x + dist;
-                break;
-            case DIR_RD:
-                destPos.x = m_pos.x + dist;
-                destPos.y = m_pos.y + dist;
-                break;
-            case DIR_D:
-                destPos.y = m_pos.y + dist;
-                break;
-            case DIR_LD:
-                destPos.x = m_pos.x - dist;
-                destPos.y = m_pos.y + dist;
-                break;
-            }
-            attDeley.m_lastTime = 0;
-            //공격 사운드
-            //SOUND_MGR->soundPlay(SOUND_BGM4);
-            ball->shoot(m_pos, destPos);
-
-            //< 공격중
-            m_isAttacking = true;
-        }
-    }
-
-    //< 스킬 가능 상태
-    if( wholeSkillDeley.m_deley <= wholeSkillDeley.m_lastTime++ )
-    {
-    	// 구체 이동
-    	if( onceKeyDown( 'S' ) )
-    	{
-    		if( getMP() >= 50 )
-    		{
-    			incMP(-50);
-    			POINT pos=m_pos;
-    			//< 딜레이 카운트
-    			wholeSkillDeley.m_lastTime = 0;
-    			//공격 사운드
-    			//SOUND_MGR->soundPlay(SOUND_BGM4);
-    			//< 스킬 발동
-    			skill->shoot( m_pos , pos );
-    		}
-    	}
     }
 
     //충돌체 갱신
@@ -569,8 +500,79 @@ void cWarrior::dash(void)
         dash_count = 5;
     }
 }
-//< 무적 모드
-void cWarrior::inbeatable(void)
+
+void cWarrior::ProcessSkill(int nIndex)
+{
+    switch (nIndex)
+    {
+    case 0:
+        AttackTrigger();
+        break;
+    case 1:
+        DashTrigger();
+        break;
+    case 2:
+        ShootWholeSkill();
+        break;
+    case 3:
+        Inbeatable();
+        break;
+    }
+}
+
+void cWarrior::AttackTrigger()
+{
+    if (m_isAttacking == true)
+        return;
+
+    m_nowState = STATE_ATTACK;
+    m_AtckAni_Info->flag = true;
+
+    POINT destPos = m_pos;
+    int dist = 1000;
+    //어택 사운드 재생
+    //SOUND_MGR->soundPlay(CHAR_ATK);
+    switch (m_dir)
+    {
+    case DIR_L:
+        destPos.x = m_pos.x - dist;
+        break;
+    case DIR_LU:
+        destPos.x = m_pos.x - dist;
+        destPos.y = m_pos.y - dist;
+        break;
+    case DIR_U:
+        destPos.y = m_pos.y - dist;
+        break;
+    case DIR_RU:
+        destPos.x = m_pos.x + dist;
+        destPos.y = m_pos.y - dist;
+        break;
+    case DIR_R:
+        destPos.x = m_pos.x + dist;
+        break;
+    case DIR_RD:
+        destPos.x = m_pos.x + dist;
+        destPos.y = m_pos.y + dist;
+        break;
+    case DIR_D:
+        destPos.y = m_pos.y + dist;
+        break;
+    case DIR_LD:
+        destPos.x = m_pos.x - dist;
+        destPos.y = m_pos.y + dist;
+        break;
+    }
+    attDeley.m_lastTime = 0;
+    //공격 사운드
+    //SOUND_MGR->soundPlay(SOUND_BGM4);
+    ball->shoot(m_pos, destPos);
+
+    //< 공격중
+    m_isAttacking = true;
+}
+
+void cWarrior::Inbeatable(void)
 {
     if (m_inbeatDeley.m_lastTime + m_inbeatDeley.m_deley < GetTickCount() && getMP() >= 10)
     {
@@ -579,19 +581,6 @@ void cWarrior::inbeatable(void)
         m_conDeley.m_deley = 300;
         m_conDeley.m_lastTime = GetTickCount();
         m_inbeatDeley.m_lastTime = GetTickCount();
-    }
-}
-
-void cWarrior::ProcessInputKey()
-{
-    if (keyInput::onceKeyDown('A'))
-    {
-        DashTrigger();
-    }
-
-    if (keyInput::onceKeyDown('S'))
-    {
-        inbeatable();
     }
 }
 
@@ -604,6 +593,26 @@ void cWarrior::DashTrigger()
 #endif
         dash_count = 0;
         m_DashAni_Info->flag = true;
+    }
+}
+
+void cWarrior::ShootWholeSkill()
+{
+    //< 스킬 가능 상태
+    if (wholeSkillDeley.m_deley <= wholeSkillDeley.m_lastTime++)
+    {
+        // 구체 이동
+        if (getMP() >= 50)
+        {
+            incMP(-50);
+            POINT pos = m_pos;
+            //< 딜레이 카운트
+            wholeSkillDeley.m_lastTime = 0;
+            //공격 사운드
+            //SOUND_MGR->soundPlay(SOUND_BGM4);
+            //< 스킬 발동
+            skill->shoot(m_pos, pos);
+        }
     }
 }
 

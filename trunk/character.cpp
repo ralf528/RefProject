@@ -76,16 +76,7 @@ void character::release(void)
 	SAFE_DELETE( ball );
 	SAFE_DELETE( skill );
 }
-//< 갱신
-void character::update(float fDeltaTime)
-{
-	//< 캐릭터 무브
-	move(fDeltaTime);
-	//< 공격
-	attack();
-	//< 대쉬
-	dash();
-}
+
 //< 랜더
 void character::render(HDC hdc)
 {

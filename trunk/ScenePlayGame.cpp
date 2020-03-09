@@ -1,6 +1,5 @@
 #include "stdafx.h"
-#include "cWarrior.h"
-//#include "otherCharacter.h"
+#include "PlayerCharacter.h"
 //#include "goblin.h"
 //#include "mon_bug.h"
 //#include "Boss_naid.h"
@@ -60,13 +59,13 @@ bool ScenePlayGame::init(void)
     STATE_MGR->setLoading(80);
 
     //캐릭터 정보 초기화
-    m_player = new cWarrior;
-    m_player->init();
+    m_player = new PlayerCharacter();
+    m_player->Init();
     //< 몬스터 매니저에 캐릭터 연결
-    MON_MGR->setDestPlayer(m_player);
+    MON_MGR->setDestPlayer(m_player->GetCharacter());
 
     //캐릭터 위치 초기화
-    m_player->setPos(m_map->getCharPos());
+    m_player->GetCharacter()->setPos(m_map->getCharPos());
 
     //게임 배경음 플레이
     //SOUND_MGR->soundPlay(SOUND_INGAME);
@@ -88,7 +87,7 @@ void ScenePlayGame::update(float fDeltaTime)
     static DWORD ffff = GetTickCount();
     if (GetTickCount() - ffff >= 5000)
     {
-        POINT pos = m_player->getPos();
+        POINT pos = m_player->GetCharacter()->getPos();
         LOG_MGR->addLog("좌표 : %d / %d", pos.x, pos.y);
         ffff = GetTickCount();
     }
@@ -102,22 +101,22 @@ void ScenePlayGame::update(float fDeltaTime)
         //if( chatting->getChatingOn() == false )
         {
             //< 캐릭터 무브&업데이트
-            m_player->update(fDeltaTime);
+            m_player->Update(fDeltaTime);
         }
         //< 캐릭터 주위의 선(벽) 찾기
-        m_map->aroundLine(m_player->getPos(), m_player->getAroundVertex());
+        m_map->aroundLine(m_player->GetCharacter()->getPos(), m_player->GetCharacter()->getAroundVertex());
 
         //< 캐릭터와 맵의 충돌체크
-        if (m_map->collision(m_player->getPos(), m_player->getAroundVertex()))
+        if (m_map->collision(m_player->GetCharacter()->getPos(), m_player->GetCharacter()->getAroundVertex()))
         {
             //< 충돌 되었다면 이전 위치로
-            m_player->setPosToPrev();
+            m_player->GetCharacter()->setPosToPrev();
         }
         //< 캐릭터와 오브젝트 충돌체크
-        tileType objTemp = m_map->collisionObject(m_player->getPos());
+        tileType objTemp = m_map->collisionObject(m_player->GetCharacter()->getPos());
         if (0 != objTemp)
         {
-            m_player->gainCollider(objTemp);
+            m_player->GetCharacter()->gainCollider(objTemp);
         }
         //< 포탈과 충돌 체크
         //if( true == m_map->inPortal( m_player->getPos() ) )
@@ -154,9 +153,9 @@ void ScenePlayGame::update(float fDeltaTime)
         //	else
             {
                 //> 포탈과 충돌 시 이동
-                if (m_map->IsColPortal(m_player->getPos()) == true)
+                if (m_map->IsColPortal(m_player->GetCharacter()->getPos()) == true)
                 {
-                    initByPortal(m_player->getPos());
+                    initByPortal(m_player->GetCharacter()->getPos());
                 }
             }
         //}
@@ -176,31 +175,17 @@ void ScenePlayGame::update(float fDeltaTime)
         //< 몬스터 업데이트
         MON_MGR->update(fDeltaTime);
         //< 캐릭터 위치 갱신
-        m_player->setRect();
+        m_player->GetCharacter()->setRect();
 
-        //< 공격 버튼-------------------------------------------------
-        if (m_button_Skill[0].getPlayButtonAni() == true)
+        for (int i = 0; i < MAX_SKILL_COUNT; i++)
         {
-            //< 애니메이션 돌리기
-            m_button_Skill[0].inPlayButtonAni(false);
-            //< 클릭 돌리기
-            m_button_Skill[0].inClickButton(false);
-        }
-        //< 대쉬 버튼-------------------------------------------------
-        if (m_button_Skill[1].getPlayButtonAni() == true)
-        {
-            //< 애니메이션 돌리기
-            m_button_Skill[1].inPlayButtonAni(false);
-            //< 클릭 돌리기
-            m_button_Skill[1].inClickButton(false);
-        }
-        //< 스킬 버튼-------------------------------------------------
-        if (m_button_Skill[2].getPlayButtonAni() == true)
-        {
-            //< 애니메이션 돌리기
-            m_button_Skill[2].inPlayButtonAni(false);
-            //< 클릭 돌리기
-            m_button_Skill[2].inClickButton(false);
+            if (m_button_Skill[i].getPlayButtonAni() == true)
+            {
+                //< 애니메이션 돌리기
+                m_button_Skill[i].inPlayButtonAni(false);
+                //< 클릭 돌리기
+                m_button_Skill[i].inClickButton(false);
+            }
         }
 
         //< 채팅창 업데이트
@@ -241,11 +226,7 @@ void ScenePlayGame::render(HDC hdc)
         //<맵의 벽 출력
         m_map->renderWall(screenDC);
 
-        //< 라이트 맵핑
-#ifdef __RELEASE
-        SIZE ltmpSZ = RC_MGR->findImage(imgID_LITE_MAPING)->getSize();
-        RENDER_MGR->render(screenDC, imgID_LITE_MAPING, m_player->getPos().x - ltmpSZ.cx / 2 - CAMERA->getX(), m_player->getPos().y - ltmpSZ.cy / 2 - RENDER_OFFSET_Y - CAMERA->getY());
-#endif
+        m_player->Render(hdc);
 
         //<몬스터출력
         MON_MGR->render( screenDC );
@@ -285,7 +266,7 @@ void ScenePlayGame::release(void)
     //if( NULL != chatting ){ chatting->release(); }
     //SAFE_DELETE( chatting );
 
-    SAFE_DELETE(m_player);
+    SAFE_RELEASE(m_player);
     SAFE_DELETE(m_map);
     //SOUND_MGR->soundStop(SOUND_INGAME);
 }
@@ -440,18 +421,18 @@ void ScenePlayGame::renderUI(HDC hdc)
         int moveBar = 0;
 
         //< 스킬 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < MAX_SKILL_COUNT; i++)
         {
             m_button_Skill[i].render(hdc);
             //m_m_button_Item[i].render( hdc );
         }
 
         //< 캐릭터 상태
-        sprintf_s(tempStr, _MAX_FNAME, "%s", condition[m_player->getCondition()]);
+        sprintf_s(tempStr, _MAX_FNAME, "%s", condition[m_player->GetCharacter()->getCondition()]);
         m_charState.OutputText(hdc, tempStr);
         //Rectangle( hdc, m_charState.getRect().left, m_charState.getRect().top, m_charState.getRect().right, m_charState.getRect().bottom );
 
-        sprintf_s(tempStr, _MAX_FNAME, "%s %s %s", belief[m_player->getBelief()], tribe[m_player->getTribe()], job[m_player->getJob()]);
+        sprintf_s(tempStr, _MAX_FNAME, "%s %s %s", belief[m_player->GetCharacter()->getBelief()], tribe[m_player->GetCharacter()->getTribe()], job[m_player->GetCharacter()->getJob()]);
         //< 캐릭터 이름
         m_charName.OutputText(hdc, tempStr);
         //Rectangle( hdc, m_charName.getRect().left, m_charName.getRect().top, m_charName.getRect().right, m_charName.getRect().bottom );
@@ -461,43 +442,43 @@ void ScenePlayGame::renderUI(HDC hdc)
             m_stat[i].render(hdc);
         }
         //< 스텟 표시
-        sprintf_s(tempStr, _MAX_FNAME, "힘:%2d", m_player->getStrong());
+        sprintf_s(tempStr, _MAX_FNAME, "힘:%2d", m_player->GetCharacter()->getStrong());
         m_stat_S.OutputText(hdc, tempStr);
-        sprintf_s(tempStr, _MAX_FNAME, "민:%2d", m_player->getAgility());
+        sprintf_s(tempStr, _MAX_FNAME, "민:%2d", m_player->GetCharacter()->getAgility());
         m_stat_Q.OutputText(hdc, tempStr);
-        sprintf_s(tempStr, _MAX_FNAME, "지:%2d", m_player->getIntel());
+        sprintf_s(tempStr, _MAX_FNAME, "지:%2d", m_player->GetCharacter()->getIntel());
         m_stat_M.OutputText(hdc, tempStr);
 
         //< 경험치바
         m_bar_experience_back.render(hdc, 450, 690);
 
-        moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->getLevelInfo().getNowExp()) / m_player->getLevelInfo().getMaxExp()) * 380));
+        moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->GetCharacter()->getLevelInfo().getNowExp()) / m_player->GetCharacter()->getLevelInfo().getMaxExp()) * 380));
         m_bar_experience.render(hdc, 450, 690, 380, 19, moveBar, 0, 760, 19);
-        sprintf_s(tempStr, 256, "%d/%d", m_player->getLevelInfo().getNowExp(), m_player->getLevelInfo().getMaxExp());
+        sprintf_s(tempStr, 256, "%d/%d", m_player->GetCharacter()->getLevelInfo().getNowExp(), m_player->GetCharacter()->getLevelInfo().getMaxExp());
         //< 경험치 표시
         m_bar_experience_string.OutputText(hdc, tempStr);
 
         //< 체력바
         m_bar_live_back.render(hdc, 100, 10);
 
-        moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->getHP()) / m_player->getMaxHP()) * 380));
+        moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->GetCharacter()->getHP()) / m_player->GetCharacter()->getMaxHP()) * 380));
         m_bar_live.render(hdc, 100, 10, 380, 19, moveBar, 0, 760, 19);
-        sprintf_s(tempStr, 256, "%d/%d", m_player->getHP(), m_player->getMaxHP());
+        sprintf_s(tempStr, 256, "%d/%d", m_player->GetCharacter()->getHP(), m_player->GetCharacter()->getMaxHP());
         //< 체력바 표시
         m_bar_live_string.OutputText(hdc, tempStr);
 
         //< 마나바
         m_bar_mana_back.render(hdc, 100, 37);
 
-        moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->getMP()) / m_player->getMaxMP()) * 380));
+        moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->GetCharacter()->getMP()) / m_player->GetCharacter()->getMaxMP()) * 380));
         m_bar_mana.render(hdc, 100, 37, 380, 19, moveBar, 0, 760, 19);
-        sprintf_s(tempStr, 256, "%d/%d", m_player->getMP(), m_player->getMaxMP());
+        sprintf_s(tempStr, 256, "%d/%d", m_player->GetCharacter()->getMP(), m_player->GetCharacter()->getMaxMP());
         //< 마나바 표시
         m_bar_mana_string.OutputText(hdc, tempStr);
 
         //< 레벨 표시
         m_lv_bar.render(hdc);
-        sprintf_s(tempStr, 256, "LV.%d", m_player->getLevelInfo().getNowLevel());
+        sprintf_s(tempStr, 256, "LV.%d", m_player->GetCharacter()->getLevelInfo().getNowLevel());
         m_lv_bar_string.OutputText(hdc, tempStr);
 
         //< 도달 층수
@@ -505,7 +486,7 @@ void ScenePlayGame::renderUI(HDC hdc)
         m_stage.OutputText(hdc, tempStr);
 
         //< 플레이어 인벤토리 표시
-        m_player->renderInven(hdc);
+        m_player->GetCharacter()->renderInven(hdc);
     }
 }
 
@@ -515,6 +496,8 @@ LRESULT ScenePlayGame::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpara
     //< 팝업창이 없을때 갱신
     if (POPUP_MGR->getCheckPopup_ON() != true)
     {
+        m_player->StateProc(wnd, msg, wparam, lparam);
+
         switch (msg)
         {
         case WM_CHAR:
@@ -525,15 +508,24 @@ LRESULT ScenePlayGame::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpara
                 switch (wparam)
                 {
                 case 'a':
+                case 'A':
                 {
                     //< 대쉬 버튼-------------------------------------------------
                     m_button_Skill[1].inClickButton(true);
                 }
                 break;
                 case 's':
+                case 'S':
                 {
                     //< 스킬 버튼-------------------------------------------------
                     m_button_Skill[2].inClickButton(true);
+                }
+                break;
+                case 'd':
+                case 'D':
+                {
+                    //< 스킬 버튼-------------------------------------------------
+                    m_button_Skill[3].inClickButton(true);
                 }
                 break;
                 }
@@ -597,6 +589,6 @@ void ScenePlayGame::initByPortal(POINT &destPos)
     //< 포탈과 충돌 체크
     if (true == m_map->inPortal(destPos))
     {
-        m_player->setPos(m_map->getCharPos());
+        m_player->GetCharacter()->setPos(m_map->getCharPos());
     }
 }

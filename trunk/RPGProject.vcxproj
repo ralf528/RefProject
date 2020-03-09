@@ -163,6 +163,7 @@
     <ClInclude Include="MY_FontMgr.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="other_mgr.h" />
+    <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="PopupBox.h" />
     <ClInclude Include="PopupMgr.h" />
     <ClInclude Include="RenderMgr.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="MY_FontMgr.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="other_mgr.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="PopupBox.cpp" />
     <ClCompile Include="PopupMgr.cpp" />
     <ClCompile Include="RenderMgr.cpp" />

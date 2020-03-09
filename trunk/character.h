@@ -91,6 +91,8 @@ public:
 	void setStateDelay(unsigned int deley) { m_conDeley.m_deley = deley; }
 	void setDelayTick(void) { m_conDeley.m_lastTime = GetTickCount(); }
 
+    virtual void ProcessSkill(int nIndex) = 0;
+
 //< 멤버 변수
 protected:
 	//< 살았는지

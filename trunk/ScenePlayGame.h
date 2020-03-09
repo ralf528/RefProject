@@ -5,8 +5,8 @@
 
 //< 맵
 class tileMap;
-//< 캐릭터
-class character;
+//< 플레이어 캐릭터
+class PlayerCharacter;
 //< 채팅창
 class ChattingGame;
 
@@ -46,14 +46,14 @@ private :
 	bool m_playingGame;
 
 	//< 캐릭터 정보
-	character *m_player;
+    PlayerCharacter *m_player;
 
 	//타일맵 정보
 	tileMap *m_map;
 
 private : //< UI관련-------------------------------------------
 	//< 스킬버튼
-	ButtonClass m_button_Skill[4];
+	ButtonClass m_button_Skill[MAX_SKILL_COUNT];
 
 	//< 아이템 버튼
 	ButtonClass m_m_button_Item[4];

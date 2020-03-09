@@ -606,3 +606,5 @@ enum monsterKind
     BOSS_NAID,	//< 보스 NAID
     BOSS_GYURIEL //< 보스 GURIEL
 };
+
+const int MAX_SKILL_COUNT = 4;

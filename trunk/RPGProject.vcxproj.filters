@@ -223,6 +223,9 @@
     <ClInclude Include="cProjectile.h">
       <Filter>99_APP\03_SKILL</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerCharacter.h">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -329,6 +332,9 @@
     </ClCompile>
     <ClCompile Include="cProjectile.cpp">
       <Filter>99_APP\03_SKILL</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCharacter.cpp">
+      <Filter>99_APP\04_CHARACTER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
