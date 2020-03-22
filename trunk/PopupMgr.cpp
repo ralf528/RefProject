@@ -16,11 +16,11 @@
 //#include "Popup_Title_Rank.h"
 //#include "Popup_Lobby_MakeRoom_close.h"
 //#include "Popup_Lobby_MakeRoom_Success.h"
-//#include "Popup_Lobby_MakeRoom_Open.h"
+#include "Scene/Popup/Popup_Lobby_MakeRoom_Open.h"
 //#include "Popup_Lobby_FriendList.h"
 //#include "Popup_Lobby_EnterRoom_close.h"
-//#include "Popup_Lobby_EnterRoom_open.h"
-//#include "Popup_Lobby_EnterRoom_Success.h"
+#include "Scene/Popup/Popup_Lobby_EnterRoom_open.h"
+#include "Scene/Popup/Popup_Lobby_EnterRoom_Success.h"
 //#include "Popup_Lobby_EnterRoom_Faill.h"
 //#include "Popup_Game_GameOver.h"
 //#include "Popup_Game_Rank.h"
@@ -54,7 +54,7 @@ void PopupMgr::initPopup( void )
 	//< 팝업 초기화
 	if( nowPopup != NULL )
 	{
-		//nowPopup->init();
+		nowPopup->init();
 	}
 }
 
@@ -64,7 +64,7 @@ void PopupMgr::updatePopup( void )
 	//< 팝업 업데이트
 	if( nowPopup != NULL )
 	{
-		//nowPopup->update( m_mousePos );
+		nowPopup->update( m_mousePos );
 	}
 }
 
@@ -74,7 +74,7 @@ void PopupMgr::renderPopup( HDC hdc )
 	//< 팝업 랜더
 	if( nowPopup != NULL )
 	{
-		//nowPopup->render( hdc );
+		nowPopup->render( hdc );
 	}
 }
 
@@ -289,7 +289,7 @@ bool PopupMgr::changePopup( unsigned int PopupID )
 				//< 팝업 지우기
 				deletePopup( );
 				//< 할당
-				//nowPopup = new Popup_Lobby_MakeRoom_Open;
+				nowPopup = new Popup_Lobby_MakeRoom_Open;
 				//< 팝업 상태 갱신
 				oldPopupFlag = POPUP_LOBBY_MAKEROOM_OPEN;
 				m_checkPopup_ON = true;
@@ -333,7 +333,7 @@ bool PopupMgr::changePopup( unsigned int PopupID )
 				//< 팝업 지우기
 				deletePopup( );
 				//< 할당
-				//nowPopup = new Popup_Lobby_EnterRoom_open;
+				nowPopup = new Popup_Lobby_EnterRoom_open;
 				//< 팝업 상태 갱신
 				oldPopupFlag = POPUP_LOBBY_ENTER_ROOM_OPEN;
 				m_checkPopup_ON = true;
@@ -344,7 +344,7 @@ bool PopupMgr::changePopup( unsigned int PopupID )
 				//< 팝업 지우기
 				deletePopup( );
 				//< 할당
-				//nowPopup = new Popup_Lobby_EnterRoom_Success;
+				nowPopup = new Popup_Lobby_EnterRoom_Success;
 				//< 팝업 상태 갱신
 				oldPopupFlag = POPUP_LOBBY_ENTER_ROOM_SUCCESS;
 				m_checkPopup_ON = true;
@@ -396,7 +396,7 @@ bool PopupMgr::changePopup( unsigned int PopupID )
 			break;
 		}
 		//< 초기화
-		//nowPopup->init();
+		nowPopup->init();
 	}
 	return true;
 }
@@ -406,9 +406,9 @@ void PopupMgr::deletePopup( void )
 	//< 팝업 지우기
 	if( nowPopup != NULL )
 	{
-		//nowPopup->release();
+		nowPopup->release();
 	}
-	//SAFE_DELETE( nowPopup );
+	SAFE_DELETE( nowPopup );
 }
 
 //< 팝업 이벤트 처리
@@ -428,7 +428,7 @@ LRESULT PopupMgr::PopupProc( HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam )
 	//< 팝업창이 켜져있으면 실행
 	if( nowPopup != NULL )
 	{
-		//return nowPopup->StateProc( wnd, msg, wparam, lparam );
+		return nowPopup->StateProc( wnd, msg, wparam, lparam );
 	}
 	//< 아니면 리턴
 	return (DefWindowProc( wnd ,msg,wparam,lparam));
@@ -440,7 +440,7 @@ int PopupMgr::buttonStatePopup( void )
 {
 	if( nowPopup != NULL )
 	{
-        int buttonState = 0;// = nowPopup->getNextScene();
+        int buttonState = nowPopup->getNextScene();
 		//< 선택한 팝업이 방만들기라면 2번 넘기기
 		if( buttonState == POPUP_NO_POPUP_GET_MAKE_ROOM )
 		{

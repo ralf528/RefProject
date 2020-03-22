@@ -92,6 +92,12 @@
     <Filter Include="99_APP\05_MONSTER">
       <UniqueIdentifier>{9a1c8a70-b9cc-40bb-b4a3-1e9e94b35d68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01_CORE\01_COMMON\ROOM">
+      <UniqueIdentifier>{7b4b7c16-fbde-4030-b32c-8a06fc4f9b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\01_SCENE\Popup">
+      <UniqueIdentifier>{cc1fbea9-c4ff-463e-8413-4015c00ad643}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -226,6 +232,39 @@
     <ClInclude Include="PlayerCharacter.h">
       <Filter>99_APP\04_CHARACTER</Filter>
     </ClInclude>
+    <ClInclude Include="RoomButton.h">
+      <Filter>01_CORE\01_COMMON\ROOM</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomClass.h">
+      <Filter>01_CORE\01_COMMON\ROOM</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Popup\Popup_Lobby_MakeRoom_Open.h">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Popup\Popup.h">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Popup\Popup_Loot.h">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckBox.h">
+      <Filter>01_CORE\01_COMMON\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InputString.h">
+      <Filter>01_CORE\01_COMMON\UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Popup\Popup_Lobby_EnterRoom_open.h">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneChoiceChar.h">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Popup\Popup_Lobby_EnterRoom_Success.h">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\sceneLoading.h">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -335,6 +374,39 @@
     </ClCompile>
     <ClCompile Include="PlayerCharacter.cpp">
       <Filter>99_APP\04_CHARACTER</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomButton.cpp">
+      <Filter>01_CORE\01_COMMON\ROOM</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomClass.cpp">
+      <Filter>01_CORE\01_COMMON\ROOM</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Popup\Popup_Lobby_MakeRoom_Open.cpp">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Popup\Popup.cpp">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Popup\Popup_Loot.cpp">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckBox.cpp">
+      <Filter>01_CORE\01_COMMON\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InputString.cpp">
+      <Filter>01_CORE\01_COMMON\UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Popup\Popup_Lobby_EnterRoom_open.cpp">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneChoiceChar.cpp">
+      <Filter>99_APP\01_SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Popup\Popup_Lobby_EnterRoom_Success.cpp">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\sceneLoading.cpp">
+      <Filter>99_APP\01_SCENE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

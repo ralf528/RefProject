@@ -26,8 +26,8 @@ bool GameManager::Init()
     GetCurrentDirectory(_MAX_FNAME, m_path);
 
     //씬 추가
-    //STATE_MGR->addState<SceneLobby>(SCENE_LOBBY);
-    STATE_MGR->addState<ScenePlayGame>(SCENE_PLAYGAME);
+    STATE_MGR->addState<SceneLobby>(SCENE_LOBBY);
+    //STATE_MGR->addState<ScenePlayGame>(SCENE_PLAYGAME);
 
     keyInput::initKey();
 
@@ -44,7 +44,8 @@ bool GameManager::Init()
     SendMessage(m_mainWnd, WM_TIMER, 1, 0);
     LOG_MGR->addLog("윈도우 시작");
 
-    STATE_MGR->changeState(SCENE_PLAYGAME);
+    STATE_MGR->changeState(SCENE_LOBBY);
+    //STATE_MGR->changeState(SCENE_PLAYGAME);
 
     return true;
 }

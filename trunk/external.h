@@ -58,8 +58,8 @@ using namespace myUTIL;
 #include "AniMgr.h"
 
 #include "ButtonClass.h"
-//#include "Popup_Loot.h"
-//#include "InputString.h"
+#include "Scene/Popup/Popup_Loot.h"
+#include "InputString.h"
 
 #include "PopupMgr.h"
 

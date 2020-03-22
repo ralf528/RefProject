@@ -7,13 +7,13 @@
 
 #include "SceneLobby.h"
 //#include "SceneLogin.h"
-//#include "SceneChoiceChar.h"
+#include "Scene/SceneChoiceChar.h"
 //#include "SceneTitle.h"
 //#include "ScenePlayGame.h"
 //
 #include "PopupBox.h"
 #include "ButtonClass.h"
-//#include "RoomClass.h"
+#include "RoomClass.h"
 //#include "ChattingBox.h"
 
 SceneLobby::SceneLobby(void)
@@ -33,7 +33,7 @@ SceneLobby::SceneLobby(void)
 	//< 팝업창 체크
 
 	//< 방
-	//room = new RoomClass;
+	room = new RoomClass;
 
 	//< 채팅창
 	//chatting = new ChattingBox;
@@ -96,8 +96,8 @@ bool SceneLobby::init( void )
 	button_MAKE_ROOM->setRectPos	( WINSIZE_X/20 *17, WINSIZE_Y/20 *16, ALIGN_CENTER );
 	button_EXIT->setRectPos			( WINSIZE_X/20 *17, WINSIZE_Y/20 *18, ALIGN_CENTER );
 	//---------------------------------------------------------------------------------
-	////< 방
-	//room->init();
+	//< 방
+	room->init();
 	////< 채팅창
 	//chatting->init();
 	////-------------------------------------------------------------------------------
@@ -107,8 +107,37 @@ bool SceneLobby::init( void )
 	return true;
 }
 //< 업데이트
-void SceneLobby::update( void ) 
+void SceneLobby::update(float fDeltaTime)
 {
+    //if (true != TCPIP_CLIENT->emptyQueue())
+    {
+        //unsigned short type = TCPIP_CLIENT->getPacketType();
+        //if (type == SC_ROOM_ALL_DATA)
+        {
+            /*PACKET packet;
+            TCPIP_CLIENT->getPacket(packet);
+
+            GAME_DATA->deleteAllRoomInfo();*/
+            //for (int i = 0; i < packet.m_roomMenuUpdate.m_roomCnt; i++)
+            if (false)
+            {
+                //GAME_DATA->addRoomInfo(packet.m_roomMenuUpdate.room[i]);
+                room->makeRoom(1);
+            }
+
+           // TCPIP_CLIENT->popPacket();
+        }
+        /*else if (type == SC_LOBBY_ID_REQ)
+        {
+            PACKET packet;
+            packet.m_loginReq.m_length = sizeof(LOGIN_REQ);
+            packet.m_loginReq.m_type = CS_LOGIN_LOBBY;
+            strcpy_s(packet.m_loginReq.m_id, GAME_DATA->getUserId());
+            TCPIP_CLIENT->sendPacket(packet);
+            TCPIP_CLIENT->popPacket();
+        }*/
+    }
+
 	//< 팝업이 켜지 않았다면 갱신하지 않기
 	if( POPUP_MGR->getCheckPopup_ON() == false )
 	{
@@ -122,8 +151,8 @@ void SceneLobby::update( void )
 		button_EXIT->inCheckMouseOn( myUTIL::collision::isColPtInRect( mousePos, button_EXIT->getRect() ));
 		button_EXIT->update();
 
-		////< 방
-		//room->update( mousePos );
+		//< 방
+		room->update( mousePos );
 		////< 채팅창 
 		//chatting->update( mousePos );
 	}
@@ -173,10 +202,13 @@ void SceneLobby::update( void )
 			button_MAKE_ROOM->inClickButton( false );
 
 			//< 방만들기 팝업창
-			POPUP_MGR->changePopup( POPUP_LOBBY_MAKEROOM_OPEN );
+			//POPUP_MGR->changePopup( POPUP_LOBBY_MAKEROOM_OPEN );
+            {
+                room->makeRoom(1);
+            }
 
 			//< 초기화
-			POPUP_MGR->initPopup();
+			//POPUP_MGR->initPopup();
 
 			//< 팝업창 키기
 		}
@@ -212,10 +244,10 @@ void SceneLobby::update( void )
 		if( tempFlag == POPUP_NO_POPUP_GET_MAKE_ROOM )
 		{
 			//< 팝업창 끄기
-			//STATE_MGR->addState<SceneChoiceChar>(SCENE_SELECT);
-			//STATE_MGR->changeState( SCENE_SELECT );
-			////< 기존씬삭제
-			//STATE_MGR->deleteState( SCENE_LOBBY );
+			STATE_MGR->addState<SceneChoiceChar>(SCENE_SELECT);
+			STATE_MGR->changeState( SCENE_SELECT );
+			//< 기존씬삭제
+			STATE_MGR->deleteState( SCENE_LOBBY );
 		}
 		//< 버튼스테이트 끄기
 		POPUP_MGR->inButtonState();
@@ -283,7 +315,7 @@ void SceneLobby::render( HDC hdc )
 #endif
 	//-------------------------------------------------------------
 	//< 방
-	//room->render( hdc );
+	room->render( hdc );
 	////< 채팅창
 	//chatting->render( hdc );
 	//-------------------------------------------------------------
@@ -320,9 +352,9 @@ void SceneLobby::release( void )
 	if( button_EXIT != NULL ){ button_EXIT->release(); }
 	SAFE_DELETE( button_EXIT );
 
-	////< 방 지우기
-	//if( room != NULL ){ room->release(); }
-	//SAFE_DELETE( room );
+	//< 방 지우기
+	if( room != NULL ){ room->release(); }
+	SAFE_DELETE( room );
 	////< 채팅창 지우기
 	//if( chatting != NULL ) { chatting->release(); }
 	//SAFE_DELETE( chatting );
@@ -391,7 +423,7 @@ LRESULT	SceneLobby::StateProc( HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam 
 		lparam != NULL )
 	{
 		//< 방만들기 프로시저
-		//room->StateProc( wnd, msg, wparam, lparam );
+		room->StateProc( wnd, msg, wparam, lparam );
 		////< 채팅창 프로시저
 		//return chatting->StateProc( wnd, msg, wparam, lparam );
 	}

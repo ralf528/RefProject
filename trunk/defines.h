@@ -608,3 +608,18 @@ enum monsterKind
 };
 
 const int MAX_SKILL_COUNT = 4;
+
+// ¹æ Á¤º¸
+typedef struct roomInfo
+{
+    int  m_roomNum;
+    char m_roomName[64];
+    char m_roomPW[64];
+    bool m_isTrespass;
+    bool m_isSecret;
+    int m_userCount;
+    char m_hostIP[16];
+    unsigned short m_hostPort;
+    char m_userName[2][16];
+    bool m_isCharSelect;
+}ROOM_INFO, *LPROOM_INFO;
