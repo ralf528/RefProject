@@ -14,8 +14,7 @@
 
 #include "sceneLoading.h"
 #include "SceneChoiceChar.h"
-
-
+#include "process.h "
 
 //> 로딩 쓰레드
 unsigned int CALLBACK loadingThread(void* arg)
@@ -212,32 +211,15 @@ bool SceneChoiceChar::init( void )
 //< 업데이트
 void SceneChoiceChar::update(float fDeltaTime)
 {
-	//< 패킷이 비어 있지 않다면
-	//if(true != TCPIP_CLIENT->emptyQueue())
-	//{
-	//	//< 데이터 받았을 때 (방접속)
-	//	unsigned short type = TCPIP_CLIENT->getPacketType();
-	//	if(type == P2P_START)
-	//	{		
-	//		LOG_MGR->addLog("방장이 게임을 시작합니다");
-	//		STATE_MGR->addState<ScenePlayGame>( SCENE_PLAYGAME );
-	//		STATE_MGR->changeState( SCENE_PLAYGAME );
-	//		//< 기존씬삭제
-	//		STATE_MGR->deleteState( SCENE_SELECT );
-
-	//		TCPIP_CLIENT->popPacket();
-	//	}
-	//}
-
 	//< 팝업이 켜지 않았다면 갱신하지 않기
 	if( POPUP_MGR->getCheckPopup_ON() == false )
 	{
 		//< 버튼 위치 받기
 		button_START_GAME->inCheckMouseOn( myUTIL::collision::isColPtInRect( mousePos, button_START_GAME->getRect() ));
 		button_START_GAME->update();
-		////< 버튼 확인
-		//button_BACK->inCheckMouseOn( myUTIL::collision::isColPtInRect( mousePos, button_BACK->getRect() ));
-		//button_BACK->update();
+		//< 버튼 확인
+		button_BACK->inCheckMouseOn( myUTIL::collision::isColPtInRect( mousePos, button_BACK->getRect() ));
+		button_BACK->update();
 
 		//< 체크박스 
 		checkBox_Box1_01->inCheckMouseOn( myUTIL::collision::isColPtInRect( mousePos, checkBox_Box1_01->getRect() ));
@@ -267,100 +249,44 @@ void SceneChoiceChar::update(float fDeltaTime)
 		if( button_START_GAME->getClickButton() == true &&
 			button_START_GAME->getPlayButtonAni() == true )
 		{
-			//< 방장이라면 
-			//if(true == HOST_SERVER->getHostis())
-			{
-				LOG_MGR->addLog("게임을 시작합니다");
-				//< other플레이어에게 게임시작을 알림
-				/*PACKET packet;
-				packet.m_basicMsg.m_length = sizeof(BASIC_MSG);
-				packet.m_basicMsg.m_type = P2P_START;
-				HOST_SERVER->sendOtherPlayer((char*)&packet, packet.m_basicMsg.m_length);*/
+            LOG_MGR->addLog("게임을 시작합니다");
 
-				/*PACKET gameStartPacket;
-				gameStartPacket.m_gameStart.m_length = sizeof(GAME_START);
-				gameStartPacket.m_gameStart.m_type = CS_GAME_START;
-				strcpy_s(gameStartPacket.m_gameStart.m_hostID, GAME_DATA->getUserId());
+            STATE_MGR->setLoadID(SCENE_PLAYGAME);
 
-				TCPIP_CLIENT->sendPacket(gameStartPacket);*/
+            //< 로딩씬 추가
+            STATE_MGR->addState<sceneLoading>(SCENE_LOADING);
+            //< 게임 씬 추가
+            STATE_MGR->addState<ScenePlayGame>(SCENE_PLAYGAME);
+            
+            STATE_MGR->changeState(SCENE_LOADING);
 
-				//> 로드씬 설정
-				STATE_MGR->setLoadID(SCENE_PLAYGAME);
-				//< 로딩씬 추가
-				//STATE_MGR->addState<sceneLoading>( SCENE_LOADING );
-				//STATE_MGR->changeState( SCENE_LOADING );
+            //< 기존씬삭제
+            STATE_MGR->deleteState(SCENE_SELECT);
 
-                //< 게임 씬 추가
-                STATE_MGR->addState<ScenePlayGame>(SCENE_PLAYGAME);
-                STATE_MGR->changeState(SCENE_PLAYGAME);
+            unsigned int threadID;
+            //> 로딩 쓰레드 생성
+            _beginthreadex(NULL, 0, loadingThread, STATE_MGR->getLoadID(), 0, &threadID);
 
-				//< 기존씬삭제
-				STATE_MGR->deleteState( SCENE_SELECT );
-				
-
-				//unsigned int threadID;
-				//> 로딩 쓰레드 생성
-				//_beginthreadex(NULL, 0, loadingThread, STATE_MGR->getLoadID(), 0, &threadID);
-			}
-			//else
-			//{
-			//	//> 로드씬 설정
-			//	STATE_MGR->setLoadID(SCENE_PLAYGAME);
-			//	//< 로딩씬 추가
-			//	STATE_MGR->addState<sceneLoading>( SCENE_LOADING );
-			//	//< 게임 씬 추가
-			//	STATE_MGR->addState<ScenePlayGame>( SCENE_PLAYGAME );
-			//	STATE_MGR->changeState( SCENE_LOADING );
-			//	//< 기존씬삭제
-			//	STATE_MGR->deleteState( SCENE_SELECT );
-			//	
-			//	unsigned int threadID;
-			//	//> 로딩 쓰레드 생성
-			//	_beginthreadex(NULL, 0, loadingThread, STATE_MGR->getLoadID(), 0, &threadID);
-			//}
 			return;
 		}
-		////< 뒤로가기
-		//if( button_BACK->getPlayButtonAni() == true )
-		//{
-		//	button_BACK->inClickButton( false );
-		//	button_BACK->inPlayButtonAni( false );
-		//	//< 클릭 리턴
-		//	button_STATE = POPUP_NO_POPUP ;
 
-		//	TCPIP_CLIENT->serverConnect("127.0.0.1", LOGIN_SERVER_PORT);
+		//< 뒤로가기
+		if( button_BACK->getPlayButtonAni() == true )
+		{
+			button_BACK->inClickButton( false );
+			button_BACK->inPlayButtonAni( false );
+			//< 클릭 리턴
+            button_STATE = POPUP_NO_POPUP;
 
-		//	PACKET packet;
-		//	if(true == HOST_SERVER->getHostis())
-		//	{
-		//		HOST_SERVER->ServerOff();
-		//		CONNECTION_MGR->Release();
-		//		packet.m_roomUpdate.m_length = sizeof(ROOM_UPDATE);
-		//		packet.m_roomUpdate.m_type = CS_DELETE_ROOM;
-		//		strcpy_s(packet.m_roomUpdate.id, GAME_DATA->getUserId());
-		//		packet.m_roomUpdate.m_roomNum = -1;
-		//		TCPIP_CLIENT->sendPacket(packet);
-		//	}
+			//< 씬전환
+			STATE_MGR->addState<SceneLobby>(SCENE_LOBBY);
+			STATE_MGR->changeState( SCENE_LOBBY );
+			//< 기존씬삭제
+			STATE_MGR->deleteState( SCENE_SELECT );
 
-		//	packet.m_basicMsg.m_length = sizeof(BASIC_MSG);
-		//	packet.m_basicMsg.m_type = CS_ROOM_ALL_REQ;
-		//	TCPIP_CLIENT->sendPacket(packet);
-		//	if(false == HOST_SERVER->getHostis())
-		//	{
-		//		packet.m_loginReq.m_length = sizeof(LOGIN_REQ);
-		//		packet.m_loginReq.m_type = CS_LOGIN_LOBBY;
-		//		strcpy_s(packet.m_loginReq.m_id, GAME_DATA->getUserId());
-		//		TCPIP_CLIENT->sendPacket(packet);
-		//	}
+			return;
+		}
 
-		//	//< 씬전환
-		//	STATE_MGR->addState<SceneLobby>(SCENE_LOBBY);
-		//	STATE_MGR->changeState( SCENE_LOBBY );
-		//	//< 기존씬삭제
-		//	STATE_MGR->deleteState( SCENE_SELECT );
-
-		//	return;
-		//}
 		//체크박스--------------------------------------------------------
 		//< 버튼 1
 		if( checkBox_Box1_01->getPlayButtonAni() == true )
@@ -692,13 +618,13 @@ LRESULT	SceneChoiceChar::StateProc( HWND wnd, UINT msg, WPARAM wparam, LPARAM lp
 				
 				break;
 			}
-			////< 뒤로가기 버튼-------------------------------------------------
-			//if( button_BACK->getCheckMouseOn() == true )
-			//{
-			//	//< 클릭으로 상태 변경
-			//	button_BACK->inClickButton( true );
-			//	
-			//}
+			//< 뒤로가기 버튼-------------------------------------------------
+			if( button_BACK->getCheckMouseOn() == true )
+			{
+				//< 클릭으로 상태 변경
+				button_BACK->inClickButton( true );
+				
+			}
 			//< 체크박스-------------------------------------------------
 			//< 1
 			if( checkBox_Box1_01->getCheckMouseOn() == true )
