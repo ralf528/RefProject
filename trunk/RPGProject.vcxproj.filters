@@ -98,6 +98,9 @@
     <Filter Include="99_APP\01_SCENE\Popup">
       <UniqueIdentifier>{cc1fbea9-c4ff-463e-8413-4015c00ad643}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99_APP\01_SCENE\Chat">
+      <UniqueIdentifier>{a45ac89b-2cb5-410f-9858-2ce2f6d8c4f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -265,6 +268,12 @@
     <ClInclude Include="Scene\sceneLoading.h">
       <Filter>99_APP\01_SCENE</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Chat\ChattingBox.h">
+      <Filter>99_APP\01_SCENE\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Chat\ChattingGame.h">
+      <Filter>99_APP\01_SCENE\Chat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -407,6 +416,12 @@
     </ClCompile>
     <ClCompile Include="Scene\sceneLoading.cpp">
       <Filter>99_APP\01_SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Chat\ChattingBox.cpp">
+      <Filter>99_APP\01_SCENE\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Chat\ChattingGame.cpp">
+      <Filter>99_APP\01_SCENE\Chat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

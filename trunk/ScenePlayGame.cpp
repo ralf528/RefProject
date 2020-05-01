@@ -12,7 +12,7 @@
 #include "tileMap.h"
 #include "SceneLobby.h"
 #include "ScenePlayGame.h"
-//#include "ChattingGame.h"
+#include "Scene/Chat/ChattingGame.h"
 
 using namespace myUTIL;
 using namespace keyInput;
@@ -21,7 +21,7 @@ using namespace collision;
 ScenePlayGame::ScenePlayGame(void)
     :m_playingGame(true)
 {
-    //chatting = new ChattingGame;
+    chatting = new ChattingGame;
     checkEnter = 0;
 }
 
@@ -75,7 +75,7 @@ bool ScenePlayGame::init(void)
     //< UI 초기화
     initUI();
     //< 채팅창
-    //chatting->init();
+    chatting->init();
 
     STATE_MGR->setLoading(100); Sleep(500);
 
@@ -189,7 +189,7 @@ void ScenePlayGame::update(float fDeltaTime)
         }
 
         //< 채팅창 업데이트
-        //chatting->update( mousePos );
+        chatting->update( mousePos );
 
     }
     //< 팝업창이 켜지면 갱신
@@ -243,7 +243,7 @@ void ScenePlayGame::render(HDC hdc)
         //< UI 랜더
         renderUI(hdc);
         //< 채팅창 랜더
-        //chatting->render( hdc );
+        chatting->render( hdc );
     }
 
     //< 팝업창이 켜지면 랜더
@@ -263,8 +263,8 @@ void ScenePlayGame::render(HDC hdc)
 //< 해제
 void ScenePlayGame::release(void)
 {
-    //if( NULL != chatting ){ chatting->release(); }
-    //SAFE_DELETE( chatting );
+    if( NULL != chatting ){ chatting->release(); }
+    SAFE_DELETE( chatting );
 
     SAFE_RELEASE(m_player);
     SAFE_DELETE(m_map);
@@ -493,17 +493,23 @@ void ScenePlayGame::renderUI(HDC hdc)
 //< 이벤트처리
 LRESULT ScenePlayGame::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-    //< 팝업창이 없을때 갱신
-    if (POPUP_MGR->getCheckPopup_ON() != true)
+    if (POPUP_MGR->getCheckPopup_ON())
     {
-        m_player->StateProc(wnd, msg, wparam, lparam);
+        return POPUP_MGR->PopupProc(wnd, msg, wparam, lparam);
+    }
+    else
+    {
+        if (chatting && chatting->getChatingOn() == false)
+        {
+            m_player->StateProc(wnd, msg, wparam, lparam);
+        }
 
         switch (msg)
         {
         case WM_CHAR:
         {
             //< 채팅창 입력이 꺼져있을때
-            //if( chatting->getChatingOn() == false )
+            if (chatting && chatting->getChatingOn() == false)
             {
                 switch (wparam)
                 {
@@ -535,7 +541,7 @@ LRESULT ScenePlayGame::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpara
         case WM_KEYDOWN:
         {
             //< 채팅창 입력이 꺼져있을때
-            //if( chatting->getChatingOn() == false )
+            if (chatting && chatting->getChatingOn() == false)
             {
                 switch (wparam)
                 {
@@ -550,17 +556,6 @@ LRESULT ScenePlayGame::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpara
 
             switch (wparam)
             {
-            case VK_RETURN:
-            {
-                //< 채팅창 입력이 꺼져있을때
-                //chatting->changeChattingOn();
-                //if( chatting->getChatingOn() == false )
-                //{
-                //	//< 채팅창 키기
-                //	chatting->inChatingView( );
-                //}
-            }
-            break;
             case VK_ESCAPE:
                 //pause
                 m_playingGame = false;
@@ -570,15 +565,11 @@ LRESULT ScenePlayGame::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpara
         }
         }
     }
-    else
-    {
-        return POPUP_MGR->PopupProc(wnd, msg, wparam, lparam);
-    }
 
-    /*if(NULL != chatting)
+    if (NULL != chatting)
     {
-        return chatting->StateProc( wnd, msg, wparam, lparam );
-    }*/
+        return chatting->StateProc(wnd, msg, wparam, lparam);
+    }
 
     return (DefWindowProc(wnd, msg, wparam, lparam));
 }

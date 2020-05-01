@@ -178,6 +178,8 @@
     <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="SceneLobby.h" />
     <ClInclude Include="ScenePlayGame.h" />
+    <ClInclude Include="Scene\Chat\ChattingBox.h" />
+    <ClInclude Include="Scene\Chat\ChattingGame.h" />
     <ClInclude Include="Scene\Popup\Popup.h" />
     <ClInclude Include="Scene\Popup\Popup_Lobby_EnterRoom_open.h" />
     <ClInclude Include="Scene\Popup\Popup_Lobby_EnterRoom_Success.h" />
@@ -234,6 +236,8 @@
     <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="SceneLobby.cpp" />
     <ClCompile Include="ScenePlayGame.cpp" />
+    <ClCompile Include="Scene\Chat\ChattingBox.cpp" />
+    <ClCompile Include="Scene\Chat\ChattingGame.cpp" />
     <ClCompile Include="Scene\Popup\Popup.cpp" />
     <ClCompile Include="Scene\Popup\Popup_Lobby_EnterRoom_open.cpp" />
     <ClCompile Include="Scene\Popup\Popup_Lobby_EnterRoom_Success.cpp" />
