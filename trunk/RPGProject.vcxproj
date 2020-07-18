@@ -188,6 +188,7 @@
     <ClInclude Include="Scene\SceneChoiceChar.h" />
     <ClInclude Include="Scene\sceneLoading.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SkillManager.h" />
     <ClInclude Include="skillWhole.h" />
     <ClInclude Include="SoundMgr.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -245,6 +246,7 @@
     <ClCompile Include="Scene\Popup\Popup_Loot.cpp" />
     <ClCompile Include="Scene\SceneChoiceChar.cpp" />
     <ClCompile Include="Scene\sceneLoading.cpp" />
+    <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="skillWhole.cpp" />
     <ClCompile Include="SoundMgr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

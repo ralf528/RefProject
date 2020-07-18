@@ -60,7 +60,7 @@ bool cWarrior::init(void)
     m_moveDeley.m_deley = static_cast<unsigned int>(getMoveSpeed());
 
     //< 대쉬 카운트
-    dash_count = 5;
+    dash_count = 0;
 
     //< 캐릭터 이미지
     RC_MGR->addImage(imgID_WARRIOR_IDLE, "Data/Resource/Image/character/warrior_idle.bmp", 0, 0, RM_TRANS);
@@ -425,33 +425,7 @@ void cWarrior::move(float fDeltaTime)
         }
         m_moveDeley.m_lastTime = GetTickCount();
     }
-    static bool moveChar = false;
-    //< 공격중일 때 방향 전송 안함
-    if (false == m_isAttacking)
-    {
-        //< 위치 전송
-        if ((m_pos.x != m_prevPos.x) || (m_pos.y != m_prevPos.y))
-        {
-            //< 키를 뗴지 않고 방향만 전환했을 경우
-            static int prevDir = m_dir;
-            //< 움지이지 않고 있었다면
-            if (moveChar == false || prevDir != m_dir)
-            {
-                moveChar = true;
-                prevDir = m_dir;
-            }
-        }
-        //< 멈췄있을 때
-        else
-        {
-            //< 움직이는 중이었다면
-            if (moveChar == true)
-            {
-                moveChar = false;
-            }
 
-        }
-    }
     //< 이동중일때 애니메이션이 진행되지 않고 있으면 애니메이션 진행
     if (m_nowState == STATE_MOVE && m_MoveAni_Info->flag == false)
     {
@@ -471,7 +445,7 @@ void cWarrior::dash(void)
     }
 
     //< 대쉬
-    if (dash_count++ < 5)
+    if (dash_count-- > 0)
     {
         //키입력 & 이동
         if (m_dir == DIR_L || m_dir == DIR_LU || m_dir == DIR_LD)
@@ -497,7 +471,7 @@ void cWarrior::dash(void)
     }
     else
     {
-        dash_count = 5;
+        dash_count = 0;
     }
 }
 
@@ -591,7 +565,7 @@ void cWarrior::DashTrigger()
 #ifdef __RELEASE
         incMP(-5);
 #endif
-        dash_count = 0;
+        dash_count = 5;
         m_DashAni_Info->flag = true;
     }
 }

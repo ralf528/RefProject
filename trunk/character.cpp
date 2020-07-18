@@ -47,7 +47,7 @@ bool character::init(void)
 	//< 캐릭터 속도 설정
 	setMoveSpeed( 2 );
 	//< 대쉬 카운트
-	dash_count = 5;
+	dash_count = 0;
 
 	//< 공격 충돌체
 	if( NULL == ball )
