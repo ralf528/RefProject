@@ -81,8 +81,8 @@ const char *imgPath = "Data/Image/";
 #define		LOAD_MAP_5_PATH		"Data/Map/testMap-5.txt"
 
 //< 타일 사이즈
-#define		TILE_SIZE_X 64
-#define		TILE_SIZE_Y 32
+static const int TILE_SIZE_X = 64;
+static const int TILE_SIZE_Y = 32;
 
 //< 시작시 로드할 맵 정보 경로
 //#define START_LOAD_MAP_PATH		"Data/Map/BosstestMap.txt"
@@ -91,7 +91,7 @@ const char *imgPath = "Data/Image/";
 ////////////////////////////////////////////////////////////////////////
 
 //< 이미지 랜더 오프셋 (수치만큼 위에 랜더)
-#define		RENDER_OFFSET_Y 15
+static const int RENDER_OFFSET_Y = 15;
 
 ////////////////////////////////////////////////////////////////////////
 //< 캐릭터 관련

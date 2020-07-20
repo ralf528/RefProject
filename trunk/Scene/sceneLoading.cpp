@@ -118,13 +118,13 @@ void sceneLoading::drawLoadingBar(HDC hdc)
 //> 메시지 프로시져
 LRESULT sceneLoading::StateProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
-	switch(iMessage)
+	/*switch(iMessage)
 	{
-	/*case WM_MYSOCKET_NOTIFY:
+	case WM_MYSOCKET_NOTIFY:
 		{
 			TCPIP_CLIENT->onMySocketNotify(wParam, lParam);
 		}
-		break;*/
-	}
+		break;
+	}*/
 	return DefWindowProc( hWnd, iMessage, wParam, lParam);
 }

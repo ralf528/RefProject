@@ -118,47 +118,12 @@ void ScenePlayGame::update(float fDeltaTime)
         {
             m_player->GetCharacter()->gainCollider(objTemp);
         }
-        //< 포탈과 충돌 체크
-        //if( true == m_map->inPortal( m_player->getPos() ) )
-        //{
-        //	m_player->setPos( m_map->getCharPos() );
-        //	m_other->setPos( m_map->getCharPos() );
-        //}
-        //initByPortal( m_player->getPos() );
 
-
-        //> 혼자만 포탈에 있을때
-        //if ((m_map->IsColPortal(m_player->getPos()) == true) && false == POPUP_MGR->getCheckPopup_ON())
-        //{
-        //    POPUP_MGR->changePopup(POPUP_GAME_WAIT_USER);
-        //    //POPUP_MGR->initPopup();
-        //}
-        //else if (m_map->IsColPortal(m_player->getPos()) == false && POPUP_GAME_WAIT_USER == POPUP_MGR->GetNowPopUp())
-        //{
-        //    POPUP_MGR->changePopup(POPUP_NONE);
-        //}
-        //> 호스트
-        //if(true == HOST_SERVER->getHostis())
-        //{
-        //	//> 접속자가 있을 경우
-        //	if(NULL != m_other)
-        //	{
-        //		//> 두 명다 포탈에 있으면
-        //		if(m_map->IsColPortal(m_player->getPos()) == true && m_map->IsColPortal(m_other->getPos()) == true)
-        //		{
-        //			//> 이동
-        //			initByPortal(m_player->getPos());
-        //		}
-        //	}
-        //	else
-            {
-                //> 포탈과 충돌 시 이동
-                if (m_map->IsColPortal(m_player->GetCharacter()->getPos()) == true)
-                {
-                    initByPortal(m_player->GetCharacter()->getPos());
-                }
-            }
-        //}
+        //> 포탈과 충돌 시 이동
+        if (m_map->IsColPortal(m_player->GetCharacter()->getPos()) == true)
+        {
+            initByPortal(m_player->GetCharacter()->getPos());
+        }
 
         //< 몬스터와 맵의 충돌 체크
         for (size_t i = 0; i < MON_MGR->getSize(); i++)
