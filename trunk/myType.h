@@ -26,6 +26,18 @@ typedef struct tagAni_Info
 
 }ANI_INFO, *LPANI_INFO;
 
+enum E_AnimationType
+{
+    None = -1,
+    Idle = 0,
+    Move,
+    Attack,
+    Die,
+    BeHit,
+    HitEff,
+    Dash,
+};
+
 enum DIR
 {
     DIR_DOWN,

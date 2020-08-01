@@ -41,9 +41,7 @@ public:
 	void setRect();
 
 	//애니메이션 설정
-	void setAniInfo();
-	//갱신
-	void updateAni( LPANI_INFO aniInfo );
+	void InitAnimInfo();
 	//해제
 	void releaseAniInfo();
 
@@ -66,7 +64,7 @@ protected:
 	//< 현재 상태 정보
 	int m_nowState;
 
-	//< 애니메이션 정보
+    //< 애니메이션 정보
 	LPANI_INFO		m_IdleAni_Info;
 	LPANI_INFO		m_MoveAni_Info;
 	LPANI_INFO		m_AtckAni_Info;
@@ -74,6 +72,7 @@ protected:
 	LPANI_INFO		m_beHitAni_Info;
 	LPANI_INFO		m_HitEff_Info;
 	LPANI_INFO		m_DashAni_Info;
+    //std::map<int, LPANI_INFO> m_Animations;
 
 	//< 무적모드 딜레이
 	DELEY m_inbeatDeley;

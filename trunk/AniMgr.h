@@ -14,28 +14,13 @@ private:
 	SINGLETON(AniMgr);
 
 private:
-
-	void init(void);
-
-	//이팩트 초기화
-	void effectInit(void);
-	//애니메이션
-	void updateAni(LPANI_INFO aniInfo);
+	void Init(void);
 	
 public:
 	void release(void);
-	void render(HDC hdc,int ID, int cx, int cy);
-
-	void animation(int ID);
-	
-	void setRender(bool isRender){m_isRender = isRender;}
-private:
-
-	ImageNode *m_image;
-	LPANI_INFO m_info;
-
-	bool m_isRender;
-	int flag;
+	static void Render(HDC hdc, LPANI_INFO info, POINT pos, int dir, int RCID);
+    static void SetAnimInfo(LPANI_INFO info, SIZE size, int countX, int countY, float speed, bool bFlag, bool bLoop, bool bPlay);
+    static void UpdateAni(LPANI_INFO aniInfo);
 };
 
 #define ANI_MGR Singleton<AniMgr>::GetInstance()

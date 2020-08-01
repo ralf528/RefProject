@@ -97,7 +97,7 @@ bool cWarrior::init(void)
     m_levelFlag = getLevelInfo().getNowLevel();
 
     //< 애니메이션 설정
-    setAniInfo();
+    InitAnimInfo();
     m_nowState = STATE_IDLE;
 
     return true;
@@ -122,7 +122,7 @@ void cWarrior::update(float fDeltaTime)
     //< 상태 초기화
     if (m_nowState == STATE_DIE)
     {
-        updateAni(m_DieAni_Info);
+        AniMgr::UpdateAni(m_DieAni_Info);
         return;
     }
     m_nowState = STATE_IDLE;
@@ -183,12 +183,12 @@ void cWarrior::update(float fDeltaTime)
     dash();
 
     //< 애니메이션 갱신
-    updateAni(m_IdleAni_Info);
-    updateAni(m_MoveAni_Info);
-    updateAni(m_AtckAni_Info);
-    updateAni(m_HitEff_Info);
-    updateAni(m_beHitAni_Info);
-    updateAni(m_DashAni_Info);
+    AniMgr::UpdateAni(m_IdleAni_Info);
+    AniMgr::UpdateAni(m_MoveAni_Info);
+    AniMgr::UpdateAni(m_AtckAni_Info);
+    AniMgr::UpdateAni(m_HitEff_Info);
+    AniMgr::UpdateAni(m_beHitAni_Info);
+    AniMgr::UpdateAni(m_DashAni_Info);
 }
 //< 랜더
 void cWarrior::render(HDC hdc)
@@ -196,73 +196,37 @@ void cWarrior::render(HDC hdc)
     //< 죽었다면
     if (m_nowState == STATE_DIE)
     {
-        SIZE siz = m_DieAni_Info->aniSize;
-        RENDER_MGR->render(hdc, imgID_WARRIOR_DIE,
-            m_pos.x - siz.cx / 2 - CAMERA->getX(), m_pos.y - siz.cy / 2 - RENDER_OFFSET_Y * 2 - CAMERA->getY(),
-            siz.cx, siz.cy,
-            m_DieAni_Info->nowFrame *	siz.cx, m_dir * siz.cy,
-            siz.cx, siz.cy);
+        AniMgr::Render(hdc, m_DieAni_Info, m_pos, m_dir, imgID_WARRIOR_DIE);
     }
     //< 피격 애니메이션
     else if (m_beHitAni_Info->flag == true)
     {
-        SIZE siz = m_beHitAni_Info->aniSize;
-        RENDER_MGR->render(hdc, imgID_WARRIOR_BEHIT,
-            m_pos.x - siz.cx / 2 - CAMERA->getX(), m_pos.y - siz.cy / 2 - RENDER_OFFSET_Y - CAMERA->getY(),
-            siz.cx, siz.cy,
-            m_beHitAni_Info->nowFrame *	siz.cx, m_dir * siz.cy,
-            siz.cx, siz.cy);
+        AniMgr::Render(hdc, m_beHitAni_Info, m_pos, m_dir, imgID_WARRIOR_BEHIT);
     }
     //< 대쉬 애니메이션
     else if (m_DashAni_Info->flag == true)
     {
-        SIZE siz = m_DashAni_Info->aniSize;
-        RENDER_MGR->render(hdc, imgID_WARRIOR_DASH,
-            m_pos.x - siz.cx / 2 - CAMERA->getX(), m_pos.y - siz.cy / 2 - RENDER_OFFSET_Y - CAMERA->getY(),
-            siz.cx, siz.cy,
-            m_DashAni_Info->nowFrame *	siz.cx, 0,
-            siz.cx, siz.cy);
+        AniMgr::Render(hdc, m_DashAni_Info, m_pos, 0, imgID_WARRIOR_DASH);
     }
     //< 공격중이면
     else if (m_AtckAni_Info->flag == true)
     {
-        SIZE siz = m_AtckAni_Info->aniSize;
-        RENDER_MGR->render(hdc, imgID_WARRIOR_ATK,
-            m_pos.x - siz.cx / 2 - CAMERA->getX(), m_pos.y - siz.cy / 2 - RENDER_OFFSET_Y * 2 - CAMERA->getY(),
-            siz.cx, siz.cy,
-            m_AtckAni_Info->nowFrame *	siz.cx, m_dir * siz.cy,
-            siz.cx, siz.cy);
+        AniMgr::Render(hdc, m_AtckAni_Info, m_pos, m_dir, imgID_WARRIOR_ATK);
     }
     //< 이동 중이면
     else if (m_nowState == STATE_MOVE)
     {
-        //케릭터 방향 애니메이션
-        SIZE siz = m_MoveAni_Info->aniSize;
-        RENDER_MGR->render(hdc, imgID_WARRIOR_MOVE,
-            m_pos.x - siz.cx / 2 - CAMERA->getX(), m_pos.y - siz.cy / 2 - RENDER_OFFSET_Y - CAMERA->getY(),
-            siz.cx, siz.cy,
-            m_MoveAni_Info->nowFrame *	siz.cx, m_dir * siz.cy,
-            siz.cx, siz.cy);
+        AniMgr::Render(hdc, m_MoveAni_Info, m_pos, m_dir, imgID_WARRIOR_MOVE);
     }
     //< 대기상태
     else
     {
-        SIZE siz = m_IdleAni_Info->aniSize;
-        RENDER_MGR->render(hdc, imgID_WARRIOR_IDLE,
-            m_pos.x - siz.cx / 2 - CAMERA->getX(), m_pos.y - siz.cy / 2 - RENDER_OFFSET_Y - CAMERA->getY(),
-            siz.cx, siz.cy,
-            m_IdleAni_Info->nowFrame *	siz.cx, m_dir * siz.cy,
-            siz.cx, siz.cy);
+        AniMgr::Render(hdc, m_IdleAni_Info, m_pos, m_dir, imgID_WARRIOR_IDLE);
     }
     //< 피격 이펙트
     if (m_HitEff_Info->flag == true)
     {
-        SIZE siz = m_HitEff_Info->aniSize;
-        RENDER_MGR->render(hdc, imgID_GETHIT_1,
-            m_pos.x - siz.cx / 2 - CAMERA->getX(), m_pos.y - siz.cy / 2 - CAMERA->getY(),
-            siz.cx, siz.cy,
-            m_HitEff_Info->nowFrame * siz.cx, 0,
-            siz.cx, siz.cy);
+        AniMgr::Render(hdc, m_HitEff_Info, m_pos, 0, imgID_GETHIT_1);
     }
 
     //마법 구체 렌더
@@ -621,174 +585,51 @@ void cWarrior::setRect(void)
         m_pos.x + CHARACTER_SIZE, m_pos.y + CHARACTER_SIZE);
 }
 
-void cWarrior::setAniInfo(void)
+void cWarrior::InitAnimInfo(void)
 {
     //< 아이들 애니메이션
     SAFE_DELETE(m_IdleAni_Info);
     m_IdleAni_Info = new ANI_INFO;
-    //< 이미지 사이즈
     SIZE idleAniSize = RC_MGR->findImage(imgID_WARRIOR_IDLE)->getSize();
-    //< 프레임 수
-    m_IdleAni_Info->frameCntX = 8;
-    m_IdleAni_Info->frameCntY = 8;
-    //< 프레임당 이미지 사이즈
-    m_IdleAni_Info->aniSize.cx = idleAniSize.cx / m_IdleAni_Info->frameCntX;
-    m_IdleAni_Info->aniSize.cy = idleAniSize.cy / m_IdleAni_Info->frameCntY;
-
-    m_IdleAni_Info->frameSpeed = 50;
-    m_IdleAni_Info->nowFrame = 0;
-    m_IdleAni_Info->nowFrameY = DIR_D;
-    m_IdleAni_Info->lastTime = GetTickCount();
-    m_IdleAni_Info->flag = true;
-    m_IdleAni_Info->loop = true;
-    m_IdleAni_Info->playAni = true;
-
+    AniMgr::SetAnimInfo(m_IdleAni_Info, idleAniSize, 8, 8, 50, true, true, true);
+    
     //< 이동 애니메이션
     SAFE_DELETE(m_MoveAni_Info);
     m_MoveAni_Info = new ANI_INFO;
-    //< 이미지 사이즈
     SIZE moveAniSize = RC_MGR->findImage(imgID_WARRIOR_MOVE)->getSize();
-    //< 프레임 수
-    m_MoveAni_Info->frameCntX = 8;
-    m_MoveAni_Info->frameCntY = 8;
-    //< 프레임당 이미지 사이즈
-    m_MoveAni_Info->aniSize.cx = moveAniSize.cx / m_MoveAni_Info->frameCntX;
-    m_MoveAni_Info->aniSize.cy = moveAniSize.cy / m_MoveAni_Info->frameCntY;
-
-    m_MoveAni_Info->frameSpeed = 50;
-    m_MoveAni_Info->nowFrame = 0;
-    m_MoveAni_Info->nowFrameY = DIR_D;
-    m_MoveAni_Info->lastTime = GetTickCount();
-    m_MoveAni_Info->flag = false;
-    m_MoveAni_Info->loop = false;
-    m_MoveAni_Info->playAni = true;
+    AniMgr::SetAnimInfo(m_MoveAni_Info, moveAniSize, 8, 8, 50, false, false, true);
 
     //< 공격 애니메이션
     SAFE_DELETE(m_AtckAni_Info);
     m_AtckAni_Info = new ANI_INFO;
-    //< 이미지 사이즈
     SIZE atkAniSize = RC_MGR->findImage(imgID_WARRIOR_ATK)->getSize();
-    //< 프레임 수
-    m_AtckAni_Info->frameCntX = 18;
-    m_AtckAni_Info->frameCntY = 8;
-    //< 프레임당 이미지 사이즈
-    m_AtckAni_Info->aniSize.cx = atkAniSize.cx / m_AtckAni_Info->frameCntX;
-    m_AtckAni_Info->aniSize.cy = atkAniSize.cy / m_AtckAni_Info->frameCntY;
-    m_AtckAni_Info->frameSpeed = 20;
-    m_AtckAni_Info->nowFrame = 0;
-    m_AtckAni_Info->nowFrameY = DIR_D;
-    m_AtckAni_Info->lastTime = GetTickCount();
-    m_AtckAni_Info->flag = false;
-    m_AtckAni_Info->loop = false;
-    m_AtckAni_Info->playAni = true;
+    AniMgr::SetAnimInfo(m_AtckAni_Info, atkAniSize, 18, 8, 20, false, false, true);
 
     //< 사망 애니메이션
     SAFE_DELETE(m_DieAni_Info);
     m_DieAni_Info = new ANI_INFO;
-    //< 이미지 사이즈
     SIZE dieAniSize = RC_MGR->findImage(imgID_WARRIOR_DIE)->getSize();
-    //< 프레임 수
-    m_DieAni_Info->frameCntX = 20;
-    m_DieAni_Info->frameCntY = 8;
-    //< 프레임당 이미지 사이즈
-    m_DieAni_Info->aniSize.cx = dieAniSize.cx / m_DieAni_Info->frameCntX;
-    m_DieAni_Info->aniSize.cy = dieAniSize.cy / m_DieAni_Info->frameCntY;
-    m_DieAni_Info->frameSpeed = 200;
-    m_DieAni_Info->nowFrame = 0;
-    m_DieAni_Info->nowFrameY = DIR_D;
-    m_DieAni_Info->lastTime = GetTickCount();
-    m_DieAni_Info->flag = false;
-    m_DieAni_Info->loop = false;
-    m_DieAni_Info->playAni = false;
+    AniMgr::SetAnimInfo(m_DieAni_Info, dieAniSize, 20, 8, 200, false, false, false);
 
     //< 피격 애니메이션
     SAFE_DELETE(m_beHitAni_Info);
     m_beHitAni_Info = new ANI_INFO;
-    //< 이미지 사이즈
     SIZE behitAniSize = RC_MGR->findImage(imgID_WARRIOR_BEHIT)->getSize();
-    //< 프레임 수
-    m_beHitAni_Info->frameCntX = 7;
-    m_beHitAni_Info->frameCntY = 8;
-    //< 프레임당 이미지 사이즈
-    m_beHitAni_Info->aniSize.cx = behitAniSize.cx / m_beHitAni_Info->frameCntX;
-    m_beHitAni_Info->aniSize.cy = behitAniSize.cy / m_beHitAni_Info->frameCntY;
-    m_beHitAni_Info->frameSpeed = 20;
-    m_beHitAni_Info->nowFrame = 0;
-    m_beHitAni_Info->nowFrameY = DIR_D;
-    m_beHitAni_Info->lastTime = GetTickCount();
-    m_beHitAni_Info->flag = false;
-    m_beHitAni_Info->loop = false;
-    m_beHitAni_Info->playAni = true;
+    AniMgr::SetAnimInfo(m_beHitAni_Info, behitAniSize, 7, 8, 20, false, false, true);
 
     //< 타격 애니메이션
     SAFE_DELETE(m_HitEff_Info);
     m_HitEff_Info = new ANI_INFO;
-    //< 이미지 사이즈
     SIZE hitAniSize = RC_MGR->findImage(imgID_GETHIT_1)->getSize();
-    //< 프레임 수
-    m_HitEff_Info->frameCntX = 6;
-    m_HitEff_Info->frameCntY = 1;
-    //< 프레임당 이미지 사이즈
-    m_HitEff_Info->aniSize.cx = hitAniSize.cx / m_HitEff_Info->frameCntX;
-    m_HitEff_Info->aniSize.cy = hitAniSize.cy / m_HitEff_Info->frameCntY;
-    m_HitEff_Info->frameSpeed = 50;
-    m_HitEff_Info->nowFrame = 0;
-    m_HitEff_Info->nowFrameY = 0;
-    m_HitEff_Info->lastTime = GetTickCount();
-    m_HitEff_Info->flag = false;
-    m_HitEff_Info->loop = false;
-    m_HitEff_Info->playAni = true;
-
+    AniMgr::SetAnimInfo(m_HitEff_Info, hitAniSize, 6, 1, 50, false, false, true);
 
     //< 대쉬 애니메이션
     SAFE_DELETE(m_DashAni_Info);
     m_DashAni_Info = new ANI_INFO;
-    //< 이미지 사이즈
     SIZE dashAniSize = RC_MGR->findImage(imgID_WARRIOR_DASH)->getSize();
-    //< 프레임 수
-    m_DashAni_Info->frameCntX = 5;
-    m_DashAni_Info->frameCntY = 1;
-    //< 프레임당 이미지 사이즈
-    m_DashAni_Info->aniSize.cx = dashAniSize.cx / m_DashAni_Info->frameCntX;
-    m_DashAni_Info->aniSize.cy = dashAniSize.cy / m_DashAni_Info->frameCntY;
-    m_DashAni_Info->frameSpeed = 40;
-    m_DashAni_Info->nowFrame = 0;
-    m_DashAni_Info->nowFrameY = 0;
-    m_DashAni_Info->lastTime = GetTickCount();
-    m_DashAni_Info->flag = false;
-    m_DashAni_Info->loop = false;
-    m_DashAni_Info->playAni = true;
+    AniMgr::SetAnimInfo(m_DashAni_Info, dashAniSize, 5, 1, 40, false, false, true);
 }
 
-void cWarrior::updateAni(LPANI_INFO info)
-{
-    if (NULL != info && true == info->flag)
-    {
-        DWORD curTime = GetTickCount();
-
-        if (info->lastTime + info->frameSpeed <= curTime)
-        {
-            info->nowFrame++;
-
-            info->lastTime = curTime;
-
-            if (info->frameCntX <= info->nowFrame)
-            {
-                if (info->playAni == false)
-                {
-                    info->nowFrame = info->frameCntX - 1;
-                    info->flag = false;
-                    return;
-                }
-                info->nowFrame = 0;
-                if (info->loop == false)
-                {
-                    info->flag = false;
-                }
-            }
-        }
-    }
-}
 void cWarrior::releaseAniInfo(void)
 {
     SAFE_DELETE(m_IdleAni_Info);
