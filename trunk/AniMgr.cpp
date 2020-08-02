@@ -25,9 +25,15 @@ void AniMgr::Render(HDC hdc, LPANI_INFO info, POINT pos, int dir, int RCID)
         return;
     }
 
+    int offsetY = RENDER_OFFSET_Y;
+    if (RCID == imgID_WARRIOR_ATK)
+    {
+        offsetY = RENDER_OFFSET_Y * 2;
+    }
+
     SIZE siz = info->aniSize;
     RENDER_MGR->render(hdc, RCID,
-        pos.x - siz.cx / 2 - CAMERA->getX(), pos.y - siz.cy / 2 - RENDER_OFFSET_Y - CAMERA->getY(),
+        pos.x - siz.cx / 2 - CAMERA->getX(), pos.y - siz.cy / 2 - offsetY - CAMERA->getY(),
         siz.cx, siz.cy,
         info->nowFrame * siz.cx, dir * siz.cy,
         siz.cx, siz.cy);
@@ -37,7 +43,7 @@ void AniMgr::release(void)
 {
 }
 
-void AniMgr::SetAnimInfo(LPANI_INFO info, SIZE size, int countX, int countY, float speed, bool bFlag, bool bLoop, bool bPlay)
+void AniMgr::SetAnimInfo(LPANI_INFO info, SIZE size, int countX, int countY, int speed, bool bFlag, bool bLoop, bool bPlay)
 {
     if (info == nullptr)
     {

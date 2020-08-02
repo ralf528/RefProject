@@ -38,7 +38,7 @@ const char *imgPath = "Data/Image/";
 //< 캐릭터 관련
 
 //< 캐릭터 사이즈
-#define		CHARACTER_SIZE 25
+#define		CHARACTER_SIZE 15
 #define		CHARACTER_SIZE_X 37
 #define		CHARACTER_SIZE_Y 36
 //< 캐릭터 시작 위치
@@ -58,7 +58,7 @@ const char *imgPath = "Data/Image/";
 //< 몬스터 관련
 
 //< 몬스터 사이즈
-#define		MONSTER_SIZE 25
+#define		MONSTER_SIZE 15
 //< 몬스터 공격 범위
 #define		MONSTER_1_ATTACK_RANGE 55
 //< 몬스터 등장 확률
