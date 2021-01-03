@@ -9,7 +9,7 @@
 //#include "Human_knight.h"
 //#include "Human_thief.h"
 //#include "Ghost.h"
-#include "tileMap.h"
+#include "WorldManager.h"
 #include "SceneLobby.h"
 #include "ScenePlayGame.h"
 #include "Scene/Chat/ChattingGame.h"
@@ -53,8 +53,8 @@ bool ScenePlayGame::init(void)
     //< 난수 발생기 초기화
     srand(GetTickCount());
     //맵초기화
-    m_map = new tileMap;
-    m_map->init();
+    m_World = new WorldManager;
+    m_World->init();
 
     STATE_MGR->setLoading(80);
 
@@ -65,7 +65,7 @@ bool ScenePlayGame::init(void)
     MON_MGR->setDestPlayer(m_player->GetCharacter());
 
     //캐릭터 위치 초기화
-    m_player->GetCharacter()->setPos(m_map->getCharPos());
+    m_player->GetCharacter()->setPos(m_World->GetSpawnPos());
 
     //게임 배경음 플레이
     //SOUND_MGR->soundPlay(SOUND_INGAME);
@@ -104,23 +104,23 @@ void ScenePlayGame::update(float fDeltaTime)
             m_player->Update(fDeltaTime);
         }
         //< 캐릭터 주위의 선(벽) 찾기
-        m_map->aroundLine(m_player->GetCharacter()->getPos(), m_player->GetCharacter()->getAroundVertex());
+        m_World->aroundLine(m_player->GetCharacter()->getPos(), m_player->GetCharacter()->getAroundVertex());
 
         //< 캐릭터와 맵의 충돌체크
-        if (m_map->collision(m_player->GetCharacter()->getPos(), m_player->GetCharacter()->getAroundVertex()))
+        if (m_World->collision(m_player->GetCharacter()->getPos(), m_player->GetCharacter()->getAroundVertex()))
         {
             //< 충돌 되었다면 이전 위치로
             m_player->GetCharacter()->setPosToPrev();
         }
         //< 캐릭터와 오브젝트 충돌체크
-        tileType objTemp = m_map->collisionObject(m_player->GetCharacter()->getPos());
+        E_TileBrush objTemp = m_World->collisionObject(m_player->GetCharacter()->getPos());
         if (0 != objTemp)
         {
             m_player->GetCharacter()->gainCollider(objTemp);
         }
 
         //> 포탈과 충돌 시 이동
-        if (m_map->IsColPortal(m_player->GetCharacter()->getPos()) == true)
+        if (m_World->IsColPortal(m_player->GetCharacter()->getPos()) == true)
         {
             initByPortal(m_player->GetCharacter()->getPos());
         }
@@ -129,9 +129,9 @@ void ScenePlayGame::update(float fDeltaTime)
         for (size_t i = 0; i < MON_MGR->getSize(); i++)
         {
             //< 주위의 선(벽) 찾기
-            m_map->aroundLine(MON_MGR->getMonster(i)->getPos(), MON_MGR->getMonster(i)->getAroundVertex());
+            m_World->aroundLine(MON_MGR->getMonster(i)->getPos(), MON_MGR->getMonster(i)->getAroundVertex());
             //< 벽에 대한 충돌 체크
-            if (true == m_map->collision(MON_MGR->getMonster(i)->getPos(), MON_MGR->getMonster(i)->getAroundVertex()))
+            if (true == m_World->collision(MON_MGR->getMonster(i)->getPos(), MON_MGR->getMonster(i)->getAroundVertex()))
             {
                 //< 충돌 되었다면 이전 위치로
                 MON_MGR->getMonster(i)->setPosToPrev();
@@ -187,9 +187,9 @@ void ScenePlayGame::render(HDC hdc)
         FillRect(screenDC, &screenRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
 
         //<타일맵 출력
-        m_map->render(screenDC);
+        m_World->render(screenDC);
         //<맵의 벽 출력
-        m_map->renderWall(screenDC);
+        m_World->renderWall(screenDC);
 
         m_player->Render(hdc);
 
@@ -232,7 +232,7 @@ void ScenePlayGame::release(void)
     SAFE_DELETE( chatting );
 
     SAFE_RELEASE(m_player);
-    SAFE_DELETE(m_map);
+    SAFE_DELETE(m_World);
     //SOUND_MGR->soundStop(SOUND_INGAME);
 }
 
@@ -447,7 +447,7 @@ void ScenePlayGame::renderUI(HDC hdc)
         m_lv_bar_string.OutputText(hdc, tempStr);
 
         //< 도달 층수
-        sprintf_s(tempStr, "%d층", m_map->getNowFloor());
+        sprintf_s(tempStr, "%d층", m_World->getNowFloor());
         m_stage.OutputText(hdc, tempStr);
 
         //< 플레이어 인벤토리 표시
@@ -543,8 +543,8 @@ LRESULT ScenePlayGame::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpara
 void ScenePlayGame::initByPortal(POINT &destPos)
 {
     //< 포탈과 충돌 체크
-    if (true == m_map->inPortal(destPos))
+    if (true == m_World->inPortal(destPos))
     {
-        m_player->GetCharacter()->setPos(m_map->getCharPos());
+        m_player->GetCharacter()->setPos(m_World->GetSpawnPos());
     }
 }

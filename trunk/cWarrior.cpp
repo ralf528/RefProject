@@ -561,7 +561,7 @@ int cWarrior::getDamage(void)
 }
 
 //< 충돌체 얻기 ( 아이템 획득 )
-void cWarrior::gainCollider(tileType &obj)
+void cWarrior::gainCollider(E_TileBrush &obj)
 {
     //< 오브젝트에 따른 반응
     //< 아이템이면 인벤토리에 추가

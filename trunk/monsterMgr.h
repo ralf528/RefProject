@@ -44,7 +44,7 @@ public:
 	void setOtherPlayer( character *other );
 
 	//< 몬스터 추가
-	void CreateMonster(tileType type, int x, int y);
+	void CreateMonster(E_TileBrush type, int x, int y);
 	void addMonster(Monster *mon);
 	//< 충돌체크
 	bool collision( character &player );

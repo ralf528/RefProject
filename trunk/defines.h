@@ -85,8 +85,8 @@ static const int TILE_SIZE_X = 64;
 static const int TILE_SIZE_Y = 32;
 
 //< 시작시 로드할 맵 정보 경로
-//#define START_LOAD_MAP_PATH		"Data/Map/BosstestMap.txt"
-#define START_LOAD_MAP_PATH		"Data/Map/startMap.txt"
+#define START_LOAD_MAP_PATH		"Data/Map/BosstestMap.txt"
+//#define START_LOAD_MAP_PATH		"Data/Map/startMap.txt"
 //#define		START_LOAD_MAP_PATH		"Data/Map/testMap-5.txt"
 ////////////////////////////////////////////////////////////////////////
 
@@ -373,9 +373,9 @@ enum imgID
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 //< 타일 타입 디파인
-typedef unsigned int tileType;
+//typedef unsigned int E_TileBrush;
 
-enum tileBRUSH
+enum E_TileBrush
 {
     NON_TILE = 255,
     TILE_NORMAL = 0,

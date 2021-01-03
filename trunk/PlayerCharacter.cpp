@@ -6,11 +6,14 @@ void PlayerCharacter::Init()
 {
     m_character = new cWarrior();
     m_character->init();
+    SetAutoMode(false);
+    SAFE_DELETE(m_pTarget);
 }
 
 void PlayerCharacter::Release()
 {
     SAFE_DELETE(m_character);
+    SAFE_DELETE(m_pTarget);
 }
 
 void PlayerCharacter::Update(float fDeltaTime)
@@ -18,6 +21,20 @@ void PlayerCharacter::Update(float fDeltaTime)
     if (m_character)
     {
         m_character->update(fDeltaTime);
+    }
+
+    /*
+    자동모드일때 가장 가까운 적을 찾아 이동 후 공격한다.
+
+    1. 몬스터 매니저에서 가장 가까운 적을 찾아 타겟으로 정한다.
+    2. 해당 적의 위치로 길찾기
+    3. 스킬 및 공격
+    */
+
+    if (m_pTarget == nullptr)
+    {
+        // 현재 타겟이 없다면 타겟을 찾는다.
+        //m_pTarget = MON_MGR->getMonster();
     }
 }
 
@@ -53,21 +70,22 @@ LRESULT PlayerCharacter::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpa
         {
         case 'a':
         case 'A':
-        {
             m_character->ProcessSkill(1);
-        }
         break;
-        case 's':
-        case 'S':
-        {
+
+        case 'q':
+        case 'Q':
             m_character->ProcessSkill(2);
-        }
         break;
+
         case 'd':
         case 'D':
-        {
             m_character->ProcessSkill(3);
-        }
+        break;
+
+        case 'z':
+        case 'Z':
+            SetAutoMode(!IsAutoMode());
         break;
         }
     }

@@ -38,7 +38,7 @@ public:
 	virtual void dash( void ) = 0;
 
 	//< 충돌체(아이템 등) 얻기
-	virtual void gainCollider( tileType &obj );
+	virtual void gainCollider( E_TileBrush &obj );
 	//< 아이템 사용
 	virtual void useItem( void );
 	//< 인벤토리 랜더

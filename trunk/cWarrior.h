@@ -36,7 +36,7 @@ public:
 	virtual int getDamage();
 
 	//< 충돌체(아이템 등) 얻기
-	virtual void gainCollider( tileType &obj );
+	virtual void gainCollider( E_TileBrush &obj );
 	//< 렉트 설정
 	void setRect();
 

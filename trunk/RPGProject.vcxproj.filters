@@ -217,9 +217,6 @@
     <ClInclude Include="ScenePlayGame.h">
       <Filter>99_APP\01_SCENE</Filter>
     </ClInclude>
-    <ClInclude Include="tileMap.h">
-      <Filter>99_APP\02_TILE_MAP</Filter>
-    </ClInclude>
     <ClInclude Include="cWarrior.h">
       <Filter>99_APP\04_CHARACTER</Filter>
     </ClInclude>
@@ -282,6 +279,9 @@
     </ClInclude>
     <ClInclude Include="UnitClass\Boss_naid.h">
       <Filter>99_APP\05_MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldManager.h">
+      <Filter>99_APP\02_TILE_MAP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -375,9 +375,6 @@
     <ClCompile Include="ScenePlayGame.cpp">
       <Filter>99_APP\01_SCENE</Filter>
     </ClCompile>
-    <ClCompile Include="tileMap.cpp">
-      <Filter>99_APP\02_TILE_MAP</Filter>
-    </ClCompile>
     <ClCompile Include="cWarrior.cpp">
       <Filter>99_APP\04_CHARACTER</Filter>
     </ClCompile>
@@ -440,6 +437,9 @@
     </ClCompile>
     <ClCompile Include="UnitClass\Boss_naid.cpp">
       <Filter>99_APP\05_MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldManager.cpp">
+      <Filter>99_APP\02_TILE_MAP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

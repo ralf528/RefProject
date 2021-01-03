@@ -4,12 +4,12 @@
 
 class ImageNode;
 
-class tileMap
+class WorldManager
 {
 //< 생성자, 소멸자
 public:
-	tileMap(void);
-	~tileMap(void);
+	WorldManager(void);
+	~WorldManager(void);
 public:
 	//초기화
 	bool init( void );
@@ -34,39 +34,38 @@ public:
 	void aroundLine( POINT &destPos, POINT *vertex );
 
 	//< 오브젝트와 충돌체크
-	tileType collisionObject( POINT &destPos );
+	E_TileBrush collisionObject( POINT &destPos );
 
 	//포탈
 	bool inPortal( POINT &destPos );
 	//< 층 수 리턴
 	int getNowFloor(void) { return m_nowFloor; }
 	//< 랜덤 맵 번호 부여
-	static void setMapNum(void);
-	//< 호스트에 의해 맵 설정
-	static void setMapNumByNetwork(const int *arr);
-	static int getMapNum(int index) { return m_mapNum[index]; }
+	void setMapNum(void);
+	int getMapNum(int index) { return m_mapNum[index]; }
 
 	//< 캐릭터 위치 리턴
-	POINT getCharPos(void){ return m_charPos; }
+	POINT GetSpawnPos(void){ return m_SpawnPos; }
 
 	//< 포탈 위치 얻기
-	inline POINT &wherePortal(void) { return m_portal; }
+	inline POINT &PortalPos(void) { return m_portalPos; }
 
 	//> 포탈 충돌
-	inline bool IsColPortal(POINT& playerPos) {
-		if(math::distancePtToPt(playerPos, m_portal) <= 45 )
+	inline bool IsColPortal(POINT& playerPos)
+	{
+		if(math::distancePtToPt(playerPos, m_portalPos) <= 45 )
 		{
 			return true;
 		}
 		return false;
 	}
 
-	//< 아이템 설정(네트워크)
-	inline void setItem(int i, int j, int type) { m_obj[i][j] = type; }
+	//< 아이템 설정
+	inline void setItem(int i, int j, E_TileBrush type) { m_obj[i][j] = type; }
 
 private:
 	//< 층 별 맵 번호
-	static int m_mapNum[MAP_MAX_FLOOR];
+	int m_mapNum[MAP_MAX_FLOOR];
 	//< 현재 층 수
 	int m_nowFloor;
 
@@ -74,11 +73,11 @@ private:
 	int mapSizeX,mapSizeY;
 
 	//< 타일맵정보
-	tileType **m_tile;
+	E_TileBrush **m_tile;
 	//< 벽 정보
-	tileType **m_line;
+	E_TileBrush **m_line;
 	//< 오브젝트 정보
-	tileType **m_obj;
+	E_TileBrush **m_obj;
 	
 	//< 꼭지점(벽) 정보
 	//POINT vertex[8];
@@ -87,8 +86,8 @@ private:
 	ImageNode *m_imgTile;
 
 	//< 캐릭터 생성될 위치
-	POINT m_charPos;
+	POINT m_SpawnPos;
 
 	// 포탈 위치
-	POINT m_portal;
+	POINT m_portalPos;
 };

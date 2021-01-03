@@ -7,7 +7,7 @@
 
 
 Gyuriel::Gyuriel(void)
-	: ball(NULL)
+	: ball(nullptr)
 {
 	init();
 }
@@ -19,7 +19,6 @@ Gyuriel::~Gyuriel(void)
 //< 초기화
 bool Gyuriel::init(void)
 {
-
 	//이미지 추가
 	RC_MGR->addImage( imgID_BOSS_GYURIEL_IDLE, "Data/Resource/monster/gyuriel/201-idle.bmp", 0, 0 , RM_TRANS );
 	RC_MGR->addImage( imgID_BOSS_GYURIEL_MOVE,"Data/Resource/monster/gyuriel/201-walk.bmp",0,0,RM_TRANS);
@@ -77,6 +76,7 @@ bool Gyuriel::init(void)
 	
 	return true;
 }
+
 //< 해제
 void Gyuriel::release(void)
 {
@@ -85,6 +85,7 @@ void Gyuriel::release(void)
 	SAFE_DELETE( m_skill_destruction );
 	releaseAniInfo();
 }
+
 //< 업데이트
 void Gyuriel::update(float fDeltaTime)
 {

@@ -151,7 +151,7 @@ void MonsterMgr::setOtherPlayer( character *other )
 }
 
 //< 몬스터 추가
-void MonsterMgr::CreateMonster(tileType type, int x, int y)
+void MonsterMgr::CreateMonster(E_TileBrush type, int x, int y)
 {
 	Monster *mon = nullptr;
 

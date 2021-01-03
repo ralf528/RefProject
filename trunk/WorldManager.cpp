@@ -1,26 +1,31 @@
 #include "stdafx.h"
 #include "ImageNode.h"
-#include "tileMap.h"
+#include "WorldManager.h"
 
 using namespace myUTIL;
 using namespace collision;
 
-//< 맵 번호 순서대로 대입
-int tileMap::m_mapNum[MAP_MAX_FLOOR]={1,2,3,4,5};
 
-tileMap::tileMap(void)
+WorldManager::WorldManager(void)
 {
+	for (int i = 0; i < MAP_MAX_FLOOR; i++)
+	{
+		m_mapNum[i] = i + 1;
+	}
+
 	//< 랜덤 맵 번호 부여
-	//setMapNum();
+#ifndef _DEBUG
+	setMapNum();
+#endif // DEBUG
 }
 
-tileMap::~tileMap(void)
+WorldManager::~WorldManager(void)
 {
 	release();
 }
 
 //초기화
-bool tileMap::init( void )
+bool WorldManager::init( void )
 {
 	//< 1층으로
 	m_nowFloor = 1;
@@ -60,21 +65,21 @@ bool tileMap::init( void )
 	return true;
 }
 //해제
-void tileMap::release(void)
+void WorldManager::release(void)
 {
 	releaseMap();
 	SAFE_DELETE_ARR( m_imgTile );
 }
 
 //렌더
-void tileMap::render( HDC hdc )
+void WorldManager::render( HDC hdc )
 {
 	//< 타일 그리기
 	renderTile( hdc );
 }
 
 //< 타일 그리기
-void tileMap::renderTile( HDC hdc )
+void WorldManager::renderTile( HDC hdc )
 {
 #ifdef _DEBUG
 	HPEN myPen, oldPen;
@@ -183,7 +188,7 @@ void tileMap::renderTile( HDC hdc )
 #endif
 }
 //< 벽 그리기
-void tileMap::renderWall( HDC hdc )
+void WorldManager::renderWall( HDC hdc )
 {
 //#ifdef _DEBUG
 //	HPEN myPen, oldPen;
@@ -230,11 +235,11 @@ void tileMap::renderWall( HDC hdc )
 }
 
 //맵 로드
-bool tileMap::loadMap( const char *path )
+bool WorldManager::loadMap( const char *path )
 {
 	//< 캐릭터 좌표 초기화
-	m_charPos.x = 100;
-	m_charPos.y = 100;
+	m_SpawnPos.x = 100;
+	m_SpawnPos.y = 100;
 
 	FILE *fp=NULL;
 
@@ -253,14 +258,14 @@ bool tileMap::loadMap( const char *path )
 	if( m_tile == NULL && m_line == NULL )
 	{
 		//< 타일맵, 선, 오브젝트 2차 포인터 할당
-		m_tile = new tileType*[mapSizeY];
-		m_line = new tileType*[mapSizeY];
-		m_obj  = new tileType*[mapSizeY];
+		m_tile = new E_TileBrush*[mapSizeY];
+		m_line = new E_TileBrush*[mapSizeY];
+		m_obj  = new E_TileBrush*[mapSizeY];
 		for(int i=0;i<mapSizeY;i++)
 		{
-			m_tile[i] = new tileType[mapSizeX];
-			m_line[i] = new tileType[mapSizeX];
-			m_obj[i]  = new tileType[mapSizeX];
+			m_tile[i] = new E_TileBrush[mapSizeX];
+			m_line[i] = new E_TileBrush[mapSizeX];
+			m_obj[i]  = new E_TileBrush[mapSizeX];
 		}
 	}
 
@@ -284,16 +289,16 @@ bool tileMap::loadMap( const char *path )
 				//< 최초 위치 갱신
 				if( count++ == 0 )
 				{
-					m_charPos.x = j * TILE_SIZE_X;
-					m_charPos.y = i * TILE_SIZE_Y;
+					m_SpawnPos.x = j * TILE_SIZE_X;
+					m_SpawnPos.y = i * TILE_SIZE_Y;
 				}
 				else
 				{
 					//< 또 다른 타일이 나오면 일정 확률로 새로운 곳으로 지정
 					if( rand()%2 == 0 )
 					{
-						m_charPos.x = j * TILE_SIZE_X;
-						m_charPos.y = i * TILE_SIZE_Y;
+						m_SpawnPos.x = j * TILE_SIZE_X;
+						m_SpawnPos.y = i * TILE_SIZE_Y;
 					}
 				}
 			}
@@ -304,7 +309,7 @@ bool tileMap::loadMap( const char *path )
 			//< 아이템 타일이면 아이템 랜덤 생성
 			if( m_tile[i][j] == TILE_ITEM)
 			{
-				m_obj[i][j] = ITEM_FIRST + rand()%((ITEM_END-1)-ITEM_FIRST);
+				m_obj[i][j] = static_cast<E_TileBrush>(ITEM_FIRST + rand()%((ITEM_END-1)-ITEM_FIRST));
 				
 				//< 아이템 최대 개수
 				if(itemCnt != 100)
@@ -317,8 +322,8 @@ bool tileMap::loadMap( const char *path )
 			//< 계단 타일에 포탈 생성
 			if( m_tile[i][j] == TILE_STAIR )
 			{
-				m_portal.x = j * TILE_SIZE_X;
-				m_portal.y = i * TILE_SIZE_Y;
+				m_portalPos.x = j * TILE_SIZE_X;
+				m_portalPos.y = i * TILE_SIZE_Y;
 			}
 
 			//< 기둥, 제단
@@ -335,7 +340,7 @@ bool tileMap::loadMap( const char *path )
 }
 
 //< 맵 해제
-bool tileMap::releaseMap( void )
+bool WorldManager::releaseMap( void )
 {
 	for(int i=0;i<mapSizeY;i++)
 	{
@@ -351,7 +356,7 @@ bool tileMap::releaseMap( void )
 }
 
 //충돌체크
-bool tileMap::collision( POINT &destPos, POINT *vertex )
+bool WorldManager::collision( POINT &destPos, POINT *vertex )
 {
 	//< 현재 위치한 타일
 	int tileX = destPos.x/TILE_SIZE_X;
@@ -468,7 +473,7 @@ bool tileMap::collision( POINT &destPos, POINT *vertex )
 }
 
 //< 주위의 8개의 정점 체크
-void  tileMap::aroundLine( POINT &destPos, POINT *vertex )
+void  WorldManager::aroundLine( POINT &destPos, POINT *vertex )
 {
 	//< 현재 위치한 타일
 	int tileX = destPos.x/TILE_SIZE_X;
@@ -530,7 +535,7 @@ void  tileMap::aroundLine( POINT &destPos, POINT *vertex )
 }
 
 //< 오브젝트와 충돌체크
-tileType tileMap::collisionObject( POINT &destPos )
+E_TileBrush WorldManager::collisionObject( POINT &destPos )
 {
 	//< 현재 위치한 타일
 	int tileX = destPos.x/TILE_SIZE_X;
@@ -542,7 +547,7 @@ tileType tileMap::collisionObject( POINT &destPos )
 
 	if(0 >= tileX || 0 >= tileY)
 	{
-		return 0;
+		return TILE_NORMAL;
 	}
 
 	//< 주위 타일 검색 (맵이 아무리 커져도 주위 9개 타일만 검사)
@@ -572,7 +577,7 @@ tileType tileMap::collisionObject( POINT &destPos )
 				if( collision::isColPtInCircle( destPos, rt ) )
 				{
 					//< 리턴값 저장
-					tileType rtn = m_obj[i][j];
+					E_TileBrush rtn = m_obj[i][j];
 					//< 책장이면
 					if( rtn == OBJ_BOOK_L || rtn == OBJ_BOOK_R )
 					{
@@ -582,7 +587,7 @@ tileType tileMap::collisionObject( POINT &destPos )
 					else if( rtn >= ITEM_FIRST && rtn < ITEM_END )
 					{
 						//SOUND_MGR->soundPlay(SOUND_BGM9);
-						m_obj[i][j] = 0;
+						m_obj[i][j] = TILE_NORMAL;
 					}
 					//< 재단이면 비활성화
 					else if( rtn == OBJ_ALTAR )
@@ -594,21 +599,23 @@ tileType tileMap::collisionObject( POINT &destPos )
 					return rtn;
 				}
 			}
-//< 벽이 있으면 크게 표시
+
 #ifdef _DEBUG
+			//< 벽이 있으면 크게 표시
 			if( TILE_L_WALL == m_line[i][j] || TILE_R_WALL == m_line[i][j] )
 			{
-				Ellipse( RENDER_MGR->getMainDC(), j*TILE_SIZE_X - 10 - CAMERA->getX(), i*TILE_SIZE_Y - 10 - CAMERA->getY(),
-					j*TILE_SIZE_X + 10 - CAMERA->getX(), i*TILE_SIZE_Y + 10 - CAMERA->getY() );
+				Ellipse(RENDER_MGR->getMainDC(),
+					j*TILE_SIZE_X - 10 - CAMERA->getX(), i*TILE_SIZE_Y - 10 - CAMERA->getY(),
+					j*TILE_SIZE_X + 10 - CAMERA->getX(), i*TILE_SIZE_Y + 10 - CAMERA->getY());
 			}
 #endif
 		}
 	}
-	return 0;
+	return TILE_NORMAL;
 }
 
 //포탈
-bool tileMap::inPortal( POINT &destPos )
+bool WorldManager::inPortal( POINT &destPos )
 {
 	//< 포탈(계단)을 타면 한 층 오르기
 	if( IsColPortal(destPos) == true )
@@ -618,6 +625,7 @@ bool tileMap::inPortal( POINT &destPos )
 		{
 			m_nowFloor = 1;
 		}
+
 		//< 이전 맵 해제
 		releaseMap();
 		//< 새로운 맵 불러오기
@@ -639,22 +647,15 @@ bool tileMap::inPortal( POINT &destPos )
 			loadMap( LOAD_MAP_5_PATH );
 			break;
 		}
-		//PACKET packet;
-		//packet.m_map.m_length = sizeof(P2P_MAP);
-		//packet.m_map.m_type = P2P_NEXT_STAGE;
-		//packet.m_map.m_index = //< 바꿔야함 인자를 레퍼런스 character 를 받아서 메시지 전송
-		//packet.m_map.mapId = m_mapNum[m_nowFloor-1];
-		//packet.m_map.pos = this->getCharPos();
-
 	}
 	return true;
 }
 
 //< 랜덤 맵 번호 부여
-void tileMap::setMapNum(void)
+void WorldManager::setMapNum(void)
 {
 	//< 랜덤으로 섞기
-	for(int i = 0 ; i< 10 ; i++ )
+	for (int i = 0; i < 10; i++)
 	{
 		int left = rand()%(MAP_MAX_FLOOR-1)+1;
 		int right = rand()%(MAP_MAX_FLOOR-1)+1;
@@ -663,9 +664,4 @@ void tileMap::setMapNum(void)
 		m_mapNum[left] = m_mapNum[right];
 		m_mapNum[right] = temp;
     }
-}
-
-//< 호스트에 의해 맵 설정
-void tileMap::setMapNumByNetwork(const int *arr)
-{
 }

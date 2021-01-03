@@ -4,7 +4,7 @@
 #include "MY_FontMgr.h"
 
 //< 맵
-class tileMap;
+class WorldManager;
 //< 플레이어 캐릭터
 class PlayerCharacter;
 //< 채팅창
@@ -49,7 +49,7 @@ private :
     PlayerCharacter *m_player;
 
 	//타일맵 정보
-	tileMap *m_map;
+	WorldManager *m_World;
 
 private : //< UI관련-------------------------------------------
 	//< 스킬버튼
