@@ -496,16 +496,16 @@ namespace myUTIL
 
             //프레임
             sprintf_s(szBuf, "FramePerSec : %d", m_pTimer.getFrameRate());
-            TextOut(hdc, 0, 0, szBuf, strlen(szBuf));
+            TextOut(hdc, 0, 60, szBuf, strlen(szBuf));
             //월드 타임
             sprintf_s(szBuf, "WorldTime : %f", m_pTimer.getWorldTime());
-            TextOut(hdc, 0, 20, szBuf, strlen(szBuf));
+            TextOut(hdc, 0, 80, szBuf, strlen(szBuf));
             //프레임당 경과 시간
             sprintf_s(szBuf, "ElapseTime : %f", m_pTimer.getElapsedTime());
-            TextOut(hdc, 0, 40, szBuf, strlen(szBuf));
+            TextOut(hdc, 0, 100, szBuf, strlen(szBuf));
             //동기화 비율
             sprintf_s(szBuf, "TimeRate : %f", m_pTimer.getTimeRate());
-            TextOut(hdc, 0, 60, szBuf, strlen(szBuf));
+            TextOut(hdc, 0, 120, szBuf, strlen(szBuf));
 			
 			SetBkMode( hdc, OPAQUE );
 			SetTextColor( hdc, dwCurColor );

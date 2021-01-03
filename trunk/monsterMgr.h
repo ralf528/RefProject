@@ -44,6 +44,7 @@ public:
 	void setOtherPlayer( character *other );
 
 	//< 몬스터 추가
+	void CreateMonster(tileType type, int x, int y);
 	void addMonster(Monster *mon);
 	//< 충돌체크
 	bool collision( character &player );
@@ -56,6 +57,8 @@ public:
 
 	size_t getSize(void) { return m_monsterList.size(); }
 	Monster* getMonster( int i ) { return m_monsterList[i]; }
+
+    Monster* GetNearMonster(POINT pos);
 
 	//< 보스 몬스터
 	void setBossMonster(Monster *boss) { m_boss = boss; }

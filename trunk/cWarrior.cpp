@@ -592,7 +592,7 @@ void cWarrior::InitAnimInfo(void)
     m_IdleAni_Info = new ANI_INFO;
     SIZE idleAniSize = RC_MGR->findImage(imgID_WARRIOR_IDLE)->getSize();
     AniMgr::SetAnimInfo(m_IdleAni_Info, idleAniSize, 8, 8, 50, true, true, true);
-    
+   
     //< 이동 애니메이션
     SAFE_DELETE(m_MoveAni_Info);
     m_MoveAni_Info = new ANI_INFO;

@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "monsterMgr.h"
+#include "UnitClass/mon_bug.h"
+#include "UnitClass/Boss_gyuriel.h"
+#include "UnitClass/Boss_naid.h"
 //#include "character.h"
 
 //< 캐릭터가 죽었을 때
@@ -148,6 +151,50 @@ void MonsterMgr::setOtherPlayer( character *other )
 }
 
 //< 몬스터 추가
+void MonsterMgr::CreateMonster(tileType type, int x, int y)
+{
+	Monster *mon = nullptr;
+
+	switch (type)
+	{
+	case TILE_MON_01:
+		mon = new mon_bug();// boss_naid;
+		break;
+	case TILE_MON_02:
+		mon = new mon_bug();//mon_bug;
+		break;
+	case TILE_MON_03:
+		mon = new mon_bug();//ghoul;
+		break;
+	case TILE_MON_04:
+		mon = new mon_bug();//Dark_spider;
+		break;
+	case TILE_MON_05:
+		mon = new mon_bug();//Ghost;
+		break;
+	case TILE_MON_06:
+		mon = new mon_bug();//Human_thief;
+		break;
+	case TILE_MON_07:
+		mon = new mon_bug;
+		break;
+	case TILE_MON_08:
+		//< 5층에서만 보스 몬스터 생성
+		//if (m_nowFloor % 5 == 0)
+		{
+			mon = new Gyuriel;
+			MON_MGR->setBossMonster(mon);
+		}
+		break;
+	}
+
+	if (mon != nullptr)
+	{
+		mon->setPos(x, y);
+		addMonster(mon);
+	}
+}
+
 void MonsterMgr::addMonster(Monster *mon)
 {
 	m_monsterList.push_back( mon );
@@ -290,6 +337,27 @@ bool MonsterMgr::ShotCheck( character &player )
 		}
 	}
 	return false;
+}
+
+Monster* MonsterMgr::GetNearMonster(POINT pos)
+{
+    Monster* result = nullptr;
+
+    for (auto each : m_monsterList)
+    {
+        if (result == nullptr)
+        {
+            result = each;
+            continue;
+        }
+
+        int x = each->getPos().x - pos.x;
+        int y = each->getPos().y - pos.y;
+
+        double dist = sqrt((x * x) + (y * y));
+    }
+
+    return result;
 }
 
 //< 유닛 리스트 추가

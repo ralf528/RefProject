@@ -1,15 +1,5 @@
 #include "stdafx.h"
 #include "ImageNode.h"
-//#include "goblin.h"
-#include "Unitclass/mon_bug.h"
-//#include "ghoul.h"
-//#include "Dark_spider.h"
-//#include "Ghost.h"
-//#include "Human_thief.h"
-//#include "Human_knight.h"
-//#include "Boss_naid.h"
-//#include "Boss_gyuriel.h"
-
 #include "tileMap.h"
 
 using namespace myUTIL;
@@ -307,81 +297,10 @@ bool tileMap::loadMap( const char *path )
 					}
 				}
 			}
-			if( rand()%2 == 0 )
-			goto HERE;
 
-            //< 보스 타일이면 몬스터 생성
-			if( m_tile[i][j] == TILE_MON_01)
-			{
-				//< 몬스터 생성
-                Monster *mon = new mon_bug();// boss_naid;
-				mon->setPos( j * TILE_SIZE_X, i * TILE_SIZE_Y );
-				//< 리스트에 추가
-				MON_MGR->addMonster(mon);
-			}
-			else if( m_tile[i][j] == TILE_MON_02)
-			{
-				//< 몬스터 생성
-				Monster *mon = new mon_bug();//mon_bug;
-				mon->setPos( j * TILE_SIZE_X, i * TILE_SIZE_Y );
-				//< 리스트에 추가
-				MON_MGR->addMonster(mon);
-			}
-			else if( m_tile[i][j] == TILE_MON_03)
-			{
-				//< 몬스터 생성
-				Monster *mon = new mon_bug();//ghoul;
-				mon->setPos( j * TILE_SIZE_X, i * TILE_SIZE_Y );
-				//< 리스트에 추가
-				MON_MGR->addMonster(mon);
-			}
-			else if( m_tile[i][j] == TILE_MON_04)
-			{
-				//< 몬스터 생성
-				Monster *mon = new mon_bug();//Dark_spider;
-				mon->setPos( j * TILE_SIZE_X, i * TILE_SIZE_Y );
-				//< 리스트에 추가
-				MON_MGR->addMonster(mon);
-			}
-			else if( m_tile[i][j] == TILE_MON_05)
-			{
-				//< 몬스터 생성
-				Monster *mon = new mon_bug();//Ghost;
-				mon->setPos( j * TILE_SIZE_X, i * TILE_SIZE_Y );
-				//< 리스트에 추가
-				MON_MGR->addMonster(mon);
-			}
-
-			else if( m_tile[i][j] == TILE_MON_06)
-			{
-				//< 몬스터 생성
-				Monster *mon = new mon_bug();//Human_thief;
-				mon->setPos( j * TILE_SIZE_X, i * TILE_SIZE_Y );
-				//< 리스트에 추가
-				MON_MGR->addMonster(mon);
-			}
-
-			else if( m_tile[i][j] == TILE_MON_07)
-			{
-				//< 몬스터 생성
-				Monster *mon = new mon_bug;
-				mon->setPos( j * TILE_SIZE_X, i * TILE_SIZE_Y );
-				//< 리스트에 추가
-				MON_MGR->addMonster(mon);
-			}
-			else if( m_nowFloor%5 == 0 && m_tile[i][j] == TILE_MON_08)
-			//else if( m_tile[i][j] == TILE_MON_08 && true == HOST_SERVER->getHostis())
-			{
-				//< 5층에서만 보스 몬스터 생성
-				Monster *mon = new mon_bug;
-				mon->setPos( j * TILE_SIZE_X, i * TILE_SIZE_Y );
-				//< 리스트에 추가
-				MON_MGR->addMonster(mon);
-				MON_MGR->setBossMonster(mon);
-			}
 			//< 몬스터 추가
+			MON_MGR->CreateMonster(m_tile[i][j], j * TILE_SIZE_X, i * TILE_SIZE_Y);
 
-			HERE:
 			//< 아이템 타일이면 아이템 랜덤 생성
 			if( m_tile[i][j] == TILE_ITEM)
 			{
@@ -394,12 +313,14 @@ bool tileMap::loadMap( const char *path )
 					itemCnt++;
 				}
 			}
+
 			//< 계단 타일에 포탈 생성
 			if( m_tile[i][j] == TILE_STAIR )
 			{
 				m_portal.x = j * TILE_SIZE_X;
 				m_portal.y = i * TILE_SIZE_Y;
 			}
+
 			//< 기둥, 제단
 			if( m_tile[i][j] == TILE_COLLUM || m_tile[i][j] == OBJ_ALTAR || m_tile[i][j] == OBJ_ALTAR_DISABLE )
 			{
@@ -412,6 +333,7 @@ bool tileMap::loadMap( const char *path )
 	fclose(fp);	
 	return true;
 }
+
 //< 맵 해제
 bool tileMap::releaseMap( void )
 {

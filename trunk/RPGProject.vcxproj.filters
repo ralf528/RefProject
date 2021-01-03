@@ -277,6 +277,12 @@
     <ClInclude Include="SkillManager.h">
       <Filter>99_APP\03_SKILL</Filter>
     </ClInclude>
+    <ClInclude Include="UnitClass\Boss_gyuriel.h">
+      <Filter>99_APP\05_MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitClass\Boss_naid.h">
+      <Filter>99_APP\05_MONSTER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -428,6 +434,12 @@
     </ClCompile>
     <ClCompile Include="SkillManager.cpp">
       <Filter>99_APP\03_SKILL</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitClass\Boss_gyuriel.cpp">
+      <Filter>99_APP\05_MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitClass\Boss_naid.cpp">
+      <Filter>99_APP\05_MONSTER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
