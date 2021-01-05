@@ -50,21 +50,6 @@ void MonsterMgr::release(void)
 //< 갱신
 void MonsterMgr::update(float fDeltaTime)
 {
-	/////////////////////////////////////////////////////////////////////
-	//아더캐릭터
-	if( NULL != m_otherPlayer )
-	{
-		//< 캐릭터와 몬스터의 충돌체크
-		collision( *m_otherPlayer );	
-		//< 몬스터 피격 체크
-		beShotCheck( *m_otherPlayer );
-		//< 몬스터 마법 피격 체크
-		beShotSkillCheck( *m_otherPlayer );
-		//< 몬스터 타격 체크
-		ShotCheck( *m_otherPlayer );
-	}
-	/////////////////////////////////////////////////////////////////////////////
-
 	//< 캐릭터와 몬스터의 충돌체크
 	collision( *m_destPlayer );	
 	//< 몬스터 피격 체크
@@ -74,50 +59,20 @@ void MonsterMgr::update(float fDeltaTime)
 	//< 몬스터 타격 체크
 	ShotCheck( *m_destPlayer );
 
-	for( size_t i=0 ; i<m_monsterList.size() ; i++ )
+	for (size_t i = 0; i < m_monsterList.size(); i++)
 	{
 		if( NULL != m_monsterList[i] )
-		{	
-			if( NULL != m_otherPlayer )
+		{
+			if (m_destPlayer->getHP() > 0)
 			{
-				if(  m_otherPlayer->getHP() > 0 )
-				{
-					//< 가까운 플레이어 공격
-					POINT pos = m_monsterList[i]->getPos();
-					if(math::distancePtToPt(pos, m_destPlayer->getPos())
-						<= math::distancePtToPt(pos, m_otherPlayer->getPos()) )
-					{
-						//< 인식
-						m_monsterList[i]->recog(m_destPlayer->getPos());
-						//< 이동
-						m_monsterList[i]->move(m_destPlayer->getPos());
-						//< 공격
-						m_monsterList[i]->attack(m_destPlayer->getPos());
-					}
-					else
-					{
-						//< 인식
-						m_monsterList[i]->recog(m_otherPlayer->getPos());
-						//< 이동
-						m_monsterList[i]->move(m_otherPlayer->getPos());
-						//< 공격
-						m_monsterList[i]->attack(m_otherPlayer->getPos());
-					}
-				}
-			}
-			else 
-			{
-				if(  m_destPlayer->getHP() > 0 )
-				{
 				//< 인식
 				m_monsterList[i]->recog(m_destPlayer->getPos());
 				//< 이동
 				m_monsterList[i]->move(m_destPlayer->getPos());
 				//< 공격
 				m_monsterList[i]->attack(m_destPlayer->getPos());
-				}
 			}
-			//< 업데이트
+
 			m_monsterList[i]->update(fDeltaTime);
 		}
 	}
@@ -141,13 +96,6 @@ void MonsterMgr::setDestPlayer( character *player )
 	//< 연결만 하고 해제는 밖에서 처리
 	m_destPlayer = player;
 	addUnitList(player);
-}
-
-//< 아더 플레이어 연결
-void MonsterMgr::setOtherPlayer( character *other )
-{
-	m_otherPlayer = other;
-	addUnitList(other);
 }
 
 //< 몬스터 추가
@@ -316,7 +264,7 @@ bool MonsterMgr::ShotCheck( character &player )
                 player.beHit(dmg);
 
                 //< 아더가 죽었을 때
-                if (player.getHP() <= 0 && &player == m_otherPlayer)
+                if (player.getHP() <= 0)
                 {
                     LOG_MGR->addLog("PLAYER DIE");
                 }
@@ -377,11 +325,8 @@ void MonsterMgr::renderUnitList( HDC hdc )
 	if( m_destPlayer != NULL )
 	{
 		addUnitList(m_destPlayer);
-	}	
-	if( m_otherPlayer != NULL )
-	{
-		addUnitList(m_otherPlayer);
 	}
+
 	renderList_iter	iter = m_renderList.begin();
 
 	//마지막 요소까지 반복
@@ -410,7 +355,6 @@ bool MonsterMgr::releaseCertain(Unit *unit)
 		if(unit == eraseIter)
 		{
 			//m_renderList.erase(iter);
-			m_otherPlayer = NULL;
 			return true;
 		}
 

@@ -40,8 +40,6 @@ public:
 
 	//< 대상 플레이어 연결
 	void setDestPlayer( character *player );
-	//< 아더 플레이어 연결
-	void setOtherPlayer( character *other );
 
 	//< 몬스터 추가
 	void CreateMonster(E_TileBrush type, int x, int y);
@@ -80,8 +78,6 @@ private:
 	//map_playerList		m_playerList;
 	//< 현재 플레이어
 	character *			m_destPlayer;
-	//< 아더 플레이어
-	character *			m_otherPlayer;
 
 	unitRenderList		m_renderList;
 	renderList_iter		m_otherIter;

@@ -94,7 +94,7 @@ bool cWarrior::init(void)
     m_isAttacking = false;
 
     //< 현재 레벨 저장
-    m_levelFlag = getLevelInfo().getNowLevel();
+    m_PrefLevel = getLevelInfo().getNowLevel();
 
     //< 애니메이션 설정
     InitAnimInfo();
@@ -125,6 +125,7 @@ void cWarrior::update(float fDeltaTime)
         AniMgr::UpdateAni(m_DieAni_Info);
         return;
     }
+
     m_nowState = STATE_IDLE;
     //< 체력 마력 자동 재생
     {
@@ -151,7 +152,7 @@ void cWarrior::update(float fDeltaTime)
     //< 레벨 확인
     int temp = getLevelInfo().getNowLevel();
     //< 레벨이 증가하면 스텟 랜덤 증가
-    if (temp != m_levelFlag)
+    if (temp != m_PrefLevel)
     {
         int stt = rand() % 6;
         switch (stt)
@@ -166,7 +167,7 @@ void cWarrior::update(float fDeltaTime)
             incIntel(1);
             break;
         }
-        m_levelFlag = temp;
+        m_PrefLevel = temp;
     }
 
     //< 캐릭터 무브
@@ -183,12 +184,15 @@ void cWarrior::update(float fDeltaTime)
     dash();
 
     //< 애니메이션 갱신
-    AniMgr::UpdateAni(m_IdleAni_Info);
-    AniMgr::UpdateAni(m_MoveAni_Info);
-    AniMgr::UpdateAni(m_AtckAni_Info);
-    AniMgr::UpdateAni(m_HitEff_Info);
-    AniMgr::UpdateAni(m_beHitAni_Info);
-    AniMgr::UpdateAni(m_DashAni_Info);
+	for (auto each : m_Animations)
+	{
+		if (each.first == imgID_WARRIOR_DIE)
+		{
+			continue;
+		}
+
+		AniMgr::UpdateAni(each.second);
+	}
 }
 //< 랜더
 void cWarrior::render(HDC hdc)
@@ -196,37 +200,38 @@ void cWarrior::render(HDC hdc)
     //< 죽었다면
     if (m_nowState == STATE_DIE)
     {
-        AniMgr::Render(hdc, m_DieAni_Info, m_pos, m_dir, imgID_WARRIOR_DIE);
+		PlayAnimation(hdc, imgID_WARRIOR_DIE);
     }
     //< 피격 애니메이션
     else if (m_beHitAni_Info->flag == true)
     {
-        AniMgr::Render(hdc, m_beHitAni_Info, m_pos, m_dir, imgID_WARRIOR_BEHIT);
+		PlayAnimation(hdc, imgID_WARRIOR_BEHIT);
     }
     //< 대쉬 애니메이션
     else if (m_DashAni_Info->flag == true)
     {
-        AniMgr::Render(hdc, m_DashAni_Info, m_pos, 0, imgID_WARRIOR_DASH);
+		PlayAnimation(hdc, imgID_WARRIOR_DASH);
     }
     //< 공격중이면
     else if (m_AtckAni_Info->flag == true)
     {
-        AniMgr::Render(hdc, m_AtckAni_Info, m_pos, m_dir, imgID_WARRIOR_ATK);
+		PlayAnimation(hdc, imgID_WARRIOR_ATK);
     }
     //< 이동 중이면
     else if (m_nowState == STATE_MOVE)
     {
-        AniMgr::Render(hdc, m_MoveAni_Info, m_pos, m_dir, imgID_WARRIOR_MOVE);
+		PlayAnimation(hdc, imgID_WARRIOR_MOVE);
     }
     //< 대기상태
     else
     {
-        AniMgr::Render(hdc, m_IdleAni_Info, m_pos, m_dir, imgID_WARRIOR_IDLE);
+		PlayAnimation(hdc, imgID_WARRIOR_IDLE);
     }
+
     //< 피격 이펙트
     if (m_HitEff_Info->flag == true)
     {
-        AniMgr::Render(hdc, m_HitEff_Info, m_pos, 0, imgID_GETHIT_1);
+		PlayAnimation(hdc, imgID_GETHIT_1);
     }
 
     //마법 구체 렌더
@@ -305,10 +310,10 @@ bool cWarrior::beHit(int damage)
     //< 죽었다면 true 리턴
     if (getHP() <= 0 && m_nowState != STATE_DIE)
     {
-        //#ifdef _DEBUG
-        //		setHP( 1 );
-        //		return false;
-        //#endif
+#ifdef _DEBUG
+		setHP(1);
+		return false;
+#endif
         setHP(0);
         m_nowState = STATE_DIE;
         m_DieAni_Info->flag = true;
@@ -560,83 +565,81 @@ int cWarrior::getDamage(void)
     return ball->getDamage() + getStrong();
 }
 
-//< 충돌체 얻기 ( 아이템 획득 )
-void cWarrior::gainCollider(E_TileBrush &obj)
-{
-    //< 오브젝트에 따른 반응
-    //< 아이템이면 인벤토리에 추가
-    if (obj >= ITEM_FIRST && obj < ITEM_END)
-    {
-        //m_state.m_nowHP+=10;
-        m_inventory->addItem(obj);
-    }
-    //< 그 외에는 충돌체크
-    else
-    {
-        setPosToPrev();
-    }
-}
-
-//< 렉트 설정
-void cWarrior::setRect(void)
-{
-    SetRect(&m_rect,
-        m_pos.x - CHARACTER_SIZE, m_pos.y - CHARACTER_SIZE,
-        m_pos.x + CHARACTER_SIZE, m_pos.y + CHARACTER_SIZE);
-}
-
 void cWarrior::InitAnimInfo(void)
 {
+	releaseAniInfo();
+
     //< 아이들 애니메이션
-    SAFE_DELETE(m_IdleAni_Info);
-    m_IdleAni_Info = new ANI_INFO;
+	LPANI_INFO IdleAni_Info = new ANI_INFO;
     SIZE idleAniSize = RC_MGR->findImage(imgID_WARRIOR_IDLE)->getSize();
-    AniMgr::SetAnimInfo(m_IdleAni_Info, idleAniSize, 8, 8, 50, true, true, true);
+    AniMgr::SetAnimInfo(IdleAni_Info, idleAniSize, 8, 8, 50, true, true, true);
+	m_Animations.insert(make_pair(imgID_WARRIOR_IDLE, IdleAni_Info));
    
     //< 이동 애니메이션
     SAFE_DELETE(m_MoveAni_Info);
     m_MoveAni_Info = new ANI_INFO;
     SIZE moveAniSize = RC_MGR->findImage(imgID_WARRIOR_MOVE)->getSize();
     AniMgr::SetAnimInfo(m_MoveAni_Info, moveAniSize, 8, 8, 50, false, false, true);
+	m_Animations.insert(make_pair(imgID_WARRIOR_MOVE, m_MoveAni_Info));
 
     //< 공격 애니메이션
     SAFE_DELETE(m_AtckAni_Info);
     m_AtckAni_Info = new ANI_INFO;
     SIZE atkAniSize = RC_MGR->findImage(imgID_WARRIOR_ATK)->getSize();
     AniMgr::SetAnimInfo(m_AtckAni_Info, atkAniSize, 18, 8, 20, false, false, true);
+	m_Animations.insert(make_pair(imgID_WARRIOR_ATK, m_AtckAni_Info));
 
     //< 사망 애니메이션
     SAFE_DELETE(m_DieAni_Info);
     m_DieAni_Info = new ANI_INFO;
     SIZE dieAniSize = RC_MGR->findImage(imgID_WARRIOR_DIE)->getSize();
     AniMgr::SetAnimInfo(m_DieAni_Info, dieAniSize, 20, 8, 200, false, false, false);
+	m_Animations.insert(make_pair(imgID_WARRIOR_DIE, m_DieAni_Info));
 
     //< 피격 애니메이션
     SAFE_DELETE(m_beHitAni_Info);
     m_beHitAni_Info = new ANI_INFO;
     SIZE behitAniSize = RC_MGR->findImage(imgID_WARRIOR_BEHIT)->getSize();
     AniMgr::SetAnimInfo(m_beHitAni_Info, behitAniSize, 7, 8, 20, false, false, true);
+	m_Animations.insert(make_pair(imgID_WARRIOR_BEHIT, m_beHitAni_Info));
 
     //< 타격 애니메이션
     SAFE_DELETE(m_HitEff_Info);
     m_HitEff_Info = new ANI_INFO;
     SIZE hitAniSize = RC_MGR->findImage(imgID_GETHIT_1)->getSize();
     AniMgr::SetAnimInfo(m_HitEff_Info, hitAniSize, 6, 1, 50, false, false, true);
+	m_Animations.insert(make_pair(imgID_GETHIT_1, m_HitEff_Info));
 
     //< 대쉬 애니메이션
     SAFE_DELETE(m_DashAni_Info);
     m_DashAni_Info = new ANI_INFO;
     SIZE dashAniSize = RC_MGR->findImage(imgID_WARRIOR_DASH)->getSize();
     AniMgr::SetAnimInfo(m_DashAni_Info, dashAniSize, 5, 1, 40, false, false, true);
+	m_Animations.insert(make_pair(imgID_WARRIOR_DASH, m_DashAni_Info));
 }
 
 void cWarrior::releaseAniInfo(void)
 {
-    SAFE_DELETE(m_IdleAni_Info);
-    SAFE_DELETE(m_MoveAni_Info);
-    SAFE_DELETE(m_AtckAni_Info);
-    SAFE_DELETE(m_DieAni_Info);
-    SAFE_DELETE(m_HitEff_Info);
-    SAFE_DELETE(m_beHitAni_Info);
-    SAFE_DELETE(m_DashAni_Info);
+	for (auto each : m_Animations)
+	{
+		SAFE_DELETE(each.second);
+	}
+	m_Animations.clear();
+}
+
+void cWarrior::PlayAnimation(HDC hdc, imgID animation)
+{
+	auto found = m_Animations.find(animation);
+	if (found != m_Animations.end())
+	{
+		switch (animation)
+		{
+		case imgID_WARRIOR_DASH:
+		case imgID_GETHIT_1:
+			AniMgr::Render(hdc, found->second, m_pos, 0, animation);
+		default:
+			AniMgr::Render(hdc, found->second, m_pos, m_dir, animation);
+			break;
+		}
+	}
 }

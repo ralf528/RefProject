@@ -15,12 +15,12 @@ class character : public Unit
 //< 생성자 소멸자
 public:
 	character(void);
-	~character(void);
+	virtual ~character(void);
 
 //< 인터페이스
 public:
 	//< 초기화
-	virtual bool init(void) = 0;
+	virtual bool init(void);
 	//< 해제
 	virtual void release(void) = 0;
 	//< 갱신
@@ -29,16 +29,14 @@ public:
 	virtual void render(HDC hdc) = 0;
 
 	//< 공격
-	virtual void attack( void ) = 0;
+	virtual void attack(void) = 0;
 	//< 타격
 	virtual bool beHit(int damage) = 0;
 	//< 이동
 	virtual void move(float fDeltaTime) = 0;
 	//< 대쉬
-	virtual void dash( void ) = 0;
+	virtual void dash(void) {};
 
-	//< 충돌체(아이템 등) 얻기
-	virtual void gainCollider( E_TileBrush &obj );
 	//< 아이템 사용
 	virtual void useItem( void );
 	//< 인벤토리 랜더
@@ -64,6 +62,9 @@ public:
 
 	//< 데미지 얻기
 	virtual int getDamage(void) { return getStrong(); };
+
+	//< 충돌체(아이템 등) 얻기
+	virtual void gainCollider(E_TileBrush &obj);
 
 	//< 충돌체 상태
 	void setBallFlag( bool flag );
@@ -93,11 +94,7 @@ public:
 
     virtual void ProcessSkill(int nIndex) = 0;
 
-//< 멤버 변수
 protected:
-	//< 살았는지
-	bool m_isLive;
-	//< 레벨 정보
 	Level m_level;
 	//< 이동 전 좌표
 	POINT m_prevPos;
@@ -110,6 +107,11 @@ protected:
 	//< 주위의 맵 정보
 	POINT vertex[8];
 
+	// state
+	bool m_isLive;
+	bool m_isAttacking;
+
+	// Skill
 	//< 공격 충돌체
 	cProjectile *ball;
 	//< 스킬 충돌체
@@ -117,17 +119,12 @@ protected:
 
 	//< 이동 딜레이
 	DELEY m_moveDeley;
-	
 	//< 상태 딜레이
 	DELEY m_conDeley;
-
 	//< 공격 딜레이
 	DELEY attDeley;
 	//< 전체 마법 딜레이
 	DELEY wholeSkillDeley;
 	//< 대쉬
 	unsigned int dash_count;
-
-	//< 공격중
-	bool m_isAttacking;
 };

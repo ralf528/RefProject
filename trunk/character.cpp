@@ -49,6 +49,12 @@ bool character::init(void)
 	//< 대쉬 카운트
 	dash_count = 0;
 
+	//< 인벤토리 생성
+	if (NULL == m_inventory)
+	{
+		m_inventory = new Inventory;
+	}
+
 	//< 공격 충돌체
 	if( NULL == ball )
 	{
@@ -69,29 +75,13 @@ bool character::init(void)
 
 	return true;
 }
+
 //< 해제
 void character::release(void)
 {
 	SAFE_DELETE( m_inventory );
 	SAFE_DELETE( ball );
 	SAFE_DELETE( skill );
-}
-
-//< 충돌체 얻기 ( 아이템 획득 )
-void character::gainCollider( E_TileBrush &obj )
-{
-	//< 오브젝트에 따른 반응
-	//< 아이템이면 인벤토리에 추가
-	if( obj >= ITEM_FIRST && obj < ITEM_END )
-	{
-		//m_state.m_nowHP+=10;
-		m_inventory->addItem( obj );
-	}
-	//< 그 외에는 충돌체크
-	else
-	{
-		setPosToPrev();
-	}
 }
 
 //< 아이템 사용
@@ -214,10 +204,28 @@ RECT character::getBallRect(void)
 {
 	return ball->getRect();	
 }
+
 //< 스킬 렉트 반환
 RECT character::getSkillRect(void)
 {
 	return skill->getRect();
+}
+
+//< 충돌체 얻기 ( 아이템 획득 )
+void character::gainCollider(E_TileBrush &obj)
+{
+	//< 오브젝트에 따른 반응
+	//< 아이템이면 인벤토리에 추가
+	if (obj >= ITEM_FIRST && obj < ITEM_END)
+	{
+		//m_state.m_nowHP+=10;
+		m_inventory->addItem(obj);
+	}
+	//< 그 외에는 충돌체크
+	else
+	{
+		setPosToPrev();
+	}
 }
 
 //< 충돌체 상태

@@ -5,47 +5,42 @@
 //< 게임 캐릭터 클래스
 class cWarrior : public character
 {
-//< 생성자 소멸자
 public:
-	cWarrior();
-	~cWarrior();
+	cWarrior(void);
+	virtual ~cWarrior(void);
 
-//< 인터페이스
 public:
 	//< 초기화
-	virtual bool init();
+	virtual bool init() override;
 	//< 해제
-	virtual void release();
+	virtual void release() override;
 	//< 갱신
-	virtual void update(float fDeltaTime);
+	virtual void update(float fDeltaTime) override;
 	//< 랜더
-	virtual void render(HDC hdc);
+	virtual void render(HDC hdc) override;
 	//< 하반신 랜더
 	void renderLower(HDC hdc);
 
 	//< 공격
-	virtual void attack();
+	virtual void attack() override;
 	//< 타격
-	virtual bool beHit(int damage);
+	virtual bool beHit(int damage) override;
 	//< 이동
-	virtual void move(float fDeltaTime);
+	virtual void move(float fDeltaTime) override;
 	//< 대쉬
-	virtual void dash();
+	virtual void dash() override;
 
 	//< 데미지 얻기
 	virtual int getDamage();
-
-	//< 충돌체(아이템 등) 얻기
-	virtual void gainCollider( E_TileBrush &obj );
-	//< 렉트 설정
-	void setRect();
 
 	//애니메이션 설정
 	void InitAnimInfo();
 	//해제
 	void releaseAniInfo();
 
-    virtual void ProcessSkill(int nIndex);
+	void PlayAnimation(HDC hdc, imgID animation);
+
+    virtual void ProcessSkill(int nIndex) override;
 
     void AttackTrigger();
     void Inbeatable();
@@ -59,20 +54,19 @@ protected:
 	int m_mpCount;
 
 	//< 현재 레벨
-	int m_levelFlag;
+	int m_PrefLevel;
 
 	//< 현재 상태 정보
 	int m_nowState;
 
     //< 애니메이션 정보
-	LPANI_INFO		m_IdleAni_Info;
 	LPANI_INFO		m_MoveAni_Info;
 	LPANI_INFO		m_AtckAni_Info;
 	LPANI_INFO		m_DieAni_Info;
 	LPANI_INFO		m_beHitAni_Info;
 	LPANI_INFO		m_HitEff_Info;
 	LPANI_INFO		m_DashAni_Info;
-    //std::map<int, LPANI_INFO> m_Animations;
+    std::map<imgID, LPANI_INFO> m_Animations;
 
 	//< 무적모드 딜레이
 	DELEY m_inbeatDeley;

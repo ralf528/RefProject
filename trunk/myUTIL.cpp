@@ -448,19 +448,11 @@ namespace myUTIL
 		//< 초기화
 		void initFpsTime(void)
 		{
-			//타이머 생성
-			//m_pTimer = new JN_Timer;
-			//타이머 초기화
 			m_pTimer.init();
 		}
 		//< 해제
 		void releaseFpsTime(void)
 		{
-			/*if( NULL != m_pTimer )
-			{
-			delete m_pTimer;
-			m_pTimer=NULL;
-			}*/
 		}
 
 		//< 프로그램 시작 후 흘러간 전체 시간 얻기
@@ -476,10 +468,6 @@ namespace myUTIL
 		//< 프레임 타임 업데이트( 기본 FPS 60 )
 		void fpsTimeUpdate( float fLock )
 		{
-			/*if( NULL == m_pTimer )
-			{
-			return;
-			}*/
 			m_pTimer.tick( fLock );
 		}
 		//< 프레임 렌더링 하기

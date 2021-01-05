@@ -122,13 +122,10 @@ void			Timer::tick( float fLockFPS  )
 //< 현재의 FPS를 얻어온다
 unsigned long	Timer::getFrameRate( TCHAR* str  ) CONST
 {
-	if( NULL == str )
+	if (str != nullptr)
 	{
-		return m_frameRate;
+		sprintf_s(str, strlen(str), "FPS : %d", m_frameRate);
 	}
-
-	//sprintf_s( str , strlen(str), "FPS : %d", m_frameRate );
 
 	return m_frameRate;
 }
-

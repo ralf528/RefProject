@@ -40,8 +40,6 @@ public:
 
 	//애니메이션 설정
 	void setAniInfo(void);
-	//갱신
-	void updateAni( LPANI_INFO aniInfo );
 
 //< 멤버
 private:

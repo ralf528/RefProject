@@ -90,13 +90,13 @@ void Gyuriel::release(void)
 void Gyuriel::update(float fDeltaTime)
 {
 	//< 애니메이션 갱신
-	updateAni( m_IdleAni_Info );
-	updateAni( m_MoveAni_Info );
-	updateAni( m_AtckAni_Info );
-	updateAni( m_beHitAni_Info );
-	updateAni( m_DieAni_Info );
-	updateAni( m_HitAni_Info );
-	updateAni( m_spclAni_info );
+	AniMgr::UpdateAni(m_IdleAni_Info);
+	AniMgr::UpdateAni(m_MoveAni_Info);
+	AniMgr::UpdateAni(m_AtckAni_Info);
+	AniMgr::UpdateAni(m_beHitAni_Info);
+	AniMgr::UpdateAni(m_DieAni_Info);
+	AniMgr::UpdateAni(m_HitAni_Info);
+	AniMgr::UpdateAni(m_spclAni_info);
 	//SOUND_MGR->soundUpdate();
 }
 
@@ -124,8 +124,8 @@ void Gyuriel::render(HDC hdc)
 					siz.cx, siz.cy,
 					m_IdleAni_Info->nowFrame *	siz.cx,	m_IdleAni_Info->nowFrameY * siz.cy,
 					siz.cx, siz.cy);
-				break;
 			}
+			break;
 		case STATE_ATTACK:
 			{
 				if( m_spclAni_info->flag == true )
@@ -146,8 +146,8 @@ void Gyuriel::render(HDC hdc)
 						m_AtckAni_Info->nowFrame *	siz.cx,	m_dir * siz.cy,
 						siz.cx, siz.cy);
 				}
-				break;
 			}
+			break;
 		case STATE_CHASE:
 			{
 				SIZE siz = m_MoveAni_Info->aniSize;
@@ -156,8 +156,8 @@ void Gyuriel::render(HDC hdc)
 					siz.cx, siz.cy,
 					m_MoveAni_Info->nowFrame *	siz.cx,	m_dir * siz.cy,
 					siz.cx, siz.cy);
-				break;
 			}
+			break;
 		case STATE_DIE:
 			{
 				SIZE siz = m_DieAni_Info->aniSize;
@@ -170,6 +170,7 @@ void Gyuriel::render(HDC hdc)
 			break;
 		}
 	}
+
 	//< 피격 이펙트
 	if( m_HitAni_Info->flag == true )
 	{
@@ -180,11 +181,13 @@ void Gyuriel::render(HDC hdc)
 			m_HitAni_Info->nowFrame * siz.cx, 0,
 			siz.cx, siz.cy);
 	}
+
 	//< 남은 HP 표시
 	renderHPbar(hdc);
 
 	//기본 공격 랜더
 	ball->render(hdc);
+
 	//< 스킬 랜더
 	m_skill_collum->render(hdc);
 	m_skill_destruction->render(hdc);
@@ -564,36 +567,6 @@ void Gyuriel::setAniInfo( void )
 	m_HitAni_Info->flag=false;
 	m_HitAni_Info->loop=false;
 	m_HitAni_Info->playAni=true;
-}
-
-void Gyuriel::updateAni( LPANI_INFO info )
-{
-	if(NULL!=info && true == info->flag)
-	{
-		DWORD curTime = GetTickCount();
-
-		if( info->lastTime + info->frameSpeed <= curTime )
-		{
-			info->nowFrame++;
-
-			info->lastTime=curTime;
-
-			if(info->frameCntX <= info->nowFrame)
-			{
-				if( info->playAni == false )
-				{
-					info->nowFrame=info->frameCntX-1;
-					info->flag=false;
-					return;
-				}
-				info->nowFrame=0;
-				if( info->loop == false )
-				{
-					info->flag=false;
-				}
-			}
-		}
-	}
 }
 
 //해제

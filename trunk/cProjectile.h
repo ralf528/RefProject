@@ -43,6 +43,8 @@ public:
 	//< 렉트
 	virtual RECT getRect(void) { return m_rect; }
 
+	void SetPrevDelay(float prevDelay) { m_fPrevDelay = prevDelay; }
+
 protected:
 	//< 내부 함수
 	//렉트 설정

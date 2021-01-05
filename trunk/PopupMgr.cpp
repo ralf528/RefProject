@@ -22,7 +22,7 @@
 #include "Scene/Popup/Popup_Lobby_EnterRoom_open.h"
 #include "Scene/Popup/Popup_Lobby_EnterRoom_Success.h"
 //#include "Popup_Lobby_EnterRoom_Faill.h"
-//#include "Popup_Game_GameOver.h"
+#include "Scene/Popup/Popup_Game_GameOver.h"
 //#include "Popup_Game_Rank.h"
 //#include "Popup_Game_WaitUser.h"
 
@@ -377,7 +377,7 @@ bool PopupMgr::changePopup( unsigned int PopupID )
 				//< 팝업 지우기
 				deletePopup( );
 				//< 할당
-				//nowPopup = new Popup_Game_GameOver;
+				nowPopup = new Popup_Game_GameOver;
 				//< 팝업 상태 갱신
 				oldPopupFlag = POPUP_GAME_OVER;
 				m_checkPopup_ON = true;
@@ -396,7 +396,14 @@ bool PopupMgr::changePopup( unsigned int PopupID )
 			break;
 		}
 		//< 초기화
-		nowPopup->init();
+		if (nowPopup != nullptr)
+		{
+			nowPopup->init();
+		}
+		else
+		{
+			LOG_MGR->addLog("[PopupMgr::changePopup] Invalid popup(%d)", PopupID);
+		}
 	}
 	return true;
 }

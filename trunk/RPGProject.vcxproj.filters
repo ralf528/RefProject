@@ -283,6 +283,9 @@
     <ClInclude Include="WorldManager.h">
       <Filter>99_APP\02_TILE_MAP</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Popup\Popup_Game_GameOver.h">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -440,6 +443,9 @@
     </ClCompile>
     <ClCompile Include="WorldManager.cpp">
       <Filter>99_APP\02_TILE_MAP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Popup\Popup_Game_GameOver.cpp">
+      <Filter>99_APP\01_SCENE\Popup</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

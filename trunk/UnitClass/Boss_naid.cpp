@@ -79,12 +79,12 @@ void boss_naid::release(void)
 void boss_naid::update( void )
 {
 	//< 애니메이션 갱신
-	updateAni( m_IdleAni_Info );
-	updateAni( m_MoveAni_Info );
-	updateAni( m_AtckAni_Info );
-	updateAni( m_beHitAni_Info );
-	updateAni( m_DieAni_Info );
-	updateAni( m_HitAni_Info );
+	AniMgr::UpdateAni( m_IdleAni_Info );
+	AniMgr::UpdateAni( m_MoveAni_Info );
+	AniMgr::UpdateAni( m_AtckAni_Info );
+	AniMgr::UpdateAni( m_beHitAni_Info );
+	AniMgr::UpdateAni( m_DieAni_Info );
+	AniMgr::UpdateAni( m_HitAni_Info );
 }
 //< 랜더
 void boss_naid::render(HDC hdc)
@@ -431,34 +431,4 @@ void boss_naid::setAniInfo( void )
 	m_HitAni_Info->flag=false;
 	m_HitAni_Info->loop=false;
 	m_HitAni_Info->playAni=true;
-}
-
-void boss_naid::updateAni( LPANI_INFO info )
-{
-	if(NULL!=info && true == info->flag)
-	{
-		DWORD curTime = GetTickCount();
-
-		if( info->lastTime + info->frameSpeed <= curTime )
-		{
-			info->nowFrame++;
-
-			info->lastTime=curTime;
-
-			if(info->frameCntX <= info->nowFrame)
-			{
-				if( info->playAni == false )
-				{
-					info->nowFrame=info->frameCntX-1;
-					info->flag=false;
-					return;
-				}
-				info->nowFrame=0;
-				if( info->loop == false )
-				{
-					info->flag=false;
-				}
-			}
-		}
-	}
 }

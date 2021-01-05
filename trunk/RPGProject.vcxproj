@@ -181,6 +181,7 @@
     <ClInclude Include="Scene\Chat\ChattingBox.h" />
     <ClInclude Include="Scene\Chat\ChattingGame.h" />
     <ClInclude Include="Scene\Popup\Popup.h" />
+    <ClInclude Include="Scene\Popup\Popup_Game_GameOver.h" />
     <ClInclude Include="Scene\Popup\Popup_Lobby_EnterRoom_open.h" />
     <ClInclude Include="Scene\Popup\Popup_Lobby_EnterRoom_Success.h" />
     <ClInclude Include="Scene\Popup\Popup_Lobby_MakeRoom_Open.h" />
@@ -242,6 +243,7 @@
     <ClCompile Include="Scene\Chat\ChattingBox.cpp" />
     <ClCompile Include="Scene\Chat\ChattingGame.cpp" />
     <ClCompile Include="Scene\Popup\Popup.cpp" />
+    <ClCompile Include="Scene\Popup\Popup_Game_GameOver.cpp" />
     <ClCompile Include="Scene\Popup\Popup_Lobby_EnterRoom_open.cpp" />
     <ClCompile Include="Scene\Popup\Popup_Lobby_EnterRoom_Success.cpp" />
     <ClCompile Include="Scene\Popup\Popup_Lobby_MakeRoom_Open.cpp" />
