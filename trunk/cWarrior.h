@@ -38,7 +38,9 @@ public:
 	//해제
 	void releaseAniInfo();
 
-	void PlayAnimation(HDC hdc, imgID animation);
+	void RenderAnimation(HDC hdc, imgID animation);
+	void StartAnimation(imgID animation);
+	bool IsPlayingAnimation(imgID animation);
 
     virtual void ProcessSkill(int nIndex) override;
 
@@ -60,12 +62,6 @@ protected:
 	int m_nowState;
 
     //< 애니메이션 정보
-	LPANI_INFO		m_MoveAni_Info;
-	LPANI_INFO		m_AtckAni_Info;
-	LPANI_INFO		m_DieAni_Info;
-	LPANI_INFO		m_beHitAni_Info;
-	LPANI_INFO		m_HitEff_Info;
-	LPANI_INFO		m_DashAni_Info;
     std::map<imgID, LPANI_INFO> m_Animations;
 
 	//< 무적모드 딜레이

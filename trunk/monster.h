@@ -13,7 +13,8 @@ enum
 	STATE_IDLE,
 	STATE_CHASE,
 	STATE_MOVE = STATE_CHASE,
-	STATE_ATTACK
+	STATE_ATTACK,
+	STATE_BEHIT,
 };
 
 class Monster : public Unit
