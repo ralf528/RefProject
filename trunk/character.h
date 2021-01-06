@@ -22,20 +22,28 @@ public:
 	//< 초기화
 	virtual bool init(void);
 	//< 해제
-	virtual void release(void) = 0;
+	virtual void release(void);
 	//< 갱신
-	virtual void update(float fDeltaTime) = 0;
+	virtual void update(float fDeltaTime);
 	//< 랜더
-	virtual void render(HDC hdc) = 0;
+	virtual void render(HDC hdc);
+	//< 하반신 랜더
+	virtual void renderLower(HDC hdc);
 
 	//< 공격
-	virtual void attack(void) = 0;
+	virtual void attack(void);
 	//< 타격
-	virtual bool beHit(int damage) = 0;
+	virtual bool beHit(int damage);
 	//< 이동
-	virtual void move(float fDeltaTime) = 0;
-	//< 대쉬
-	virtual void dash(void) {};
+	virtual void move(float fDeltaTime);
+
+	// 애니메이션
+	void InitAnimInfo();
+	void releaseAniInfo();
+
+	void RenderAnimation(HDC hdc, imgID animation);
+	void StartAnimation(imgID animation);
+	bool IsPlayingAnimation(imgID animation);
 
 	//< 아이템 사용
 	virtual void useItem( void );
@@ -61,7 +69,7 @@ public:
 	RECT getSkillRect(void);
 
 	//< 데미지 얻기
-	virtual int getDamage(void) { return getStrong(); };
+	virtual int getDamage(void);
 
 	//< 충돌체(아이템 등) 얻기
 	virtual void gainCollider(E_TileBrush &obj);
@@ -92,20 +100,32 @@ public:
 	void setStateDelay(unsigned int deley) { m_conDeley.m_deley = deley; }
 	void setDelayTick(void) { m_conDeley.m_lastTime = GetTickCount(); }
 
-    virtual void ProcessSkill(int nIndex) = 0;
+	//< 스킬
+    virtual void ProcessSkill(int nIndex);
+
+	//< 공격 트리거
+	void AttackTrigger();
 
 protected:
 	Level m_level;
+	int m_PrefLevel;
+
 	//< 이동 전 좌표
 	POINT m_prevPos;
 	//< 캐릭터 렉트
 	RECT m_rect;
 	
+	//< 애니메이션 정보
+	std::map<imgID, LPANI_INFO> m_Animations;
+
 	//< 인벤토리
 	Inventory *m_inventory;
 
 	//< 주위의 맵 정보
 	POINT vertex[8];
+
+	//< 현재 상태 정보
+	int m_nowState;
 
 	// state
 	bool m_isLive;
