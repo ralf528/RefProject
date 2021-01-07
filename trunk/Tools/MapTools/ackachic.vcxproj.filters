@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="01_CORE">
+      <UniqueIdentifier>{1a7b4638-2908-48da-8ec3-7bf6fc4d6aa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00_BASE">
+      <UniqueIdentifier>{d5262999-134d-446c-a1c6-de64f69e449b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02_RESOURCE">
+      <UniqueIdentifier>{ac6acdb5-878d-49cc-9220-6b6fd21b28d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON">
+      <UniqueIdentifier>{3079b3ee-4041-4994-b2cc-910989b67264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\00_EXTERN HEADER">
+      <UniqueIdentifier>{90115453-5def-4583-86b5-d7d17234a79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MGR">
+      <UniqueIdentifier>{a51a318a-d2ec-404d-a236-ae97ce6e8e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP">
+      <UniqueIdentifier>{987f9c9a-a5ed-4138-988f-437a8c04e4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\00_GAME_MGR">
+      <UniqueIdentifier>{fde9459c-e32e-47bf-9884-89a2b79f63e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON\폰트">
+      <UniqueIdentifier>{06eb93de-d97d-4a0e-8b61-ad8e7b77e8da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MGR\랜더매니저">
+      <UniqueIdentifier>{a1ec8d77-3a5f-4b08-b9be-2bec7db1af3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MGR\리소스매니저">
+      <UniqueIdentifier>{4eea9c31-0c09-4c27-a12a-de3771e46e00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\01_COMMON\전역">
+      <UniqueIdentifier>{4f51b771-25df-4336-9549-da537581fa96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_CORE\02_MGR\로그매니저">
+      <UniqueIdentifier>{d783b392-94a3-4c85-89cc-0dd11437ba4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\02_CAMERA">
+      <UniqueIdentifier>{2be7abdc-696a-47e6-880a-5767654bd6f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_APP\01_MAP_TOOL">
+      <UniqueIdentifier>{fd5e4ae8-3be5-4e2e-8872-655a3237f063}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>00_BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>00_BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>01_CORE\00_EXTERN HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="external.h">
+      <Filter>01_CORE\00_EXTERN HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMgr.h">
+      <Filter>99_APP\00_GAME_MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="myType.h">
+      <Filter>01_CORE\00_EXTERN HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="MY_FontMgr.h">
+      <Filter>01_CORE\01_COMMON\폰트</Filter>
+    </ClInclude>
+    <ClInclude Include="tileMap.h">
+      <Filter>99_APP\01_MAP_TOOL</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderMgr.h">
+      <Filter>01_CORE\02_MGR\랜더매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMgr.h">
+      <Filter>01_CORE\02_MGR\리소스매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageNode.h">
+      <Filter>01_CORE\02_MGR\랜더매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>01_CORE\01_COMMON\전역</Filter>
+    </ClInclude>
+    <ClInclude Include="myUTIL.h">
+      <Filter>01_CORE\01_COMMON\전역</Filter>
+    </ClInclude>
+    <ClInclude Include="JN_LogMgr.h">
+      <Filter>01_CORE\02_MGR\로그매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>01_CORE\02_MGR\리소스매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>99_APP\02_CAMERA</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>02_RESOURCE</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>00_BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="winmain.cpp">
+      <Filter>00_BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMgr.cpp">
+      <Filter>99_APP\00_GAME_MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="MY_FontMgr.cpp">
+      <Filter>01_CORE\01_COMMON\폰트</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderMgr.cpp">
+      <Filter>01_CORE\02_MGR\랜더매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMgr.cpp">
+      <Filter>01_CORE\02_MGR\리소스매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="tileMap.cpp">
+      <Filter>99_APP\01_MAP_TOOL</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageNode.cpp">
+      <Filter>01_CORE\02_MGR\랜더매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="myUTIL.cpp">
+      <Filter>01_CORE\01_COMMON\전역</Filter>
+    </ClCompile>
+    <ClCompile Include="JN_LogMgr.cpp">
+      <Filter>01_CORE\02_MGR\로그매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>01_CORE\02_MGR\리소스매니저</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Data\Map\map1.txt">
+      <Filter>99_APP\01_MAP_TOOL</Filter>
+    </Text>
+    <Text Include="Data\Map\map2.txt">
+      <Filter>99_APP\01_MAP_TOOL</Filter>
+    </Text>
+    <Text Include="Data\Map\map3.txt">
+      <Filter>99_APP\01_MAP_TOOL</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ackachic.rc">
+      <Filter>02_RESOURCE</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
