@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "PlayerCharacter.h"
-#include "cWarrior.h"
 
 void PlayerCharacter::Init()
 {
-    m_character = new cWarrior();
+    m_character = new character();
     m_character->init();
     SetAutoMode(false);
     SAFE_DELETE(m_pTarget);

@@ -149,7 +149,6 @@
     <ClInclude Include="character.h" />
     <ClInclude Include="CheckBox.h" />
     <ClInclude Include="cParticle.h" />
-    <ClInclude Include="cWarrior.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="external.h" />
@@ -215,7 +214,6 @@
     <ClCompile Include="character.cpp" />
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="cParticle.cpp" />
-    <ClCompile Include="cWarrior.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="ImageNode.cpp" />
     <ClCompile Include="InputString.cpp" />

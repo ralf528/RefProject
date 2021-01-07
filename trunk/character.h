@@ -106,6 +106,13 @@ public:
 	//< 공격 트리거
 	void AttackTrigger();
 
+	//< 대쉬
+	void UpdateDash();
+
+	void Inbeatable();
+	void DashTrigger();
+	void ShootWholeSkill();
+
 protected:
 	Level m_level;
 	int m_PrefLevel;
@@ -145,6 +152,12 @@ protected:
 	DELEY attDeley;
 	//< 전체 마법 딜레이
 	DELEY wholeSkillDeley;
+	//< 무적모드 딜레이
+	DELEY m_inbeatDeley;
+	
 	//< 대쉬
 	unsigned int dash_count;
+	//< 체력마력 자동재생 카운트
+	int m_hpCount;
+	int m_mpCount;
 };
