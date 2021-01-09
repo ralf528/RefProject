@@ -149,6 +149,7 @@
     <ClInclude Include="character.h" />
     <ClInclude Include="CheckBox.h" />
     <ClInclude Include="cParticle.h" />
+    <ClInclude Include="DefineEnum.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="external.h" />

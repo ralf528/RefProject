@@ -29,6 +29,20 @@ bool character::init(void)
 	//< 캐릭터 렉트
 	setRect();
 
+	m_nowState = STATE_IDLE;
+
+	const CharacterTemplate* Template = TABLE_MGR->GetCharacterTemplate(JOB_KNIGHT);
+	if (Template == nullptr)
+	{
+		return false;
+	}
+
+	m_Skills.clear();
+	m_Skills.push_back(Template->SkillType_1);
+	m_Skills.push_back(Template->SkillType_2);
+	m_Skills.push_back(Template->SkillType_3);
+	m_Skills.push_back(Template->SkillType_4);
+
 	//< 캐릭터 스테이터스
 	setMaxHP( CHARACTER_HP );
 	setHP( CHARACTER_HP );
@@ -45,16 +59,29 @@ bool character::init(void)
 	setAgility(3);
 	setIntel(3);
 	
+	//< 상태이상
 	setCondition(CONDITION_NORMAL);
 
 	//< 캐릭터 속도 설정
-	setMoveSpeed(10.f); //2
+	setMoveSpeed(10.f);
 
+	//< 이동 딜레이
 	m_moveDeley.m_lastTime = GetTickCount();
 	m_moveDeley.m_deley = static_cast<unsigned int>(getMoveSpeed());
 
-	//< 대쉬 카운트
-	dash_count = 0;
+	//< 공격중 아님
+	m_isAttacking = false;
+
+	//< 공격 딜레이
+	attDeley.m_deley = attDeley.m_lastTime = 50;
+
+	//< 컨디션 딜레이
+	m_conDeley.m_deley = 0;
+	m_conDeley.m_lastTime = 0;
+
+	//< 무적스킬 딜레이
+	m_inbeatDeley.m_deley = 10000;
+	m_inbeatDeley.m_lastTime = 0;
 
 	//< 인벤토리 생성
 	if (NULL == m_inventory)
@@ -74,29 +101,17 @@ bool character::init(void)
 		SkillProjectile = new skillWhole();
 	}
 
-	//< 공격 딜레이
-	attDeley.m_deley = attDeley.m_lastTime = 50;
-
-	//< 공격중 아님
-	m_isAttacking = false;
-
-	//< 컨디션 딜레이
-	m_conDeley.m_deley = 0;
-	m_conDeley.m_lastTime = 0;
-
-	//< 무적스킬 딜레이
-	m_inbeatDeley.m_deley = 10000;
-	m_inbeatDeley.m_lastTime = 0;
-
 	//< 현재 레벨 저장
 	m_PrefLevel = getLevelInfo().getNowLevel();
 
-	//< 애니메이션 설정
-	InitAnimInfo();
-	m_nowState = STATE_IDLE;
-
+	//< 대쉬 카운트
+	dash_count = 0;
+	//< 회복 카운트
 	m_hpCount = 0;
 	m_mpCount = 0;
+
+	//< 애니메이션 설정
+	InitAnimInfo(Template);
 
 	return true;
 }
@@ -104,6 +119,8 @@ bool character::init(void)
 //< 해제
 void character::release(void)
 {
+	m_Skills.clear();
+
 	SAFE_DELETE( m_inventory );
 	SAFE_DELETE( AttackProjectile );
 	SAFE_DELETE( SkillProjectile );
@@ -407,17 +424,16 @@ void character::move(float fDeltaTime)
 	}
 }
 
-void character::InitAnimInfo(void)
+void character::InitAnimInfo(const CharacterTemplate* Template)
 {
 	releaseAniInfo();
 
-	const CharacterTemplate* CharTemplate = TABLE_MGR->GetTemplate(JOB_KNIGHT);
-	if (CharTemplate == nullptr)
+	if (Template == nullptr)
 	{
 		return;
 	}
 
-	for (auto each : CharTemplate->m_AnimationDatas)
+	for (auto each : Template->m_AnimationDatas)
 	{
 		AnimationTemplate& ani = each.second;
 		LPANI_INFO Info = new ANI_INFO;
@@ -649,20 +665,27 @@ bool character::getSkillBallFlag( void )
 	return SkillProjectile->getFlag();
 }
 
-void character::ProcessSkill(int nIndex)
+void character::ProcessSkill(unsigned int nIndex)
 {
-	switch (nIndex)
+	if (m_Skills.size() <= nIndex)
 	{
-	case 0:
+		return;
+	}
+
+	E_SkillType SkillType = m_Skills[nIndex];
+
+	switch (SkillType)
+	{
+	case E_SkillType_NormalAttack:
 		AttackTrigger();
 		break;
-	case 1:
+	case E_SkillType_Dash:
 		DashTrigger();
 		break;
-	case 2:
+	case E_SkillType_ShootWhole:
 		ShootWholeSkill();
 		break;
-	case 3:
+	case E_SkillType_Inbeatable:
 		Inbeatable();
 		break;
 	}

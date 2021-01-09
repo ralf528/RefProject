@@ -289,6 +289,9 @@
     <ClInclude Include="Sources\Template\TableManager.h">
       <Filter>99_APP\07_TEMPLATE</Filter>
     </ClInclude>
+    <ClInclude Include="DefineEnum.h">
+      <Filter>01_CORE\00_EXTERN_HEADER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

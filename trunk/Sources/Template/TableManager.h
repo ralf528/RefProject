@@ -18,6 +18,13 @@ struct AnimationTemplate
 
 struct CharacterTemplate
 {
+	int TemplateID;
+
+	E_SkillType SkillType_1;
+	E_SkillType SkillType_2;
+	E_SkillType SkillType_3;
+	E_SkillType SkillType_4;
+
 	std::map<int, AnimationTemplate> m_AnimationDatas;
 };
 

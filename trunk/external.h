@@ -39,6 +39,7 @@ using namespace std;
 // ☆━─ 2015.04, 전역헤더, Ackashic. ─━☆
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #include "defines.h"
+#include "DefineEnum.h"
 #include "mytype.h"
 #include "myUTIL.h"
 using namespace myUTIL;

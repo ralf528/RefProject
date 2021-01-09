@@ -8,6 +8,7 @@ class cProjectile;
 class skillWhole;
 //< 인벤토리
 class Inventory;
+struct CharacterTemplate;
 
 //< 게임 캐릭터 클래스
 class character : public Unit
@@ -38,7 +39,7 @@ public:
 	virtual void move(float fDeltaTime);
 
 	// 애니메이션
-	void InitAnimInfo();
+	void InitAnimInfo(const CharacterTemplate* Template);
 	void releaseAniInfo();
 
 	void RenderAnimation(HDC hdc, imgID animation);
@@ -101,7 +102,7 @@ public:
 	void setDelayTick(void) { m_conDeley.m_lastTime = GetTickCount(); }
 
 	//< 스킬
-    virtual void ProcessSkill(int nIndex);
+    virtual void ProcessSkill(unsigned int nIndex);
 
 	//< 공격 트리거
 	void AttackTrigger();
@@ -159,4 +160,6 @@ protected:
 	//< 체력마력 자동재생 카운트
 	int m_hpCount;
 	int m_mpCount;
+
+	std::vector<E_SkillType> m_Skills;
 };
