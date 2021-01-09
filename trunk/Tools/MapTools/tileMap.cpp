@@ -56,6 +56,11 @@ void tileMap::update(void)
 //렌더
 void tileMap::render( HDC hdc )
 {
+	if (m_tile == nullptr)
+	{
+		return;
+	}
+
 	int count=0;
 
 	HPEN myPen, oldPen;
@@ -131,8 +136,11 @@ void tileMap::render( HDC hdc )
 	int x = keyInput::getMousePos().x;
 	int y = keyInput::getMousePos().y;
 
-	//< 선택된 브러쉬 알파 블랜드
-	m_imgTile[m_brush].renderAlpha( hdc, x - m_imgTile[m_brush].getSize().cx/2, y - m_imgTile[m_brush].getSize().cy/2, 150 );
+	if (m_brush != NON_TILE)
+	{
+		//< 선택된 브러쉬 알파 블랜드
+		m_imgTile[m_brush].renderAlpha(hdc, x - m_imgTile[m_brush].getSize().cx / 2, y - m_imgTile[m_brush].getSize().cy / 2, 150);
+	}
 
 	DeleteObject( SelectObject( hdc, oldPen ) );
 }

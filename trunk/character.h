@@ -89,7 +89,7 @@ public:
 	POINT *getAroundVertex(void) { return vertex; }
 
 	//< skill 얻기
-	inline skillWhole *getSkill(void) { return skill; }
+	inline cProjectile *getSkill(void) { return SkillProjectile; }
 	//< 공격중 얻기
 	virtual inline bool isAttack(void) { return m_isAttacking; }
 
@@ -138,11 +138,10 @@ protected:
 	bool m_isLive;
 	bool m_isAttacking;
 
-	// Skill
-	//< 공격 충돌체
-	cProjectile *ball;
-	//< 스킬 충돌체
-	skillWhole *skill;
+	//< 공격 투사체
+	cProjectile *AttackProjectile;
+	//< 스킬 투사체
+	cProjectile *SkillProjectile;
 
 	//< 이동 딜레이
 	DELEY m_moveDeley;

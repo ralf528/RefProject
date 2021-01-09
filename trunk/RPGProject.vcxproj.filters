@@ -101,6 +101,9 @@
     <Filter Include="99_APP\01_SCENE\Chat">
       <UniqueIdentifier>{a45ac89b-2cb5-410f-9858-2ce2f6d8c4f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99_APP\07_TEMPLATE">
+      <UniqueIdentifier>{62ac03ac-44a3-4103-9889-3cc6cf68a13a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -283,6 +286,9 @@
     <ClInclude Include="Scene\Popup\Popup_Game_GameOver.h">
       <Filter>99_APP\01_SCENE\Popup</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Template\TableManager.h">
+      <Filter>99_APP\07_TEMPLATE</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -440,6 +446,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Popup\Popup_Game_GameOver.cpp">
       <Filter>99_APP\01_SCENE\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Template\TableManager.cpp">
+      <Filter>99_APP\07_TEMPLATE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

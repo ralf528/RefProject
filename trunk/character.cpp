@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "skillWhole.h"
 #include "inventory.h"
+#include "Sources/Template/TableManager.h"
 #include "character.h"
 
 using namespace keyInput;
 
 character::character(void)
-	: ball(NULL), skill(NULL), m_inventory(NULL)
+	: AttackProjectile(NULL), SkillProjectile(NULL), m_inventory(NULL)
 {
 }
 character::~character(void)
@@ -61,16 +62,16 @@ bool character::init(void)
 		m_inventory = new Inventory;
 	}
 
-	//< 공격 충돌체
-	if( NULL == ball )
+	//< 일반 공격
+	if( NULL == AttackProjectile )
 	{
-		ball = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
+		AttackProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
 	}
 
 	//< 전체 스킬
-	if( NULL == skill )
+	if( NULL == SkillProjectile )
 	{
-		skill = new skillWhole();
+		SkillProjectile = new skillWhole();
 	}
 
 	//< 공격 딜레이
@@ -104,8 +105,8 @@ bool character::init(void)
 void character::release(void)
 {
 	SAFE_DELETE( m_inventory );
-	SAFE_DELETE( ball );
-	SAFE_DELETE( skill );
+	SAFE_DELETE( AttackProjectile );
+	SAFE_DELETE( SkillProjectile );
 
 	//< 애니메이션 삭제
 	releaseAniInfo();
@@ -239,9 +240,9 @@ void character::render(HDC hdc)
 	}
 
 	//마법 구체 렌더
-	ball->render(hdc);
+	AttackProjectile->render(hdc);
 	//< 스킬 랜더
-	skill->render(hdc);
+	SkillProjectile->render(hdc);
 
 #ifdef _DEBUG
 	//주위 타일
@@ -269,8 +270,8 @@ void character::attack(void)
 	}
 
 	//충돌체 갱신
-	ball->update();
-	skill->update();
+	AttackProjectile->update();
+	SkillProjectile->update();
 }
 
 //< 타격
@@ -410,55 +411,25 @@ void character::InitAnimInfo(void)
 {
 	releaseAniInfo();
 
-	//< 캐릭터 이미지
-	RC_MGR->addImage(imgID_WARRIOR_IDLE, "Data/Resource/Image/character/warrior_idle.bmp", 0, 0, RM_TRANS);
-	RC_MGR->addImage(imgID_WARRIOR_MOVE, "Data/Resource/Image/character/warrior_walk.bmp", 0, 0, RM_TRANS);
-	RC_MGR->addImage(imgID_WARRIOR_ATK, "Data/Resource/Image/character/warrior_atk.bmp", 0, 0, RM_TRANS);
-	RC_MGR->addImage(imgID_WARRIOR_DASH, "Data/Resource/Image/character/dash.bmp", 0, 0, RM_TRANS);
-	RC_MGR->addImage(imgID_WARRIOR_DIE, "Data/Resource/Image/character/warrior_die.bmp", 0, 0, RM_TRANS);
-	RC_MGR->addImage(imgID_WARRIOR_BEHIT, "Data/Resource/Image/character/warrior-gethit.bmp", 0, 0, RM_TRANS);
+	const CharacterTemplate* CharTemplate = TABLE_MGR->GetTemplate(JOB_KNIGHT);
+	if (CharTemplate == nullptr)
+	{
+		return;
+	}
 
-	//< 아이들 애니메이션
-	LPANI_INFO IdleAni_Info = new ANI_INFO;
-	SIZE idleAniSize = RC_MGR->findImage(imgID_WARRIOR_IDLE)->getSize();
-	AniMgr::SetAnimInfo(IdleAni_Info, idleAniSize, 8, 8, 50, true, true, true);
-	m_Animations.insert(make_pair(imgID_WARRIOR_IDLE, IdleAni_Info));
-
-	//< 이동 애니메이션
-	LPANI_INFO MoveAni_Info = new ANI_INFO;
-	SIZE moveAniSize = RC_MGR->findImage(imgID_WARRIOR_MOVE)->getSize();
-	AniMgr::SetAnimInfo(MoveAni_Info, moveAniSize, 8, 8, 50, false, false, true);
-	m_Animations.insert(make_pair(imgID_WARRIOR_MOVE, MoveAni_Info));
-
-	//< 공격 애니메이션
-	LPANI_INFO AtckAni_Info = new ANI_INFO;
-	SIZE atkAniSize = RC_MGR->findImage(imgID_WARRIOR_ATK)->getSize();
-	AniMgr::SetAnimInfo(AtckAni_Info, atkAniSize, 18, 8, 20, false, false, true);
-	m_Animations.insert(make_pair(imgID_WARRIOR_ATK, AtckAni_Info));
-
-	//< 사망 애니메이션
-	LPANI_INFO DieAni_Info = new ANI_INFO;
-	SIZE dieAniSize = RC_MGR->findImage(imgID_WARRIOR_DIE)->getSize();
-	AniMgr::SetAnimInfo(DieAni_Info, dieAniSize, 20, 8, 200, false, false, false);
-	m_Animations.insert(make_pair(imgID_WARRIOR_DIE, DieAni_Info));
-
-	//< 피격 애니메이션
-	LPANI_INFO beHitAni_Info = new ANI_INFO;
-	SIZE behitAniSize = RC_MGR->findImage(imgID_WARRIOR_BEHIT)->getSize();
-	AniMgr::SetAnimInfo(beHitAni_Info, behitAniSize, 7, 8, 20, false, false, true);
-	m_Animations.insert(make_pair(imgID_WARRIOR_BEHIT, beHitAni_Info));
+	for (auto each : CharTemplate->m_AnimationDatas)
+	{
+		AnimationTemplate& ani = each.second;
+		LPANI_INFO Info = new ANI_INFO;
+		AniMgr::SetAnimInfo(Info, ani.size, ani.countX, ani.countY, ani.speed, ani.bFlag, ani.bLoop, ani.bPlay);
+		m_Animations.insert(make_pair(ani.id, Info));
+	}
 
 	//< 타격 애니메이션
 	LPANI_INFO HitEff_Info = new ANI_INFO;
 	SIZE hitAniSize = RC_MGR->findImage(imgID_GETHIT_1)->getSize();
 	AniMgr::SetAnimInfo(HitEff_Info, hitAniSize, 6, 1, 50, false, false, true);
 	m_Animations.insert(make_pair(imgID_GETHIT_1, HitEff_Info));
-
-	//< 대쉬 애니메이션
-	LPANI_INFO DashAni_Info = new ANI_INFO;
-	SIZE dashAniSize = RC_MGR->findImage(imgID_WARRIOR_DASH)->getSize();
-	AniMgr::SetAnimInfo(DashAni_Info, dashAniSize, 5, 1, 40, false, false, true);
-	m_Animations.insert(make_pair(imgID_WARRIOR_DASH, DashAni_Info));
 }
 
 void character::releaseAniInfo(void)
@@ -627,18 +598,18 @@ void character::setRect( void )
 //< 공격 충돌체 렉트 반환
 RECT character::getBallRect(void)	
 {
-	return ball->getRect();	
+	return AttackProjectile->getRect();	
 }
 
 //< 스킬 렉트 반환
 RECT character::getSkillRect(void)
 {
-	return skill->getRect();
+	return SkillProjectile->getRect();
 }
 
 int character::getDamage(void)
 {
-	return (ball->getDamage() + getStrong());
+	return (AttackProjectile->getDamage() + getStrong());
 }
 
 //< 충돌체 얻기 ( 아이템 획득 )
@@ -661,21 +632,21 @@ void character::gainCollider(E_TileBrush &obj)
 //< 충돌체 상태
 void character::setBallFlag( bool flag )
 {
-	ball->setFlag( flag );
+	AttackProjectile->setFlag( flag );
 }
 bool character::getBallFlag( void )	
 {
-	return ball->getFlag();
+	return AttackProjectile->getFlag();
 }
 
 //< 마법 충돌체 상태
 void character::setSkillBallFlag( bool flag )	
 {
-	skill->setFlag( flag );	
+	SkillProjectile->setFlag( flag );	
 }
 bool character::getSkillBallFlag( void )	
 {	
-	return skill->getFlag();
+	return SkillProjectile->getFlag();
 }
 
 void character::ProcessSkill(int nIndex)
@@ -743,7 +714,7 @@ void character::AttackTrigger()
 	attDeley.m_lastTime = 0;
 	//공격 사운드
 	//SOUND_MGR->soundPlay(SOUND_BGM4);
-	ball->shoot(m_pos, destPos);
+	AttackProjectile->shoot(m_pos, destPos);
 
 	//< 공격중
 	m_isAttacking = true;
@@ -830,7 +801,7 @@ void character::ShootWholeSkill()
 			//공격 사운드
 			//SOUND_MGR->soundPlay(SOUND_BGM4);
 			//< 스킬 발동
-			skill->shoot(m_pos, pos);
+			SkillProjectile->shoot(m_pos, pos);
 		}
 	}
 }

@@ -195,6 +195,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="cProjectile.h" />
+    <ClInclude Include="Sources\Template\TableManager.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMgr.h" />
     <ClInclude Include="stdafx.h" />
@@ -255,6 +256,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="cProjectile.cpp" />
+    <ClCompile Include="Sources\Template\TableManager.cpp" />
     <ClCompile Include="StateMgr.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

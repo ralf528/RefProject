@@ -2,6 +2,7 @@
 #include "SceneIntro.h"
 #include "SceneLobby.h"
 #include "ScenePlayGame.h"
+#include "Sources/Template/TableManager.h"
 #include "GameManager.h"
 
 GameManager::GameManager()
@@ -33,6 +34,7 @@ bool GameManager::Init()
 
     //랜더 매니저 초기화 & 백 버퍼 이미지 생성
     RENDER_MGR->init();
+	TABLE_MGR->Load();
 
     //fps초기화
     FpsTime::initFpsTime();
