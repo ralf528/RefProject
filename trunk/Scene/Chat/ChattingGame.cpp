@@ -4,6 +4,7 @@
 #include "../../PopupBox.h"
 #include "../../InputString.h"
 #include "../../ButtonClass.h"
+#include "../../Sources/Manager/CheatManager.h"
 #include "ChattingGame.h"
 
 
@@ -153,7 +154,7 @@ void ChattingGame::init( void )
 
 	//---------------------------------------------------------------------------------------------
 	//< 유저 이름 받기
-	//userName = GAME_DATA->getUserId();
+	userName = "[user]";
 	m_font->LoadText( userName.c_str(), userNameRect, "HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
 	//---------------------------------------------------------------------------------------------
 
@@ -487,6 +488,11 @@ void ChattingGame::StringUpdate( void )
 //< 스트링 저장
 void ChattingGame::StringPush( void )
 {
+	if (CHEAT_MGR->ProcessCheat(inputChar->getString()) == true)
+	{
+		return;
+	}
+
 	//< 스트링 밀기
 	for( int i=0; i<8; i++ )
 	{

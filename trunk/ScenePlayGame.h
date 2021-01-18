@@ -32,6 +32,8 @@ public :
 	//< 포탈 후 초기화
 	void initByPortal(POINT &destPos);
 
+	PlayerCharacter* GetPlayer() { return m_player; }
+
 private:
 	//< UI 로딩
 	void initUI( void );

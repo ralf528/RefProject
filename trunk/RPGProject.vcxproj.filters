@@ -104,6 +104,9 @@
     <Filter Include="99_APP\07_TEMPLATE">
       <UniqueIdentifier>{62ac03ac-44a3-4103-9889-3cc6cf68a13a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01_CORE\02_MANAGER\CHEAT">
+      <UniqueIdentifier>{d9f697fc-f063-4fb8-b258-0f7bb28b913f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -292,6 +295,9 @@
     <ClInclude Include="DefineEnum.h">
       <Filter>01_CORE\00_EXTERN_HEADER</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Manager\CheatManager.h">
+      <Filter>01_CORE\02_MANAGER\CHEAT</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -452,6 +458,9 @@
     </ClCompile>
     <ClCompile Include="Sources\Template\TableManager.cpp">
       <Filter>99_APP\07_TEMPLATE</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Manager\CheatManager.cpp">
+      <Filter>01_CORE\02_MANAGER\CHEAT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
