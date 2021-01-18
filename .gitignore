@@ -33,3 +33,5 @@
 
 trunk/debug/
 trunk/.vs
+/trunk/Tools/MapTools/Debug
+/trunk/Tools/MapTools/.vs
