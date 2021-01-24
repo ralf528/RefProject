@@ -16,15 +16,17 @@ struct AnimationTemplate
 	bool bPlay;
 };
 
+struct SkillTemplate
+{
+	E_SkillType type;
+	E_ImageID rcid;
+};
+
 struct CharacterTemplate
 {
 	int TemplateID;
 
-	E_SkillType SkillType_1;
-	E_SkillType SkillType_2;
-	E_SkillType SkillType_3;
-	E_SkillType SkillType_4;
-
+	std::map<E_SkillType, SkillTemplate> m_SkillDatas;
 	std::map<E_AnimationType, AnimationTemplate> m_AnimationDatas;
 };
 

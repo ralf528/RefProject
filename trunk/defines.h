@@ -45,6 +45,7 @@ const char *imgPath = "Data/Image/";
 #define		CHARACTER_START_POSITION_Y	150
 //< 캐릭터 공격 범위
 #define		NORMAL_ATTACK_RANGE 80
+#define		BOW_ATTACK_RANGE 200
 //< 캐릭터 시작 체력
 #define		CHARACTER_HP 100
 #define		CHARACTER_MP 100
@@ -293,6 +294,8 @@ enum E_ImageID
 	imgID_ARCHER_DIE,
 	imgID_ARCHER_BEHIT,
 	imgID_ARCHER_DASH,
+
+	imgID_ARCHER_ARROW,
 
     //< 고블린
     imgID_MONSTER_1_IDLE,

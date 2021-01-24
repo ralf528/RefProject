@@ -21,12 +21,18 @@ bool cProjectile::init(int damage, int range, int speed, float fPrevDelay)
 	m_damage = damage;
     m_fPrevDelay = fPrevDelay;
     m_fPrevDelayCount = 0.f;
+	m_dir = DIR_D;
+	m_ImgID = imgID_NONID;
+
 	return true;
 }
+
 //해제
 void cProjectile::release(void)
 {
+	SAFE_DELETE(m_Animation);
 }
+
 //업데이트
 void cProjectile::update(void)
 {
@@ -57,19 +63,27 @@ void cProjectile::update(void)
         }
     }
 }
+
 //그리기
 void cProjectile::render(HDC hdc)
 {
+	if (m_Animation != nullptr)
+	{
+		if (m_flag == true)
+		{
+			AniMgr::Render(hdc, m_Animation, m_pos, m_dir, imgID_ARCHER_ARROW);
+		}
+	}
 #ifdef _DEBUG
-	if( true == m_flag )
+	else if( true == m_flag )
 	{
 		Rectangle( hdc, m_rect.left - CAMERA->getX(), m_rect.top - CAMERA->getY(), m_rect.right - CAMERA->getX(), m_rect.bottom - CAMERA->getY() );
 	}
-#endif
+#endif	
 }
 
 //< 발사 (방향 지정)
-void cProjectile::shoot( POINT &startPoint, POINT &destPos )
+void cProjectile::shoot( POINT &startPoint, POINT &destPos, int dir )
 {
  	if( false == m_flag )
 	{				
@@ -77,6 +91,8 @@ void cProjectile::shoot( POINT &startPoint, POINT &destPos )
 		m_pos = m_startPos = startPoint;
 		//목표 방향 설정
 		m_destPos = destPos;
+		m_dir = dir;
+
 		//구체 살리기
 		m_flag = true;
         if (m_fPrevDelay > 0.f)
@@ -107,4 +123,29 @@ void cProjectile::setRect(void)
 	SetRect(&m_rect, 
 		m_pos.x - 10, m_pos.y - 10,
 		m_pos.x + 10, m_pos.y + 10);
+}
+
+void cProjectile::SetImage(E_ImageID InImgID, string InPath)
+{
+	m_ImgID = InImgID;
+
+	SAFE_DELETE(m_Animation);
+	m_Animation = new ANI_INFO;
+	RC_MGR->addImage(m_ImgID, InPath.c_str(), 0, 0, RM_TRANS);
+	//< 이미지 사이즈
+	SIZE idleAniSize = RC_MGR->findImage(m_ImgID)->getSize();
+	//< 프레임 수
+	m_Animation->frameCntX = 1;
+	m_Animation->frameCntY = 8;
+	//< 프레임당 이미지 사이즈
+	m_Animation->aniSize.cx = idleAniSize.cx / m_Animation->frameCntX;
+	m_Animation->aniSize.cy = idleAniSize.cy / m_Animation->frameCntY;
+
+	m_Animation->frameSpeed = 0;
+	m_Animation->nowFrame = 0;
+	m_Animation->nowFrameY = DIR_D;
+	m_Animation->lastTime = GetTickCount();
+	m_Animation->flag = false;
+	m_Animation->loop = false;
+	m_Animation->playAni = false;
 }

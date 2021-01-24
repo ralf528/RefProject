@@ -9,7 +9,7 @@ using namespace keyInput;
 character::character(void)
 	: AttackProjectile(NULL), SkillProjectile(NULL), m_inventory(NULL)
 {
-	m_JobType = JOB_KNIGHT;
+	m_JobType = JOB_ARCHER;
 }
 character::~character(void)
 {
@@ -39,10 +39,11 @@ bool character::init(void)
 	}
 
 	m_Skills.clear();
-	m_Skills.push_back(Template->SkillType_1);
-	m_Skills.push_back(Template->SkillType_2);
-	m_Skills.push_back(Template->SkillType_3);
-	m_Skills.push_back(Template->SkillType_4);
+	for (auto Each : Template->m_SkillDatas)
+	{
+		SkillTemplate& Template = Each.second;
+		m_Skills.push_back(Each.first);
+	}
 
 	//< 캐릭터 스테이터스
 	setMaxHP( CHARACTER_HP );
@@ -90,7 +91,15 @@ bool character::init(void)
 
 	//< 일반 공격
 	SAFE_DELETE(AttackProjectile);
-	AttackProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
+	if (m_JobType == JOB_ARCHER)
+	{
+		AttackProjectile = new cProjectile(6, BOW_ATTACK_RANGE, 10);
+		AttackProjectile->SetImage(imgID_ARCHER_ARROW, "Data/Resource/Image/character/archer/arrow.bmp");
+	}
+	else
+	{
+		AttackProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
+	}
 
 	//< 전체 스킬
 	SAFE_DELETE(SkillProjectile);
@@ -733,7 +742,7 @@ void character::AttackTrigger()
 	attDeley.m_lastTime = 0;
 	//공격 사운드
 	//SOUND_MGR->soundPlay(SOUND_BGM4);
-	AttackProjectile->shoot(m_pos, destPos);
+	AttackProjectile->shoot(m_pos, destPos, m_dir);
 
 	//< 공격중
 	m_isAttacking = true;

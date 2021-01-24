@@ -20,7 +20,7 @@ public:
 	virtual void render(HDC hdc);
 
 	//발사
-	virtual void shoot( POINT &startPoint, POINT &destPos );
+	virtual void shoot( POINT &startPoint, POINT &destPos, int dir = DIR_D );
 
 	//위치 설정
 	virtual void setPos(POINT pos);
@@ -44,6 +44,8 @@ public:
 	virtual RECT getRect(void) { return m_rect; }
 
 	void SetPrevDelay(float prevDelay) { m_fPrevDelay = prevDelay; }
+
+	void SetImage(E_ImageID InImgID, string InPath);
 
 protected:
 	//< 내부 함수
@@ -72,4 +74,8 @@ protected:
     //< 시작 딜레이
     float m_fPrevDelay;
     float m_fPrevDelayCount;
+
+	int m_dir;
+	E_ImageID m_ImgID;
+	LPANI_INFO m_Animation;
 };

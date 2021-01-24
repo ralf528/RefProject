@@ -23,7 +23,7 @@ typedef struct tagAni_Info
     DWORD			lastTime;
     //플래그
     bool			flag;
-    bool			playAni;
+    bool			playAni;		//< 마지막 프레임에 머무르게하는 기능
     bool			loop;
 
 }ANI_INFO, *LPANI_INFO;

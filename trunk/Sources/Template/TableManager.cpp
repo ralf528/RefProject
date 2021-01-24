@@ -24,10 +24,10 @@ void TableManager::LoadTemplate(int TemplateID)
 		CharacterTemplate Data;
 		Data.TemplateID = TemplateID;
 
-		Data.SkillType_1 = E_SkillType_NormalAttack;
-		Data.SkillType_2 = E_SkillType_Dash;
-		Data.SkillType_3 = E_SkillType_ShootWhole;
-		Data.SkillType_4 = E_SkillType_Inbeatable;
+		Data.m_SkillDatas.insert(make_pair(E_SkillType_NormalAttack, SkillTemplate{ E_SkillType_NormalAttack, E_ImageID::imgID_NONID}));
+		Data.m_SkillDatas.insert(make_pair(E_SkillType_Dash, SkillTemplate{ E_SkillType_Dash, E_ImageID::imgID_NONID }));
+		Data.m_SkillDatas.insert(make_pair(E_SkillType_ShootWhole, SkillTemplate{ E_SkillType_ShootWhole, E_ImageID::imgID_NONID }));
+		Data.m_SkillDatas.insert(make_pair(E_SkillType_Inbeatable, SkillTemplate{ E_SkillType_Inbeatable, E_ImageID::imgID_NONID }));
 
 		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Idle, AnimationTemplate{ imgID_WARRIOR_IDLE , "Data/Resource/Image/character/warrior/warrior_idle.bmp", SIZE{0, 0}, 8, 8, 50, true, true, true }));
 		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Move, AnimationTemplate{ imgID_WARRIOR_MOVE , "Data/Resource/Image/character/warrior/warrior_walk.bmp", SIZE{0, 0}, 8, 8, 50, false, false, true }));
@@ -53,10 +53,10 @@ void TableManager::LoadTemplate(int TemplateID)
 		CharacterTemplate Data;
 		Data.TemplateID = TemplateID;
 
-		Data.SkillType_1 = E_SkillType_NormalAttack;
-		Data.SkillType_2 = E_SkillType_Dash;
-		Data.SkillType_3 = E_SkillType_ShootWhole;
-		Data.SkillType_4 = E_SkillType_Inbeatable;
+		Data.m_SkillDatas.insert(make_pair(E_SkillType_NormalAttack, SkillTemplate{ E_SkillType_NormalAttack, E_ImageID::imgID_ARCHER_ARROW }));
+		Data.m_SkillDatas.insert(make_pair(E_SkillType_Dash, SkillTemplate{ E_SkillType_Dash, E_ImageID::imgID_NONID }));
+		Data.m_SkillDatas.insert(make_pair(E_SkillType_ShootWhole, SkillTemplate{ E_SkillType_ShootWhole, E_ImageID::imgID_NONID }));
+		Data.m_SkillDatas.insert(make_pair(E_SkillType_Inbeatable, SkillTemplate{ E_SkillType_Inbeatable, E_ImageID::imgID_NONID }));
 
 		// ±Ã¼ö ÀÌ¹ÌÁö
 		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Idle, AnimationTemplate{ imgID_ARCHER_IDLE , "Data/Resource/Image/character/archer/archer_idle.bmp", SIZE{0, 0}, 8, 8, 50, true, true, true }));
