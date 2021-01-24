@@ -44,9 +44,9 @@ bool ScenePlayGame::init(void)
     //< 라이트맵핑
     RC_MGR->addImage(imgID_LITE_MAPING, "Data/Resource/gameUI/라이트맵핑alpha.bmp", 0, 0, RM_ALPHA32);
     //< 타격 효과
-    RC_MGR->addImage(imgID_GETHIT_1, "Data/Resource/effect/GetHit_tong.bmp", 0, 0, RM_TRANS);
-    RC_MGR->addImage(imgID_GETHIT_2, "Data/Resource/effect/GetHit_Ghost.bmp", 0, 0, RM_TRANS);
-    RC_MGR->addImage(imgID_GETHIT_3, "Data/Resource/effect/GetHit_Bug.bmp", 0, 0, RM_TRANS);
+    RC_MGR->addImage(imgID_HITEFF1, "Data/Resource/effect/GetHit_tong.bmp", 0, 0, RM_TRANS);
+    RC_MGR->addImage(imgID_HITEFF2, "Data/Resource/effect/GetHit_Ghost.bmp", 0, 0, RM_TRANS);
+    RC_MGR->addImage(imgID_HITEFF3, "Data/Resource/effect/GetHit_Bug.bmp", 0, 0, RM_TRANS);
 
     STATE_MGR->setLoading(30);
 

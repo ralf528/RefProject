@@ -6,6 +6,8 @@
 
 typedef struct tagAni_Info
 {
+	E_ImageID RCID;
+
     //프레임 가로세로 크기
     SIZE			aniSize;
     //프레임 개수
@@ -28,14 +30,14 @@ typedef struct tagAni_Info
 
 enum E_AnimationType
 {
-    None = -1,
-    Idle = 0,
+    None = 0,
+    Idle,
     Move,
     Attack,
     Die,
     BeHit,
+	Dash,
     HitEff,
-    Dash,
 };
 
 enum DIR

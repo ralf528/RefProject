@@ -142,7 +142,7 @@ void mon_bug::render(HDC hdc)
 	if( m_HitAni_Info->flag == true )
 	{
 		SIZE siz = m_HitAni_Info->aniSize;
-		RENDER_MGR->render( hdc, imgID_GETHIT_3,
+		RENDER_MGR->render( hdc, imgID_HITEFF3,
 			m_pos.x - siz.cx/2 - CAMERA->getX(), m_pos.y - siz.cy/2 - CAMERA->getY(),
 			siz.cx, siz.cy,
 			m_HitAni_Info->nowFrame * siz.cx, 0,
@@ -380,7 +380,7 @@ void mon_bug::setAniInfo( void )
 	SAFE_DELETE( m_HitAni_Info );
 	m_HitAni_Info = new ANI_INFO;
 	//< 이미지 사이즈
-	SIZE hitAniSize = RC_MGR->findImage(imgID_GETHIT_3)->getSize();
+	SIZE hitAniSize = RC_MGR->findImage(imgID_HITEFF3)->getSize();
 	//< 프레임 수
 	m_HitAni_Info->frameCntX = 6;
 	m_HitAni_Info->frameCntY = 1;

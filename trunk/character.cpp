@@ -9,6 +9,7 @@ using namespace keyInput;
 character::character(void)
 	: AttackProjectile(NULL), SkillProjectile(NULL), m_inventory(NULL)
 {
+	m_JobType = JOB_KNIGHT;
 }
 character::~character(void)
 {
@@ -31,7 +32,7 @@ bool character::init(void)
 
 	m_nowState = STATE_IDLE;
 
-	const CharacterTemplate* Template = TABLE_MGR->GetCharacterTemplate(JOB_KNIGHT);
+	const CharacterTemplate* Template = TABLE_MGR->GetCharacterTemplate(m_JobType);
 	if (Template == nullptr)
 	{
 		return false;
@@ -52,7 +53,7 @@ bool character::init(void)
 	//< 신념, 종족, 직업
 	setBelief(BELIEF_GID);
 	setTribe(TRIBE_WOLF);
-	setJob(JOB_KNIGHT);
+	setJob(m_JobType);
 
 	//< 힘,민,지
 	setStrong(3);
@@ -84,22 +85,16 @@ bool character::init(void)
 	m_inbeatDeley.m_lastTime = 0;
 
 	//< 인벤토리 생성
-	if (NULL == m_inventory)
-	{
-		m_inventory = new Inventory;
-	}
+	SAFE_DELETE(m_inventory);
+	m_inventory = new Inventory;
 
 	//< 일반 공격
-	if( NULL == AttackProjectile )
-	{
-		AttackProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
-	}
+	SAFE_DELETE(AttackProjectile);
+	AttackProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
 
 	//< 전체 스킬
-	if( NULL == SkillProjectile )
-	{
-		SkillProjectile = new skillWhole();
-	}
+	SAFE_DELETE(SkillProjectile);
+	SkillProjectile = new skillWhole();
 
 	//< 현재 레벨 저장
 	m_PrefLevel = getLevelInfo().getNowLevel();
@@ -138,7 +133,7 @@ void character::update(float fDeltaTime)
 
 	if (m_nowState == STATE_DIE)
 	{
-		auto found = m_Animations.find(imgID_WARRIOR_DIE);
+		auto found = m_Animations.find(E_AnimationType::Die);
 		if (found != m_Animations.end())
 		{
 			AniMgr::UpdateAni(found->second);
@@ -222,38 +217,38 @@ void character::render(HDC hdc)
 	//< 죽었다면
 	if (m_nowState == STATE_DIE)
 	{
-		RenderAnimation(hdc, imgID_WARRIOR_DIE);
+		RenderAnimation(hdc, E_AnimationType::Die);
 	}
 	//< 피격 애니메이션
-	else if (IsPlayingAnimation(imgID_WARRIOR_BEHIT))
+	else if (IsPlayingAnimation(E_AnimationType::BeHit))
 	{
-		RenderAnimation(hdc, imgID_WARRIOR_BEHIT);
+		RenderAnimation(hdc, E_AnimationType::BeHit);
 	}
 	//< 대쉬 애니메이션
-	else if (IsPlayingAnimation(imgID_WARRIOR_DASH))
+	else if (IsPlayingAnimation(E_AnimationType::Dash))
 	{
-		RenderAnimation(hdc, imgID_WARRIOR_DASH);
+		RenderAnimation(hdc, E_AnimationType::Dash);
 	}
 	//< 공격중이면
-	else if (IsPlayingAnimation(imgID_WARRIOR_ATK))
+	else if (IsPlayingAnimation(E_AnimationType::Attack))
 	{
-		RenderAnimation(hdc, imgID_WARRIOR_ATK);
+		RenderAnimation(hdc, E_AnimationType::Attack);
 	}
 	//< 이동 중이면
 	else if (m_nowState == STATE_MOVE)
 	{
-		RenderAnimation(hdc, imgID_WARRIOR_MOVE);
+		RenderAnimation(hdc, E_AnimationType::Move);
 	}
 	//< 대기상태
 	else
 	{
-		RenderAnimation(hdc, imgID_WARRIOR_IDLE);
+		RenderAnimation(hdc, E_AnimationType::Idle);
 	}
 
 	//< 피격 이펙트
-	if (IsPlayingAnimation(imgID_GETHIT_1))
+	if (IsPlayingAnimation(E_AnimationType::HitEff))
 	{
-		RenderAnimation(hdc, imgID_GETHIT_1);
+		RenderAnimation(hdc, E_AnimationType::HitEff);
 	}
 
 	//마법 구체 렌더
@@ -280,7 +275,7 @@ void character::renderLower(HDC hdc)
 void character::attack(void)
 {
 	//< 공격 가능 상태
-	if (IsPlayingAnimation(imgID_WARRIOR_ATK) == false)
+	if (IsPlayingAnimation(E_AnimationType::Attack) == false)
 	{
 		//< 공격중 아님
 		m_isAttacking = false;
@@ -309,9 +304,9 @@ bool character::beHit(int damage)
 		//< 피격 이펙트
 		if (rand() % 10 == 0)
 		{
-			StartAnimation(imgID_GETHIT_1);
+			StartAnimation(E_AnimationType::HitEff);
 		}
-		StartAnimation(imgID_WARRIOR_BEHIT);
+		StartAnimation(E_AnimationType::BeHit);
 
 		LOG_MGR->addLog("m_state.m_nowHP : %d", m_state.m_nowHP);
 		if (getHP() <= 0 && m_nowState != STATE_DIE)
@@ -322,7 +317,7 @@ bool character::beHit(int damage)
 			return false;
 #endif
 			m_nowState = STATE_DIE;
-			StartAnimation(imgID_WARRIOR_DIE);
+			StartAnimation(E_AnimationType::Die);
 			//사망 사운드
 			//SOUND_MGR->soundPlay(CHAR_DIE);
 			return true;
@@ -339,7 +334,7 @@ bool character::beHit(int damage)
 #endif
 		setHP(0);
 		m_nowState = STATE_DIE;
-		StartAnimation(imgID_WARRIOR_DIE);
+		StartAnimation(E_AnimationType::Die);
 		//사망 사운드
 		//SOUND_MGR->soundPlay(CHAR_DIE);
 		return true;
@@ -352,7 +347,7 @@ bool character::beHit(int damage)
 void character::move(float fDeltaTime)
 {
 	//< 공격중이면 이동 불가
-	if (IsPlayingAnimation(imgID_WARRIOR_ATK) == true || IsPlayingAnimation(imgID_WARRIOR_DASH) == true)
+	if (IsPlayingAnimation(E_AnimationType::Attack) == true || IsPlayingAnimation(E_AnimationType::Dash) == true)
 	{
 		return;
 	}
@@ -418,9 +413,9 @@ void character::move(float fDeltaTime)
 		m_moveDeley.m_lastTime = GetTickCount();
 	}
 
-	if (m_nowState == STATE_MOVE && IsPlayingAnimation(imgID_WARRIOR_MOVE) == false)
+	if (m_nowState == STATE_MOVE && IsPlayingAnimation(E_AnimationType::Move) == false)
 	{
-		StartAnimation(imgID_WARRIOR_MOVE);
+		StartAnimation(E_AnimationType::Move);
 	}
 }
 
@@ -435,17 +430,18 @@ void character::InitAnimInfo(const CharacterTemplate* Template)
 
 	for (auto each : Template->m_AnimationDatas)
 	{
+		E_AnimationType aniType = each.first;
 		AnimationTemplate& ani = each.second;
 		LPANI_INFO Info = new ANI_INFO;
-		AniMgr::SetAnimInfo(Info, ani.size, ani.countX, ani.countY, ani.speed, ani.bFlag, ani.bLoop, ani.bPlay);
-		m_Animations.insert(make_pair(ani.id, Info));
+		AniMgr::SetAnimInfo(Info, ani.rcid, ani.size, ani.countX, ani.countY, ani.speed, ani.bFlag, ani.bLoop, ani.bPlay);
+		m_Animations.insert(make_pair(aniType, Info));
 	}
 
 	//< 타격 애니메이션
 	LPANI_INFO HitEff_Info = new ANI_INFO;
-	SIZE hitAniSize = RC_MGR->findImage(imgID_GETHIT_1)->getSize();
-	AniMgr::SetAnimInfo(HitEff_Info, hitAniSize, 6, 1, 50, false, false, true);
-	m_Animations.insert(make_pair(imgID_GETHIT_1, HitEff_Info));
+	SIZE hitAniSize = RC_MGR->findImage(imgID_HITEFF1)->getSize();
+	AniMgr::SetAnimInfo(HitEff_Info, imgID_HITEFF1, hitAniSize, 6, 1, 50, false, false, true);
+	m_Animations.insert(make_pair(E_AnimationType::HitEff, HitEff_Info));
 }
 
 void character::releaseAniInfo(void)
@@ -457,26 +453,26 @@ void character::releaseAniInfo(void)
 	m_Animations.clear();
 }
 
-void character::RenderAnimation(HDC hdc, imgID animation)
+void character::RenderAnimation(HDC hdc, E_AnimationType eType)
 {
-	auto found = m_Animations.find(animation);
+	auto found = m_Animations.find(eType);
 	if (found != m_Animations.end())
 	{
-		switch (animation)
+		switch (eType)
 		{
-		case imgID_WARRIOR_DASH:
-		case imgID_GETHIT_1:
-			AniMgr::Render(hdc, found->second, m_pos, 0, animation);
+		case E_AnimationType::Dash:
+		case E_AnimationType::HitEff:
+			AniMgr::Render(hdc, found->second, m_pos, 0, found->second->RCID);
 		default:
-			AniMgr::Render(hdc, found->second, m_pos, m_dir, animation);
+			AniMgr::Render(hdc, found->second, m_pos, m_dir, found->second->RCID);
 			break;
 		}
 	}
 }
 
-void character::StartAnimation(imgID animation)
+void character::StartAnimation(E_AnimationType eType)
 {
-	auto found = m_Animations.find(animation);
+	auto found = m_Animations.find(eType);
 	if (found == m_Animations.end())
 	{
 		return;
@@ -485,9 +481,9 @@ void character::StartAnimation(imgID animation)
 	found->second->flag = true;
 }
 
-bool character::IsPlayingAnimation(imgID animation)
+bool character::IsPlayingAnimation(E_AnimationType eType)
 {
-	auto found = m_Animations.find(animation);
+	auto found = m_Animations.find(eType);
 	if (found == m_Animations.end())
 	{
 		return false;
@@ -697,7 +693,7 @@ void character::AttackTrigger()
 		return;
 
 	m_nowState = STATE_ATTACK;
-	StartAnimation(imgID_WARRIOR_ATK);
+	StartAnimation(E_AnimationType::Attack);
 
 	POINT destPos = m_pos;
 	int dist = 1000;
@@ -748,7 +744,7 @@ void character::UpdateDash(void)
 {
 	//< 대쉬 거리
 	int m_dashDist = CHARACTER_DASH_DIST / 5;
-	if (IsPlayingAnimation(imgID_WARRIOR_ATK) == true)
+	if (IsPlayingAnimation(E_AnimationType::Attack) == true)
 	{
 		//if (keyInput::isKeyDown(VK_SHIFT))
 		m_dashDist *= -1;
@@ -805,7 +801,7 @@ void character::DashTrigger()
 		incMP(-5);
 #endif
 		dash_count = 5;
-		StartAnimation(imgID_WARRIOR_DASH);
+		StartAnimation(E_AnimationType::Dash);
 	}
 }
 

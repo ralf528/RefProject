@@ -42,9 +42,9 @@ public:
 	void InitAnimInfo(const CharacterTemplate* Template);
 	void releaseAniInfo();
 
-	void RenderAnimation(HDC hdc, imgID animation);
-	void StartAnimation(imgID animation);
-	bool IsPlayingAnimation(imgID animation);
+	void RenderAnimation(HDC hdc, E_AnimationType eType);
+	void StartAnimation(E_AnimationType eType);
+	bool IsPlayingAnimation(E_AnimationType eType);
 
 	//< 아이템 사용
 	virtual void useItem( void );
@@ -114,7 +114,11 @@ public:
 	void DashTrigger();
 	void ShootWholeSkill();
 
+	void SetJobType(E_JobType JobType) { m_JobType = JobType; }
+
 protected:
+	E_JobType m_JobType;
+
 	Level m_level;
 	int m_PrefLevel;
 
@@ -124,7 +128,7 @@ protected:
 	RECT m_rect;
 	
 	//< 애니메이션 정보
-	std::map<imgID, LPANI_INFO> m_Animations;
+	std::map<E_AnimationType, LPANI_INFO> m_Animations;
 
 	//< 인벤토리
 	Inventory *m_inventory;

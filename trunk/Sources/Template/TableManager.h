@@ -5,7 +5,7 @@
 
 struct AnimationTemplate
 {
-	imgID id;
+	E_ImageID rcid;
 	char path[_MAX_PATH];
 	SIZE size;
 	int countX;
@@ -25,7 +25,7 @@ struct CharacterTemplate
 	E_SkillType SkillType_3;
 	E_SkillType SkillType_4;
 
-	std::map<int, AnimationTemplate> m_AnimationDatas;
+	std::map<E_AnimationType, AnimationTemplate> m_AnimationDatas;
 };
 
 class TableManager

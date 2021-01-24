@@ -26,7 +26,7 @@ void AniMgr::Render(HDC hdc, LPANI_INFO info, POINT pos, int dir, int RCID)
     }
 
     int offsetY = RENDER_OFFSET_Y;
-    if (RCID == imgID_WARRIOR_ATK)
+    if (RCID == imgID_WARRIOR_ATK || RCID == imgID_ARCHER_ATK)
     {
         offsetY = RENDER_OFFSET_Y * 2;
     }
@@ -43,12 +43,14 @@ void AniMgr::release(void)
 {
 }
 
-void AniMgr::SetAnimInfo(LPANI_INFO info, SIZE size, int countX, int countY, int speed, bool bFlag, bool bLoop, bool bPlay)
+void AniMgr::SetAnimInfo(LPANI_INFO info, E_ImageID imgID, SIZE size, int countX, int countY, int speed, bool bFlag, bool bLoop, bool bPlay)
 {
     if (info == nullptr)
     {
         return;
     }
+
+	info->RCID = imgID;
 
     //< 프레임 수
     info->frameCntX = countX;

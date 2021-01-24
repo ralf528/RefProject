@@ -20,16 +20,17 @@ private:
 	SINGLETON(CheatManager);
 
 private:
+	void LoadFunctions();
+
 	vector<string> StringParse(const char* Message);
 	string ToLowerString(string str);
 
 public:
-	void LoadFunctions();
-
 	bool ProcessCheat(const char* InputMessage);
 
 	// Cheat Function
 	void SetPosition(Parser CheatMessage);
+	void SwitchCharacter(Parser CheatMessage);
 
 private:
 	map<string, FuncPointer> m_Functions;

@@ -105,11 +105,12 @@ enum
 };
 
 //< 직업
-enum
+enum E_JobType
 {
+	JOB_NONE,
     JOB_KNIGHT,			//< 전사
+	JOB_ARCHER,			//< 아처
     JOB_THIEF,			//< 도적
-    JOB_ARCHER,			//< 아처
     JOB_MAGICIAN,		//< 마법사
 };
 
@@ -253,7 +254,7 @@ enum
 // ☆━─ 2015.04, 이미지 아이디, Ackashic. ─━☆
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //< 백버퍼 이미지 고정
-enum imgID
+enum E_ImageID
 {
     imgID_NONID = -1,
     imgID_BACKBUFFER = 0,
@@ -272,12 +273,12 @@ enum imgID
     //< 시야 효과
     imgID_SIGHT,
     //< 타격 이펙트 이미지
-    imgID_GETHIT_1,
-    imgID_GETHIT_2,
-    imgID_GETHIT_3,
+    imgID_HITEFF1,
+    imgID_HITEFF2,
+    imgID_HITEFF3,
 
     //< 캐릭터
-    imgID_CHARACTER_1,
+    imgID_CHARACTER,
 
     imgID_WARRIOR_IDLE,
     imgID_WARRIOR_MOVE,
@@ -285,6 +286,13 @@ enum imgID
     imgID_WARRIOR_DIE,
     imgID_WARRIOR_BEHIT,
     imgID_WARRIOR_DASH,
+
+	imgID_ARCHER_IDLE,
+	imgID_ARCHER_MOVE,
+	imgID_ARCHER_ATK,
+	imgID_ARCHER_DIE,
+	imgID_ARCHER_BEHIT,
+	imgID_ARCHER_DASH,
 
     //< 고블린
     imgID_MONSTER_1_IDLE,

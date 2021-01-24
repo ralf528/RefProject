@@ -19,7 +19,7 @@ private:
 public:
 	void release(void);
 	static void Render(HDC hdc, LPANI_INFO info, POINT pos, int dir, int RCID);
-    static void SetAnimInfo(LPANI_INFO info, SIZE size, int countX, int countY, int speed, bool bFlag, bool bLoop, bool bPlay);
+    static void SetAnimInfo(LPANI_INFO info, E_ImageID imgID, SIZE size, int countX, int countY, int speed, bool bFlag, bool bLoop, bool bPlay);
     static void UpdateAni(LPANI_INFO aniInfo);
 };
 
