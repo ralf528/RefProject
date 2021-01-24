@@ -29,11 +29,11 @@ void TableManager::LoadTemplate(int TemplateID)
 		Data.SkillType_3 = E_SkillType_ShootWhole;
 		Data.SkillType_4 = E_SkillType_Inbeatable;
 
-		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_IDLE, AnimationTemplate{ imgID_WARRIOR_IDLE , "Data/Resource/Image/character/warrior_idle.bmp", SIZE{0, 0}, 8, 8, 50, true, true, true }));
-		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_MOVE , AnimationTemplate{ imgID_WARRIOR_MOVE , "Data/Resource/Image/character/warrior_walk.bmp", SIZE{0, 0}, 8, 8, 50, false, false, true }));
-		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_ATK  , AnimationTemplate{ imgID_WARRIOR_ATK  , "Data/Resource/Image/character/warrior_atk.bmp", SIZE{0, 0}, 18, 8, 20, false, false, true }));
-		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_DIE  , AnimationTemplate{ imgID_WARRIOR_DIE  , "Data/Resource/Image/character/warrior_die.bmp", SIZE{0, 0}, 20, 8, 200, false, false, false }));
-		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_BEHIT, AnimationTemplate{ imgID_WARRIOR_BEHIT, "Data/Resource/Image/character/warrior-gethit.bmp", SIZE{0, 0}, 7, 8, 20, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_IDLE, AnimationTemplate{ imgID_WARRIOR_IDLE , "Data/Resource/Image/character/warrior/warrior_idle.bmp", SIZE{0, 0}, 8, 8, 50, true, true, true }));
+		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_MOVE , AnimationTemplate{ imgID_WARRIOR_MOVE , "Data/Resource/Image/character/warrior/warrior_walk.bmp", SIZE{0, 0}, 8, 8, 50, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_ATK  , AnimationTemplate{ imgID_WARRIOR_ATK  , "Data/Resource/Image/character/warrior/warrior_atk.bmp", SIZE{0, 0}, 18, 8, 20, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_DIE  , AnimationTemplate{ imgID_WARRIOR_DIE  , "Data/Resource/Image/character/warrior/warrior_die.bmp", SIZE{0, 0}, 20, 8, 200, false, false, false }));
+		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_BEHIT, AnimationTemplate{ imgID_WARRIOR_BEHIT, "Data/Resource/Image/character/warrior/warrior-gethit.bmp", SIZE{0, 0}, 7, 8, 20, false, false, true }));
 		Data.m_AnimationDatas.insert(make_pair(imgID_WARRIOR_DASH , AnimationTemplate{ imgID_WARRIOR_DASH , "Data/Resource/Image/character/dash.bmp", SIZE{0, 0}, 5, 1, 40, false, false, true }));
 
 		for (auto& each : Data.m_AnimationDatas)
