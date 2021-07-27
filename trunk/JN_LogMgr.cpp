@@ -70,7 +70,10 @@ int		 JN_LogMgr::addLog(char* strmsg, ... )
 	// Log Window에 출력할 경우 
 	if( m_target & JN_LOG_WINDOW )
 	{
-		SendMessage( m_wndListBox, LB_ADDSTRING, 0, (LPARAM) szBuff );
+		TCHAR MessageBuffer[1024] = { 0, };
+		MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szBuff, strlen(szBuff), MessageBuffer, 1024);
+
+		SendMessage( m_wndListBox, LB_ADDSTRING, 0, (LPARAM)MessageBuffer);
 		LRESULT n = SendMessage( m_wndListBox, LB_GETCOUNT, 0, 0L ) - 1;
 		SendMessage( m_wndListBox, LB_SETCURSEL, (WPARAM)n, 0L );
 
