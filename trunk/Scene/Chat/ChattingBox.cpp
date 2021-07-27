@@ -43,7 +43,7 @@ ChattingBox::~ChattingBox(void)
 void ChattingBox::init( void )
 {
 	//< 배경 이미지 로드
-	m_image->loadImage( "Data/Resource/Image/Popup_Box4.bmp", 921,270 );
+	m_image->loadImage( L"Data/Resource/Image/Popup_Box4.bmp", 921,270 );
 
 	//< 고정 위치
 	m_image->setRectPos( WINSIZE_X/2-120, WINSIZE_Y/2+180, ALIGN_CENTER );
@@ -52,15 +52,15 @@ void ChattingBox::init( void )
 	POINT tempPoint = m_image->getCenter();
 
 	//< 입력판 
-	m_input_Board->init( "Data/Resource/Image/button_CHAR_02.bmp",
-		"Data/Resource/Image/button_CHAR_02.bmp",888, 44 );
+	m_input_Board->init( L"Data/Resource/Image/button_CHAR_02.bmp",
+		L"Data/Resource/Image/button_CHAR_02.bmp",888, 44 );
 	m_input_Board->setRectPos( tempPoint.x, tempPoint.y+90, ALIGN_CENTER ); 
 	//< 임시 렉트
 	RECT tempRect = m_input_Board->getRect();
 	tempRect.left += 120;
 
 	//< 입력 
-	inputChar->init( tempRect, "HY헤드라인M", 20, ALIGN_LEFT_TOP, 255,255,255 );
+	inputChar->init( tempRect, L"HY헤드라인M", 20, ALIGN_LEFT_TOP, 255,255,255 );
 	//< 입력 실행
 	inputChar->inInputCheck( true );
 
@@ -93,8 +93,8 @@ void ChattingBox::init( void )
 
 		inputData[j].name.clear();
 		inputData[j].text.clear();
-		inputData[j].name.LoadText( inputData[j].rect[0], "HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
-		inputData[j].text.LoadText( inputData[j].rect[1], "HY헤드라인M", 20, ALIGN_LEFT_TOP, 255,255,255 );
+		inputData[j].name.LoadText( inputData[j].rect[0], L"HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
+		inputData[j].text.LoadText( inputData[j].rect[1], L"HY헤드라인M", 20, ALIGN_LEFT_TOP, 255,255,255 );
 	}
 	//< 랭킹정보 저장 랙트 깔기
 	for( int j=0; j<8; j++ )
@@ -113,8 +113,8 @@ void ChattingBox::init( void )
 
 		inputDataSave[j].name.clear();
 		inputDataSave[j].text.clear();
-		inputDataSave[j].name.LoadText( inputDataSave[j].rect[0], "HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
-		inputDataSave[j].text.LoadText( inputDataSave[j].rect[1], "HY헤드라인M", 20, ALIGN_LEFT_TOP, 255,255,255 );
+		inputDataSave[j].name.LoadText( inputDataSave[j].rect[0], L"HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
+		inputDataSave[j].text.LoadText( inputDataSave[j].rect[1], L"HY헤드라인M", 20, ALIGN_LEFT_TOP, 255,255,255 );
 	}
 
 	//< 유저 이름 렉트
@@ -124,23 +124,23 @@ void ChattingBox::init( void )
 	userNameRect.bottom = 647;
 
 	//< 버튼 위,아래
-	button_UP->init("Data/Resource/Image/button_UP.bmp",
-		"Data/Resource/Image/button_UP_02.bmp",
-		"Data/Resource/Image/button_UP_DIS.bmp",
+	button_UP->init(L"Data/Resource/Image/button_UP.bmp",
+		L"Data/Resource/Image/button_UP_02.bmp",
+		L"Data/Resource/Image/button_UP_DIS.bmp",
 		45, 46 );
-	button_DOWN->init("Data/Resource/Image/button_DOWN.bmp",
-		"Data/Resource/Image/button_DOWN_02.bmp",
-		"Data/Resource/Image/button_DOWN_DIS.bmp",
+	button_DOWN->init(L"Data/Resource/Image/button_DOWN.bmp",
+		L"Data/Resource/Image/button_DOWN_02.bmp",
+		L"Data/Resource/Image/button_DOWN_DIS.bmp",
 		45, 46 );
 	button_UP->setRectPos( 942, 441, ALIGN_CENTER );
 	button_DOWN->setRectPos( 942, 580, ALIGN_CENTER );
 
 	//< 스크롤바
-	button_SCROLL->init("Data/Resource/Image/scroll_board.bmp",
-		"Data/Resource/Image/scroll_board.bmp",
+	button_SCROLL->init(L"Data/Resource/Image/scroll_board.bmp",
+		L"Data/Resource/Image/scroll_board.bmp",
 		32, 94 );
-	button_SCROLL_NODE->init("Data/Resource/Image/scroll_board_loot.bmp",
-		"Data/Resource/Image/scroll_board_loot.bmp",
+	button_SCROLL_NODE->init(L"Data/Resource/Image/scroll_board_loot.bmp",
+		L"Data/Resource/Image/scroll_board_loot.bmp",
 		26, 12 );
 	button_SCROLL->setRectPos( 942, 510, ALIGN_CENTER );
 	button_SCROLL_NODE->setRectPos( 942, nodePosition, ALIGN_CENTER );
@@ -148,7 +148,7 @@ void ChattingBox::init( void )
 	//---------------------------------------------------------------------------------------------
 	//< 유저 이름 받기
 	//userName = GAME_DATA->getUserId();
-	m_font->LoadText( userName.c_str(), userNameRect, "HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
+	m_font->LoadText(MY_Font::StringToTCHAR(userName), userNameRect, L"HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
 	//---------------------------------------------------------------------------------------------
 }
 

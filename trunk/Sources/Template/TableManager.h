@@ -6,7 +6,7 @@
 struct AnimationTemplate
 {
 	E_ImageID rcid;
-	char path[_MAX_PATH];
+	TCHAR path[_MAX_PATH];
 	SIZE size;
 	int countX;
 	int countY;

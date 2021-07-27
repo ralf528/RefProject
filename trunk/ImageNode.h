@@ -10,7 +10,7 @@ public:
 	virtual ~ImageNode(void);
 
 	//< 로딩
-	unsigned int load( const char *imagePath , int cx = 0, int cy = 0 , BYTE mode = RM_NORMAL );
+	unsigned int load( const TCHAR *imagePath , int cx = 0, int cy = 0 , BYTE mode = RM_NORMAL );
 	//< RC로딩
 	unsigned int load( const int resourceID , BYTE mode = RM_NORMAL );
 	//< 빈이미지만들기(해당 크기로 빈이미지 만들기 )디폴트로 흰색으로 칠한다.

@@ -124,7 +124,7 @@ unsigned long	Timer::getFrameRate( TCHAR* str  ) CONST
 {
 	if (str != nullptr)
 	{
-		sprintf_s(str, strlen(str), "FPS : %d", m_frameRate);
+		swprintf_s(str, lstrlen(str), L"FPS : %d", m_frameRate);
 	}
 
 	return m_frameRate;

@@ -69,43 +69,43 @@ void Popup_Lobby_EnterRoom_open::init( void )
 	RECT tempRect = popupImage->getRect();
 	tempRect.top -= 80;
 	tempRect.bottom -= 80;
-	char arr[256];
+	TCHAR arr[256];
 
 	//< 유저이름, 현재 플레이중인 유저수
 
 	if(newRoom.m_isCharSelect == true)
 	{
-		sprintf_s( arr,"%s 의 방  %d/2명 (캐릭터 선택중)", newRoom.m_userName[0],newRoom.m_userCount );
+		swprintf_s( arr, L"%s 의 방  %d/2명 (캐릭터 선택중)", newRoom.m_userName[0],newRoom.m_userCount );
 	}
 	else
 	{
-		sprintf_s( arr,"%s 의 방  %d/2명이 (게임중)", newRoom.m_userName[0],newRoom.m_userCount );
+		swprintf_s( arr, L"%s 의 방  %d/2명이 (게임중)", newRoom.m_userName[0],newRoom.m_userCount );
 	}
 
 	//< 유저 정보 받아오기
-	playUser->LoadText( arr, tempRect, "HY헤드라인M", 40, ALIGN_CENTER, 255,255,255 );
+	playUser->LoadText( arr, tempRect, L"HY헤드라인M", 40, ALIGN_CENTER, 255,255,255 );
 	//----------------------------------------------------------------------------
 	//< 정보표시 방이름
-	inputInfo_ID->init( "Data/Resource/Image/board_join.bmp",
-		"Data/Resource/Image/board_join.bmp",200, 60 );
+	inputInfo_ID->init(L"Data/Resource/Image/board_join.bmp",
+		L"Data/Resource/Image/board_join.bmp",200, 60 );
 	inputInfo_ID->setRectPos( tempPoint.x -150, tempPoint.y - 66 +70, ALIGN_CENTER );
 	//< 정보표시 비밀번호
-	inputInfo_PASS->init( "Data/Resource/Image/board_join.bmp",
-		"Data/Resource/Image/board_join.bmp",200, 60 );
+	inputInfo_PASS->init(L"Data/Resource/Image/board_join.bmp",
+		L"Data/Resource/Image/board_join.bmp",200, 60 );
 	inputInfo_PASS->setRectPos( tempPoint.x -150, tempPoint.y - 2 +70, ALIGN_CENTER );
 
 	//< 정보표시 방이름
-	inputInfo_ID->loadFont( "방이름",
+	inputInfo_ID->loadFont(L"방이름",
 		inputInfo_ID->getRect(), 
-		"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
+		L"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
 	//< 정보표시 비밀번호
-	inputInfo_PASS->loadFont( "비밀번호",
+	inputInfo_PASS->loadFont(L"비밀번호",
 		inputInfo_PASS->getRect(), 
-		"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
+		L"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
 	//----------------------------------------------------------------------------
 	//< 입력판 ID
-	m_inputID_Board->init( "Data/Resource/Image/JoinRoom.bmp",
-		"Data/Resource/Image/JoinRoom.bmp",300, 60 );
+	m_inputID_Board->init(L"Data/Resource/Image/JoinRoom.bmp",
+		L"Data/Resource/Image/JoinRoom.bmp",300, 60 );
 	m_inputID_Board->setRectPos( tempPoint.x +110, tempPoint.y - 66 +70, ALIGN_CENTER );
 
 	//< 유저 방제
@@ -115,29 +115,29 @@ void Popup_Lobby_EnterRoom_open::init( void )
 	//< 방제 로드
 	m_inputID_Board->loadFont( arr,
 		m_inputID_Board->getRect(),
-		"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
+		L"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
 
 	//< 입력판 PASS
-	m_inputPass_Board->init( "Data/Resource/Image/button_INPUT_ROCK.bmp",
-		"Data/Resource/Image/button_INPUT_ROCK.bmp",300, 60 );
+	m_inputPass_Board->init(L"Data/Resource/Image/button_INPUT_ROCK.bmp",
+		L"Data/Resource/Image/button_INPUT_ROCK.bmp",300, 60 );
 	m_inputPass_Board->setRectPos( tempPoint.x+110, tempPoint.y - 2 +70, ALIGN_CENTER );
 
 	//---------------------------------------------------------------------------
 	//< 버튼 같이하기
-	button_JOINROOM->init("Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",
+	button_JOINROOM->init(L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",
 		200, 50 );
-	button_JOINROOM->loadFont("같이하기", button_JOINROOM->getRect(), 
-		"HY헤드라인M",
+	button_JOINROOM->loadFont(L"같이하기", button_JOINROOM->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_JOINROOM->setRectPos( tempPoint.x+160, tempPoint.y+130 +20, ALIGN_CENTER );
 
 	//< 버튼 취소
-	button_CANCEL->init("Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",
+	button_CANCEL->init(L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",
 		200, 50 );
-	button_CANCEL->loadFont("취소", button_CANCEL->getRect(), 
-		"HY헤드라인M",
+	button_CANCEL->loadFont(L"취소", button_CANCEL->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_CANCEL->setRectPos( tempPoint.x-150, tempPoint.y+130 +20, ALIGN_CENTER );
 	//---------------------------------------------------------------------------
@@ -273,10 +273,10 @@ void Popup_Lobby_EnterRoom_open::loadImage( void )
 {
 	//< 알파 이미지
 	//alpaImage->loadImage("Data/Resource/Image/Alpa_background.bmp", 1024, 768 );
-	alpaImage->load( "Data/Resource/Image/Alpa_background.bmp", 
+	alpaImage->load(L"Data/Resource/Image/Alpa_background.bmp",
 		0, 0, RM_TRANS );
 	//< 팝업창
-	popupImage->init("Data/Resource/Image/Popup_Box.bmp", 700, 500 );
+	popupImage->init(L"Data/Resource/Image/Popup_Box.bmp", 700, 500 );
 }
 
 //< 이벤트처리

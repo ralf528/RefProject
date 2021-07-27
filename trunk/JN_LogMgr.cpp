@@ -71,7 +71,7 @@ int		 JN_LogMgr::addLog(char* strmsg, ... )
 	if( m_target & JN_LOG_WINDOW )
 	{
 		SendMessage( m_wndListBox, LB_ADDSTRING, 0, (LPARAM) szBuff );
-		UINT32 n = SendMessage( m_wndListBox, LB_GETCOUNT, 0, 0L ) - 1;
+		LRESULT n = SendMessage( m_wndListBox, LB_GETCOUNT, 0, 0L ) - 1;
 		SendMessage( m_wndListBox, LB_SETCURSEL, (WPARAM)n, 0L );
 
 		//< 부모 확인
@@ -198,7 +198,7 @@ int		 JN_LogMgr::addLog(char* strmsg, ... )
 	wc.hCursor			= LoadCursor(NULL, IDC_ARROW);			// Load The Arrow Pointer
 	wc.hbrBackground	= (HBRUSH)GetStockObject( WHITE_BRUSH) ;
 	wc.lpszMenuName		= NULL;
-	wc.lpszClassName	= "LogWin";
+	wc.lpszClassName	= L"LogWin";
 
 	RegisterClass(&wc);
 
@@ -223,18 +223,18 @@ int		 JN_LogMgr::addLog(char* strmsg, ... )
 	else 
 	{
 		hParenthWnd = hWnd;
-		hInst		= GetModuleHandle( "Janus" );
+		hInst		= GetModuleHandle( L"Janus" );
 	}
 
 	m_wndLog = CreateWindow( 
-		"LogWin", 
+		L"LogWin", 
 		JN_LOG_WINDOW_TITLE,
 		WS_POPUP | WS_CAPTION | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 		x, y, cx, cy, hParenthWnd, NULL,
 		hInst, NULL );
 
 	GetClientRect( m_wndLog, &rc );
-	m_wndListBox = CreateWindow( "listbox", "", WS_CHILD | WS_VSCROLL , 0, 0, rc.right, rc.bottom, m_wndLog, NULL, GetModuleHandle( NULL ), NULL );
+	m_wndListBox = CreateWindow( L"listbox", L"", WS_CHILD | WS_VSCROLL , 0, 0, rc.right, rc.bottom, m_wndLog, NULL, GetModuleHandle( NULL ), NULL );
 	ShowWindow( m_wndLog, SW_SHOW );
 	ShowWindow( m_wndListBox, SW_SHOW );
 }

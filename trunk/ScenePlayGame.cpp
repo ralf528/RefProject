@@ -38,15 +38,15 @@ bool ScenePlayGame::init(void)
     //< 스크린 버퍼 추가
     RC_MGR->addImage(imgID_SCREENBUFFER, SCREEN_X, SCREEN_Y);
     //< 게임 UI 이미지 추가
-    RC_MGR->addImage(imgID_GAME_UI, "Data/Resource/gameUI/IngameUI.bmp", 0, 0, RM_TRANS);
+    RC_MGR->addImage(imgID_GAME_UI, L"Data/Resource/gameUI/IngameUI.bmp", 0, 0, RM_TRANS);
     //< 시야 효과
-    RC_MGR->addImage(imgID_SIGHT, "Data/Resource/gameUI/시야.bmp", 0, 0, RM_ALPHA32);
+    RC_MGR->addImage(imgID_SIGHT, L"Data/Resource/gameUI/시야.bmp", 0, 0, RM_ALPHA32);
     //< 라이트맵핑
-    RC_MGR->addImage(imgID_LITE_MAPING, "Data/Resource/gameUI/라이트맵핑alpha.bmp", 0, 0, RM_ALPHA32);
+    RC_MGR->addImage(imgID_LITE_MAPING, L"Data/Resource/gameUI/라이트맵핑alpha.bmp", 0, 0, RM_ALPHA32);
     //< 타격 효과
-    RC_MGR->addImage(imgID_HITEFF1, "Data/Resource/effect/GetHit_tong.bmp", 0, 0, RM_TRANS);
-    RC_MGR->addImage(imgID_HITEFF2, "Data/Resource/effect/GetHit_Ghost.bmp", 0, 0, RM_TRANS);
-    RC_MGR->addImage(imgID_HITEFF3, "Data/Resource/effect/GetHit_Bug.bmp", 0, 0, RM_TRANS);
+    RC_MGR->addImage(imgID_HITEFF1, L"Data/Resource/effect/GetHit_tong.bmp", 0, 0, RM_TRANS);
+    RC_MGR->addImage(imgID_HITEFF2, L"Data/Resource/effect/GetHit_Ghost.bmp", 0, 0, RM_TRANS);
+    RC_MGR->addImage(imgID_HITEFF3, L"Data/Resource/effect/GetHit_Bug.bmp", 0, 0, RM_TRANS);
 
     STATE_MGR->setLoading(30);
 
@@ -241,45 +241,45 @@ void ScenePlayGame::initUI(void)
 {
     //< 스킬버튼
     m_button_Skill[0].init(
-        "Data/Resource/Image/Interface/skill_Attack.bmp",
-        "Data/Resource/Image/Interface/skill_Attack_02.bmp",
-        "Data/Resource/Image/Interface/skill_Attack_NO.bmp",
+        L"Data/Resource/Image/Interface/skill_Attack.bmp",
+        L"Data/Resource/Image/Interface/skill_Attack_02.bmp",
+        L"Data/Resource/Image/Interface/skill_Attack_NO.bmp",
         40, 40);
     m_button_Skill[1].init(
-        "Data/Resource/Image/Interface/skill_Dash.bmp",
-        "Data/Resource/Image/Interface/skill_Dash_02.bmp",
-        "Data/Resource/Image/Interface/skill_Dash_NO.bmp",
+        L"Data/Resource/Image/Interface/skill_Dash.bmp",
+        L"Data/Resource/Image/Interface/skill_Dash_02.bmp",
+        L"Data/Resource/Image/Interface/skill_Dash_NO.bmp",
         40, 40);
     m_button_Skill[2].init(
-        "Data/Resource/Image/Interface/skill_All.bmp",
-        "Data/Resource/Image/Interface/skill_All_02.bmp",
-        "Data/Resource/Image/Interface/skill_All_NO.bmp",
+        L"Data/Resource/Image/Interface/skill_All.bmp",
+        L"Data/Resource/Image/Interface/skill_All_02.bmp",
+        L"Data/Resource/Image/Interface/skill_All_NO.bmp",
         40, 40);
     m_button_Skill[3].init(
-        "Data/Resource/Image/Interface/skill_Heal_02.bmp",
-        "Data/Resource/Image/Interface/skill_Heal_02.bmp",
-        "Data/Resource/Image/Interface/skill_Heal_NO.bmp",
+        L"Data/Resource/Image/Interface/skill_Heal_02.bmp",
+        L"Data/Resource/Image/Interface/skill_Heal_02.bmp",
+        L"Data/Resource/Image/Interface/skill_Heal_NO.bmp",
         40, 40);
     //< 아이템 버튼
     m_m_button_Item[0].init(
-        "Data/Resource/Image/Interface/no_item.bmp",
-        "Data/Resource/Image/Interface/no_item.bmp",
-        "Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
         40, 40);
     m_m_button_Item[1].init(
-        "Data/Resource/Image/Interface/no_item.bmp",
-        "Data/Resource/Image/Interface/no_item.bmp",
-        "Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
         40, 40);
     m_m_button_Item[2].init(
-        "Data/Resource/Image/Interface/no_item.bmp",
-        "Data/Resource/Image/Interface/no_item.bmp",
-        "Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
         40, 40);
     m_m_button_Item[3].init(
-        "Data/Resource/Image/Interface/no_item.bmp",
-        "Data/Resource/Image/Interface/no_item.bmp",
-        "Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
+        L"Data/Resource/Image/Interface/no_item.bmp",
         40, 40);
     for (int i = 0; i < 4; i++)
     {
@@ -291,23 +291,23 @@ void ScenePlayGame::initUI(void)
 
     //< 캐릭터 이름
     m_charName.inSetRect(450, 607 - 20, 830, 666 - 20);
-    m_charName.LoadText(m_charName.getRect(), "HY헤드라인M", 25, ALIGN_CENTER, 255, 255, 255);
+    m_charName.LoadText(m_charName.getRect(), L"HY헤드라인M", 25, ALIGN_CENTER, 255, 255, 255);
 
     //< 스텟바
     m_stat[0].init(
-        "Data/Resource/Image/Interface/stat_T.bmp",
-        "Data/Resource/Image/Interface/stat_T.bmp",
-        "Data/Resource/Image/Interface/stat_T.bmp",
+        L"Data/Resource/Image/Interface/stat_T.bmp",
+        L"Data/Resource/Image/Interface/stat_T.bmp",
+        L"Data/Resource/Image/Interface/stat_T.bmp",
         120, 42);
     m_stat[1].init(
-        "Data/Resource/Image/Interface/stat_S.bmp",
-        "Data/Resource/Image/Interface/stat_S.bmp",
-        "Data/Resource/Image/Interface/stat_S.bmp",
+        L"Data/Resource/Image/Interface/stat_S.bmp",
+        L"Data/Resource/Image/Interface/stat_S.bmp",
+        L"Data/Resource/Image/Interface/stat_S.bmp",
         120, 42);
     m_stat[2].init(
-        "Data/Resource/Image/Interface/stat_M.bmp",
-        "Data/Resource/Image/Interface/stat_M.bmp",
-        "Data/Resource/Image/Interface/stat_M.bmp",
+        L"Data/Resource/Image/Interface/stat_M.bmp",
+        L"Data/Resource/Image/Interface/stat_M.bmp",
+        L"Data/Resource/Image/Interface/stat_M.bmp",
         120, 42);
     for (int i = 0; i < 3; i++)
     {
@@ -317,49 +317,49 @@ void ScenePlayGame::initUI(void)
     m_stat_S.inSetRect(m_stat[0].getRect().left + 35, m_stat[0].getRect().top + 42, m_stat[0].getRect().right, m_stat[0].getRect().bottom + 42);
     m_stat_Q.inSetRect(m_stat[1].getRect().left + 35, m_stat[1].getRect().top + 42, m_stat[1].getRect().right, m_stat[1].getRect().bottom + 42);
     m_stat_M.inSetRect(m_stat[2].getRect().left + 35, m_stat[2].getRect().top + 42, m_stat[2].getRect().right, m_stat[2].getRect().bottom + 42);
-    m_stat_S.LoadText(m_stat_S.getRect(), "HY헤드라인M", 20, ALIGN_CENTER, 255, 255, 255);
-    m_stat_Q.LoadText(m_stat_Q.getRect(), "HY헤드라인M", 20, ALIGN_CENTER, 255, 255, 255);
-    m_stat_M.LoadText(m_stat_M.getRect(), "HY헤드라인M", 20, ALIGN_CENTER, 255, 255, 255);
+    m_stat_S.LoadText(m_stat_S.getRect(), L"HY헤드라인M", 20, ALIGN_CENTER, 255, 255, 255);
+    m_stat_Q.LoadText(m_stat_Q.getRect(), L"HY헤드라인M", 20, ALIGN_CENTER, 255, 255, 255);
+    m_stat_M.LoadText(m_stat_M.getRect(), L"HY헤드라인M", 20, ALIGN_CENTER, 255, 255, 255);
 
     //< 경험지 바
-    m_bar_experience_back.load("Data/Resource/Image/Interface/UI_lvup_NO.bmp", 380, 19, RM_TRANS);
-    m_bar_experience.load("Data/Resource/Image/Interface/UI_lvup.bmp", 760, 19, RM_TRANS);
+    m_bar_experience_back.load(L"Data/Resource/Image/Interface/UI_lvup_NO.bmp", 380, 19, RM_TRANS);
+    m_bar_experience.load(L"Data/Resource/Image/Interface/UI_lvup.bmp", 760, 19, RM_TRANS);
     //< 경험치 표시
     m_bar_experience_string.inSetRect(450, 690, 450 + 380, 690 + 19);
-    m_bar_experience_string.LoadText(m_bar_experience_string.getRect(), "HY헤드라인M", 15, ALIGN_CENTER, 255, 255, 255);
+    m_bar_experience_string.LoadText(m_bar_experience_string.getRect(), L"HY헤드라인M", 15, ALIGN_CENTER, 255, 255, 255);
 
     //< 체력바 
-    m_bar_live_back.load("Data/Resource/Image/Interface/UI_live_NO.bmp", 380, 19, RM_TRANS);
-    m_bar_live.load("Data/Resource/Image/Interface/UI_live.bmp", 760, 19, RM_TRANS);
+    m_bar_live_back.load(L"Data/Resource/Image/Interface/UI_live_NO.bmp", 380, 19, RM_TRANS);
+    m_bar_live.load(L"Data/Resource/Image/Interface/UI_live.bmp", 760, 19, RM_TRANS);
     //< 체력바 표시
     m_bar_live_string.inSetRect(100, 10, 100 + 380, 10 + 19);
-    m_bar_live_string.LoadText(m_bar_live_string.getRect(), "HY헤드라인M", 15, ALIGN_CENTER, 255, 255, 255);
+    m_bar_live_string.LoadText(m_bar_live_string.getRect(), L"HY헤드라인M", 15, ALIGN_CENTER, 255, 255, 255);
 
     //< 마나바
-    m_bar_mana_back.load("Data/Resource/Image/Interface/UI_mana_NO.bmp", 380, 19, RM_TRANS);
-    m_bar_mana.load("Data/Resource/Image/Interface/UI_mana.bmp", 760, 19, RM_TRANS);
+    m_bar_mana_back.load(L"Data/Resource/Image/Interface/UI_mana_NO.bmp", 380, 19, RM_TRANS);
+    m_bar_mana.load(L"Data/Resource/Image/Interface/UI_mana.bmp", 760, 19, RM_TRANS);
     //< 마나바 표시 
     m_bar_mana_string.inSetRect(100, 37, 100 + 380, 37 + 19);
-    m_bar_mana_string.LoadText(m_bar_mana_string.getRect(), "HY헤드라인M", 15, ALIGN_CENTER, 255, 255, 255);
+    m_bar_mana_string.LoadText(m_bar_mana_string.getRect(), L"HY헤드라인M", 15, ALIGN_CENTER, 255, 255, 255);
 
     //< 레벨 표시
     m_lv_bar.init(
-        "Data/Resource/Image/Interface/UI_LV.bmp",
-        "Data/Resource/Image/Interface/UI_LV.bmp",
-        "Data/Resource/Image/Interface/UI_LV.bmp",
+        L"Data/Resource/Image/Interface/UI_LV.bmp",
+        L"Data/Resource/Image/Interface/UI_LV.bmp",
+        L"Data/Resource/Image/Interface/UI_LV.bmp",
         81, 47);
     m_lv_bar.setRectPos(10, 10, ALIGN_LEFT_TOP);
 
     //< 레벨 표시
-    m_lv_bar_string.LoadText(m_lv_bar.getRect(), "HY헤드라인M", 25, ALIGN_CENTER, 255, 255, 255);
+    m_lv_bar_string.LoadText(m_lv_bar.getRect(), L"HY헤드라인M", 25, ALIGN_CENTER, 255, 255, 255);
 
     //< 층도달 
     m_stage.inSetRect(1150, 10, 1260, 109);
-    m_stage.LoadText(m_stage.getRect(), "HY헤드라인M", 50, ALIGN_CENTER, 255, 255, 255);
+    m_stage.LoadText(m_stage.getRect(), L"HY헤드라인M", 50, ALIGN_CENTER, 255, 255, 255);
 
     //< 캐릭터 상태
     m_charState.inSetRect(500, 10, 500 + 90, 10 + 50);
-    m_charState.LoadText(m_charState.getRect(), "HY헤드라인M", 20, ALIGN_CENTER, 255, 255, 255);
+    m_charState.LoadText(m_charState.getRect(), L"HY헤드라인M", 20, ALIGN_CENTER, 255, 255, 255);
 }
 
 //< UI 그리기
@@ -371,15 +371,15 @@ void ScenePlayGame::renderUI(HDC hdc)
         TCHAR tempStr[_MAX_FNAME];
 
         //< 스테이터스 문자열
-        static char *belief[] = { "지드","마가츠치","나아키","보레아스","타나토" };
-        static char *tribe[] = { "늑대인간","켄타우로스","엘프","언데드" };
-        static char *job[] = { "전사","도적","아처","마법사" };
-        static char *condition[] = { "","독","강화","약화", "무적" };
+		static TCHAR *belief[] = { TEXT("지드"), TEXT("마가츠치"), TEXT("나아키"), TEXT("보레아스"), TEXT("타나토") };
+		static TCHAR *tribe[] = { TEXT("늑대인간"), TEXT("켄타우로스"), TEXT("엘프"), TEXT("언데드") };
+		static TCHAR *job[] = { TEXT("전사"), TEXT("도적"), TEXT("아처"), TEXT("마법사") };
+		static TCHAR *condition[] = { TEXT(""), TEXT("독"), TEXT("강화"), TEXT("약화"), TEXT("무적") };
 
         //< 캐릭터 좌표, 좌표 인덱스 표시
-        //sprintf_s(tempStr, "x : %3d,   y : %3d", m_player->getPos().x/TILE_SIZE_X, m_player->getPos().y/TILE_SIZE_Y );
+        //swprintf_s(tempStr, "x : %3d,   y : %3d", m_player->getPos().x/TILE_SIZE_X, m_player->getPos().y/TILE_SIZE_Y );
         //TextOut( hdc, SCREEN_X - 250, 400, tempStr, lstrlen(tempStr) );
-        //sprintf_s(tempStr, "x : %3d,   y : %3d", m_player->getPos().x, m_player->getPos().y );
+        //swprintf_s(tempStr, "x : %3d,   y : %3d", m_player->getPos().x, m_player->getPos().y );
         //TextOut( hdc, SCREEN_X - 250, 430, tempStr, lstrlen(tempStr) );
 
         //< 바 전용 변수
@@ -393,11 +393,11 @@ void ScenePlayGame::renderUI(HDC hdc)
         }
 
         //< 캐릭터 상태
-        sprintf_s(tempStr, _MAX_FNAME, "%s", condition[m_player->GetCharacter()->getCondition()]);
+        swprintf_s(tempStr, _MAX_FNAME, TEXT("%s"), condition[m_player->GetCharacter()->getCondition()]);
         m_charState.OutputText(hdc, tempStr);
         //Rectangle( hdc, m_charState.getRect().left, m_charState.getRect().top, m_charState.getRect().right, m_charState.getRect().bottom );
 
-        sprintf_s(tempStr, _MAX_FNAME, "%s %s %s", belief[m_player->GetCharacter()->getBelief()], tribe[m_player->GetCharacter()->getTribe()], job[m_player->GetCharacter()->getJob()]);
+        swprintf_s(tempStr, _MAX_FNAME, TEXT("%s %s %s"), belief[m_player->GetCharacter()->getBelief()], tribe[m_player->GetCharacter()->getTribe()], job[m_player->GetCharacter()->getJob()]);
         //< 캐릭터 이름
         m_charName.OutputText(hdc, tempStr);
         //Rectangle( hdc, m_charName.getRect().left, m_charName.getRect().top, m_charName.getRect().right, m_charName.getRect().bottom );
@@ -407,11 +407,11 @@ void ScenePlayGame::renderUI(HDC hdc)
             m_stat[i].render(hdc);
         }
         //< 스텟 표시
-        sprintf_s(tempStr, _MAX_FNAME, "힘:%2d", m_player->GetCharacter()->getStrong());
+        swprintf_s(tempStr, _MAX_FNAME, TEXT("힘:%2d"), m_player->GetCharacter()->getStrong());
         m_stat_S.OutputText(hdc, tempStr);
-        sprintf_s(tempStr, _MAX_FNAME, "민:%2d", m_player->GetCharacter()->getAgility());
+        swprintf_s(tempStr, _MAX_FNAME, TEXT("민:%2d"), m_player->GetCharacter()->getAgility());
         m_stat_Q.OutputText(hdc, tempStr);
-        sprintf_s(tempStr, _MAX_FNAME, "지:%2d", m_player->GetCharacter()->getIntel());
+        swprintf_s(tempStr, _MAX_FNAME, TEXT("지:%2d"), m_player->GetCharacter()->getIntel());
         m_stat_M.OutputText(hdc, tempStr);
 
         //< 경험치바
@@ -419,7 +419,7 @@ void ScenePlayGame::renderUI(HDC hdc)
 
         moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->GetCharacter()->getLevelInfo().getNowExp()) / m_player->GetCharacter()->getLevelInfo().getMaxExp()) * 380));
         m_bar_experience.render(hdc, 450, 690, 380, 19, moveBar, 0, 760, 19);
-        sprintf_s(tempStr, 256, "%d/%d", m_player->GetCharacter()->getLevelInfo().getNowExp(), m_player->GetCharacter()->getLevelInfo().getMaxExp());
+        swprintf_s(tempStr, 256, TEXT("%d/%d"), m_player->GetCharacter()->getLevelInfo().getNowExp(), m_player->GetCharacter()->getLevelInfo().getMaxExp());
         //< 경험치 표시
         m_bar_experience_string.OutputText(hdc, tempStr);
 
@@ -428,7 +428,7 @@ void ScenePlayGame::renderUI(HDC hdc)
 
         moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->GetCharacter()->getHP()) / m_player->GetCharacter()->getMaxHP()) * 380));
         m_bar_live.render(hdc, 100, 10, 380, 19, moveBar, 0, 760, 19);
-        sprintf_s(tempStr, 256, "%d/%d", m_player->GetCharacter()->getHP(), m_player->GetCharacter()->getMaxHP());
+        swprintf_s(tempStr, 256, TEXT("%d/%d"), m_player->GetCharacter()->getHP(), m_player->GetCharacter()->getMaxHP());
         //< 체력바 표시
         m_bar_live_string.OutputText(hdc, tempStr);
 
@@ -437,17 +437,17 @@ void ScenePlayGame::renderUI(HDC hdc)
 
         moveBar = static_cast<int>(380 - ((static_cast<float>(m_player->GetCharacter()->getMP()) / m_player->GetCharacter()->getMaxMP()) * 380));
         m_bar_mana.render(hdc, 100, 37, 380, 19, moveBar, 0, 760, 19);
-        sprintf_s(tempStr, 256, "%d/%d", m_player->GetCharacter()->getMP(), m_player->GetCharacter()->getMaxMP());
+        swprintf_s(tempStr, 256, TEXT("%d/%d"), m_player->GetCharacter()->getMP(), m_player->GetCharacter()->getMaxMP());
         //< 마나바 표시
         m_bar_mana_string.OutputText(hdc, tempStr);
 
         //< 레벨 표시
         m_lv_bar.render(hdc);
-        sprintf_s(tempStr, 256, "LV.%d", m_player->GetCharacter()->getLevelInfo().getNowLevel());
+        swprintf_s(tempStr, 256, TEXT("LV.%d"), m_player->GetCharacter()->getLevelInfo().getNowLevel());
         m_lv_bar_string.OutputText(hdc, tempStr);
 
         //< 도달 층수
-        sprintf_s(tempStr, "%d층", m_World->getNowFloor());
+        swprintf_s(tempStr, TEXT("%d층"), m_World->getNowFloor());
         m_stage.OutputText(hdc, tempStr);
 
         //< 플레이어 인벤토리 표시

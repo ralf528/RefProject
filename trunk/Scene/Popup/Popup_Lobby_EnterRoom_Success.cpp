@@ -44,11 +44,11 @@ void Popup_Lobby_EnterRoom_Success::init( void )
 	POINT tempPoint = popupImage->getCenter();
 
 	//< 버튼
-	button_OK->init("Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",
+	button_OK->init(L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",
 		 200, 50 );
-	button_OK->loadFont("확인", button_OK->getRect(), 
-		"HY헤드라인M",
+	button_OK->loadFont(L"확인", button_OK->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_OK->setRectPos( tempPoint.x, tempPoint.y+130 +20, ALIGN_CENTER );
 }
@@ -78,8 +78,8 @@ void Popup_Lobby_EnterRoom_Success::update( POINT mousePos )
 	}
 
 	//< 팝업 멘트
-	font->LoadText( "해당 방에 입장합니다!", popupImage->getRect(), 
-		"HY헤드라인M",
+	font->LoadText( L"해당 방에 입장합니다!", popupImage->getRect(), 
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 }
 
@@ -120,10 +120,10 @@ void Popup_Lobby_EnterRoom_Success::loadImage( void )
 {
 	//< 알파 이미지
 	//alpaImage->loadImage("Data/Resource/Image/Alpa_background.bmp", 1024, 768 );
-	alpaImage->load( "Data/Resource/Image/Alpa_background.bmp", 
+	alpaImage->load( L"Data/Resource/Image/Alpa_background.bmp", 
 		0, 0, RM_TRANS );
 
-	popupImage->init("Data/Resource/Image/Popup_Box.bmp", 700, 500 );
+	popupImage->init(L"Data/Resource/Image/Popup_Box.bmp", 700, 500 );
 }
 
 //< 이벤트처리

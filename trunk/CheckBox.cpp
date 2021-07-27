@@ -32,8 +32,8 @@ CheckBox::~CheckBox(void)
 }
 
 //< 초기화
-void CheckBox::init( char *checkOFF_FILE_NAME, char *overlapOFF_FILE_NAME,
-					char *checkON_FILE_NAME, char *overlapON_FILE_NAME,
+void CheckBox::init(TCHAR *checkOFF_FILE_NAME, TCHAR *overlapOFF_FILE_NAME,
+					TCHAR *checkON_FILE_NAME, TCHAR *overlapON_FILE_NAME,
 					int sizeX, int sizeY )
 {
 	//< 체크오프 이미지 로드
@@ -46,9 +46,9 @@ void CheckBox::init( char *checkOFF_FILE_NAME, char *overlapOFF_FILE_NAME,
 }
 
 //< 폰트 불러오기
-void CheckBox::loadFont( const char *destString, 
+void CheckBox::loadFont( const TCHAR *destString,
 		const RECT ALIGN_RECT,
-		const char *fontName = "굴림",
+		const TCHAR *fontName = L"굴림",
 		const int fontSize = 10, 
 		const int ALIGN_TYPE = ALIGN_CENTER,
 		const int R_COLOR = 255,
@@ -273,7 +273,7 @@ void CheckBox::release( void )
 
 //public :
 //< 버튼 이미지 불러오기
-void CheckBox::loadImage( char *FILE_NAME, int sizeX, int sizeY )
+void CheckBox::loadImage(TCHAR *FILE_NAME, int sizeX, int sizeY )
 {
 	//< 버튼 이미지 불러오기
 	checkOFF->load( FILE_NAME, sizeX, sizeY, RM_TRANS );

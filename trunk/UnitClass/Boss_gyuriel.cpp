@@ -20,12 +20,12 @@ Gyuriel::~Gyuriel(void)
 bool Gyuriel::init(void)
 {
 	//이미지 추가
-	RC_MGR->addImage( imgID_BOSS_GYURIEL_IDLE, "Data/Resource/monster/gyuriel/201-idle.bmp", 0, 0 , RM_TRANS );
-	RC_MGR->addImage( imgID_BOSS_GYURIEL_MOVE,"Data/Resource/monster/gyuriel/201-walk.bmp",0,0,RM_TRANS);
-	RC_MGR->addImage( imgID_BOSS_GYURIEL_ATK,"Data/Resource/monster/gyuriel/201-attack.bmp",0,0,RM_TRANS);
-	RC_MGR->addImage( imgID_BOSS_GYURIEL_BEHIT,"Data/Resource/monster/gyuriel/201-gethit.bmp",0,0,RM_TRANS);
-	RC_MGR->addImage( imgID_BOSS_GYURIEL_DIE, "Data/Resource/monster/gyuriel/201-die.bmp", 0, 0 , RM_TRANS );
-	RC_MGR->addImage( imgID_BOSS_GYURIEL_SPECIAL, "Data/Resource/monster/gyuriel/201-special.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_BOSS_GYURIEL_IDLE, L"Data/Resource/monster/gyuriel/201-idle.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_BOSS_GYURIEL_MOVE, L"Data/Resource/monster/gyuriel/201-walk.bmp",0,0,RM_TRANS);
+	RC_MGR->addImage( imgID_BOSS_GYURIEL_ATK, L"Data/Resource/monster/gyuriel/201-attack.bmp",0,0,RM_TRANS);
+	RC_MGR->addImage( imgID_BOSS_GYURIEL_BEHIT, L"Data/Resource/monster/gyuriel/201-gethit.bmp",0,0,RM_TRANS);
+	RC_MGR->addImage( imgID_BOSS_GYURIEL_DIE, L"Data/Resource/monster/gyuriel/201-die.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_BOSS_GYURIEL_SPECIAL, L"Data/Resource/monster/gyuriel/201-special.bmp", 0, 0 , RM_TRANS );
 	//< 상태
 	m_stateFlag = STATE_IDLE;
 

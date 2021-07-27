@@ -20,11 +20,11 @@ bool boss_naid::init(void)
 {
 
 	//이미지 추가
-	RC_MGR->addImage( imgID_BOSS_NAID, "Data/Resource/monster/naid/001-idle.bmp", 0, 0 , RM_TRANS );
-	RC_MGR->addImage(imgID_BOSS_MOVE,"Data/Resource/monster/naid/001-walk.bmp",0,0,RM_TRANS);
-	RC_MGR->addImage(imgID_BOSS_ATK,"Data/Resource/monster/naid/001-special.bmp",0,0,RM_TRANS);
-	RC_MGR->addImage(imgID_BOSS_BEHIT,"Data/Resource/monster/naid/001-gethit.bmp",0,0,RM_TRANS);
-	RC_MGR->addImage( imgID_BOSS_NAID_DIE, "Data/Resource/monster/naid/001-die.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_BOSS_NAID, L"Data/Resource/monster/naid/001-idle.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage(imgID_BOSS_MOVE, L"Data/Resource/monster/naid/001-walk.bmp",0,0,RM_TRANS);
+	RC_MGR->addImage(imgID_BOSS_ATK, L"Data/Resource/monster/naid/001-special.bmp",0,0,RM_TRANS);
+	RC_MGR->addImage(imgID_BOSS_BEHIT, L"Data/Resource/monster/naid/001-gethit.bmp",0,0,RM_TRANS);
+	RC_MGR->addImage( imgID_BOSS_NAID_DIE, L"Data/Resource/monster/naid/001-die.bmp", 0, 0 , RM_TRANS );
 	//< 상태
 	m_stateFlag = STATE_IDLE;
 

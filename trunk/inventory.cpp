@@ -15,28 +15,28 @@ Inventory::~Inventory(void)
 bool Inventory::init(void)
 {
 	//< 아이템 이미지 추가
-	RC_MGR->addImage( imgID_POTION_1 , "Data/Resource/item/Potion_Confusion.bmp", 0, 0, RM_TRANS );
-	RC_MGR->addImage( imgID_POTION_2 , "Data/Resource/item/Potion_Cure.bmp", 0, 0, RM_TRANS );
-	RC_MGR->addImage( imgID_POTION_3 , "Data/Resource/item/Potion_Identify.bmp", 0, 0, RM_TRANS );
-	RC_MGR->addImage( imgID_POTION_4 , "Data/Resource/item/Potion_Regen.bmp", 0, 0, RM_TRANS );
-	RC_MGR->addImage( imgID_POTION_5 , "Data/Resource/item/Potion_Unknown.bmp", 0, 0, RM_TRANS );
-	RC_MGR->addImage( imgID_POTION_6 , "Data/Resource/item/Potion_Venom.bmp", 0, 0, RM_TRANS );
+	RC_MGR->addImage( imgID_POTION_1 , L"Data/Resource/item/Potion_Confusion.bmp", 0, 0, RM_TRANS );
+	RC_MGR->addImage( imgID_POTION_2 , L"Data/Resource/item/Potion_Cure.bmp", 0, 0, RM_TRANS );
+	RC_MGR->addImage( imgID_POTION_3 , L"Data/Resource/item/Potion_Identify.bmp", 0, 0, RM_TRANS );
+	RC_MGR->addImage( imgID_POTION_4 , L"Data/Resource/item/Potion_Regen.bmp", 0, 0, RM_TRANS );
+	RC_MGR->addImage( imgID_POTION_5 , L"Data/Resource/item/Potion_Unknown.bmp", 0, 0, RM_TRANS );
+	RC_MGR->addImage( imgID_POTION_6 , L"Data/Resource/item/Potion_Venom.bmp", 0, 0, RM_TRANS );
 	//
 		//< 아이템 이미지 추가
-	RC_MGR->addImage( imgID_INVEN_POTION_1 , "Data/Resource/Image/Interface/item_01.bmp", 40, 40, RM_TRANS );
-	RC_MGR->addImage( imgID_INVEN_POTION_2 , "Data/Resource/Image/Interface/item_02.bmp", 40, 40, RM_TRANS );
-	RC_MGR->addImage( imgID_INVEN_POTION_3 , "Data/Resource/Image/Interface/item_03.bmp", 40, 40, RM_TRANS );
-	RC_MGR->addImage( imgID_INVEN_POTION_4 , "Data/Resource/Image/Interface/item_04.bmp", 40, 40, RM_TRANS );
-	RC_MGR->addImage( imgID_INVEN_POTION_5 , "Data/Resource/Image/Interface/item_05.bmp", 40, 40, RM_TRANS );
-	RC_MGR->addImage( imgID_INVEN_POTION_6 , "Data/Resource/Image/Interface/item_06.bmp", 40, 40, RM_TRANS );
+	RC_MGR->addImage( imgID_INVEN_POTION_1 , L"Data/Resource/Image/Interface/item_01.bmp", 40, 40, RM_TRANS );
+	RC_MGR->addImage( imgID_INVEN_POTION_2 , L"Data/Resource/Image/Interface/item_02.bmp", 40, 40, RM_TRANS );
+	RC_MGR->addImage( imgID_INVEN_POTION_3 , L"Data/Resource/Image/Interface/item_03.bmp", 40, 40, RM_TRANS );
+	RC_MGR->addImage( imgID_INVEN_POTION_4 , L"Data/Resource/Image/Interface/item_04.bmp", 40, 40, RM_TRANS );
+	RC_MGR->addImage( imgID_INVEN_POTION_5 , L"Data/Resource/Image/Interface/item_05.bmp", 40, 40, RM_TRANS );
+	RC_MGR->addImage( imgID_INVEN_POTION_6 , L"Data/Resource/Image/Interface/item_06.bmp", 40, 40, RM_TRANS );
 
 	//< 아이템 버튼
 	for( int i=0; i<4; i++ )
 	{
 		m_m_button_Item[i].init( 
-			"Data/Resource/Image/Interface/no_item.bmp",
-			"Data/Resource/Image/Interface/no_item.bmp",
-			"Data/Resource/Image/Interface/no_item.bmp",
+			L"Data/Resource/Image/Interface/no_item.bmp",
+			L"Data/Resource/Image/Interface/no_item.bmp",
+			L"Data/Resource/Image/Interface/no_item.bmp",
 			40,40 );
 		m_m_button_Item[i].setRectPos( 920 +((40*i)+(10*i)),WINSIZE_Y-50, ALIGN_LEFT_TOP );
 	}

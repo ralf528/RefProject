@@ -19,7 +19,7 @@ PopupBox::~PopupBox(void)
 }
 
 //< 초기화
-void PopupBox::init( char *dest_FILE_NAME, int sizeX, int sizeY )
+void PopupBox::init(TCHAR *dest_FILE_NAME, int sizeX, int sizeY )
 {
 	//< 이미지 로드
 	loadImage( dest_FILE_NAME, sizeX, sizeY );
@@ -111,7 +111,7 @@ void PopupBox::release( void )
 
 //public :
 //< 팝업 이미지 불러오기
-void PopupBox::loadImage( char *FILE_NAME, int sizeX, int sizeY )
+void PopupBox::loadImage(TCHAR *FILE_NAME, int sizeX, int sizeY )
 {
 	//< 버튼 이미지 불러오기
 	PopupBoxImage->load( FILE_NAME, sizeX, sizeY, RM_TRANS );

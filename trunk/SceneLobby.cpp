@@ -58,36 +58,36 @@ bool SceneLobby::init( void )
 {
 	//< 배경이미지
 	//< 배경이미지
-	m_image->init("Data/Resource/Image/background_Login3.bmp",WINSIZE_X,WINSIZE_Y );
+	m_image->init(L"Data/Resource/Image/background_Login3.bmp",WINSIZE_X,WINSIZE_Y );
 	m_image->setRectPos( 0,0, ALIGN_LEFT_TOP );
 	//----------------------------------------------------------------------------
 	//< 새로고침 button_REFRESH
 	button_REFRESH->init(
-		"Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",200, 50);
-	button_REFRESH->loadFont( "새로고침", button_REFRESH->getRect(), 
-		"HY헤드라인M",
+		L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",200, 50);
+	button_REFRESH->loadFont( L"새로고침", button_REFRESH->getRect(), 
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	//< 버튼 초기화
 	button_FRIEND_LIST->init(
-		"Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",200, 50);
-	button_FRIEND_LIST->loadFont( "친구목록", button_FRIEND_LIST->getRect(), 
-		"HY헤드라인M",
+		L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",200, 50);
+	button_FRIEND_LIST->loadFont( L"친구목록", button_FRIEND_LIST->getRect(), 
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	//< 방만들기
 	button_MAKE_ROOM->init(
-		"Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",200, 50);
-	button_MAKE_ROOM->loadFont( "방만들기", button_MAKE_ROOM->getRect(), 
-		"HY헤드라인M",
+		L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",200, 50);
+	button_MAKE_ROOM->loadFont( L"방만들기", button_MAKE_ROOM->getRect(), 
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	//< 나가기
 	button_EXIT->init(
-		"Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",200, 50);
-	button_EXIT->loadFont( "나가기", button_EXIT->getRect(), 
-		"HY헤드라인M",
+		L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",200, 50);
+	button_EXIT->loadFont(L"나가기", button_EXIT->getRect(), 
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 
 	//ALIGN_CENTER,				//< 중간정렬
@@ -268,9 +268,9 @@ void SceneLobby::render( HDC hdc )
 	if( NULL != hdc )
 	{
 		m_font->OutputText( hdc, 
-			"로비 씬",
+			L"로비 씬",
 			0,0,
-			"HY얕은샘물M",
+			L"HY얕은샘물M",
 			65,
 			0,0,0 );
 	}
@@ -279,11 +279,11 @@ void SceneLobby::render( HDC hdc )
 		button_MAKE_ROOM->getCheckMouseOn() == true ||
 		button_EXIT->getCheckMouseOn() == true )
 	{
-		TextOut( hdc, 200,0, "충돌",4);
+		TextOut( hdc, 200,0, L"충돌",4);
 	}
 	else
 	{
-		TextOut( hdc, 200,0, "비충돌",6);
+		TextOut( hdc, 200,0, L"비충돌",6);
 	}
 	/*if(button_FRIEND_LIST->getCheckMouseOn() == true && checkMosFRIENDLIST == true)
 	{

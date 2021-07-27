@@ -83,17 +83,17 @@ void GameManager::Render()
     STATE_MGR->renderState(backDC);
 
     //< 실행경로
-    TextOut( backDC, 0,0, m_path, strlen(m_path));
+    TextOut( backDC, 0,0, m_path, lstrlen(m_path));
 
 #ifdef _DEBUG
     //fps 출력
     FpsTime::renderFps(backDC, RGB(255, 0, 0));
 
     //< 마우스 위치 출력	
-    char buff[50];
-    sprintf_s(buff, 50, "X = %d", m_mousePos.x);
+    TCHAR buff[50];
+    swprintf_s(buff, 50, L"X = %d", m_mousePos.x);
     TextOut(backDC, WINSIZE_X - 50, 0, buff, lstrlen(buff));
-    sprintf_s(buff, 50, "Y = %d", m_mousePos.y);
+	swprintf_s(buff, 50, L"Y = %d", m_mousePos.y);
     TextOut(backDC, WINSIZE_X - 50, 15, buff, lstrlen(buff));
 #endif
     //< 프레임이 그려진 백버퍼를 출력

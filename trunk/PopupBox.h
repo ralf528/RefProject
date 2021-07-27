@@ -11,7 +11,7 @@ public:
 	~PopupBox(void);
 
 //< 초기화
-	void init( char *dest_FILE_NAME, int sizeX, int sizeY );
+	void init(TCHAR *dest_FILE_NAME, int sizeX, int sizeY );
 	//< 업데이트
 	void update( void );
 	//< 랜더
@@ -22,7 +22,7 @@ public:
 
 public :
 	//< 팝업 이미지 불러오기
-	void loadImage( char *FILE_NAME, int sizeX, int sizeY );
+	void loadImage(TCHAR *FILE_NAME, int sizeX, int sizeY );
 	//< 외부 위치 받기
 	void setRectPos( int posX, int posY, int ALIGE_TYPE );
 	//< 외부 위치 받기

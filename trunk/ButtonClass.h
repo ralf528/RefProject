@@ -11,12 +11,12 @@ public :
 	~ButtonClass(void);
 
 	//< 초기화
-	void init( char *dest_FILE_NAME, char *overlap_FILE_NAME, int sizeX, int sizeY );
+	void init(TCHAR *dest_FILE_NAME, TCHAR *overlap_FILE_NAME, int sizeX, int sizeY );
 	//< 추가버튼 초기화 
 	void init( 
-		char *dest_FILE_NAME, 
-		char *overlap_FILE_NAME,
-		char *noChoice_FILE_NAME,
+		TCHAR *dest_FILE_NAME,
+		TCHAR *overlap_FILE_NAME,
+		TCHAR *noChoice_FILE_NAME,
 		int sizeX, int sizeY );
 	//< 업데이트
 	void update( void );
@@ -26,9 +26,9 @@ public :
 	void release( void );
 
 	//< 폰트 불러오기
-	void loadFont( const char *destString, 
+	void loadFont( const TCHAR *destString,
 		const RECT ALIGN_RECT,
-		const char *fontName,
+		const TCHAR *fontName,
 		const int fontSize, 
 		const int ALIGN_TYPE,
 		const int R_COLOR,
@@ -37,9 +37,9 @@ public :
 
 public :
 	//< 버튼 이미지 불러오기
-	void loadImage( char *FILE_NAME, int sizeX, int sizeY );
+	void loadImage(TCHAR *FILE_NAME, int sizeX, int sizeY );
 	//< 버튼 마우스오버 이미지 불러오기
-	void loadImage2( char *FILE_NAME, int sizeX, int sizeY );
+	void loadImage2(TCHAR *FILE_NAME, int sizeX, int sizeY );
 	//< 외부 위치 받기
 	void setRectPos( int posX, int posY, int ALIGE_TYPE );
 

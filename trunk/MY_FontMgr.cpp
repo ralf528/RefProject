@@ -15,10 +15,10 @@ MY_Font::~MY_Font(void)
 
 //< 출력 텍스트
 void MY_Font::OutputText( HDC hdc,
-	const char *string, 
+	const TCHAR *string, 
 	const int x,
 	const int y,
-	const char *fontName,
+	const TCHAR *fontName,
 	const int fontSize, 
 	const int R_COLOR,
 	const int G_COLOR,
@@ -56,7 +56,7 @@ void MY_Font::OutputText( HDC hdc,
 	}
 	else
 	{
-		TextOut( hdc, x, y, string, strlen( string ) );
+		TextOut( hdc, x, y, string, lstrlen( string ) );
 	}
 
 	//< 복구
@@ -70,9 +70,9 @@ void MY_Font::OutputText( HDC hdc,
 }
 
 //< 렉트 정렬 폰트 불러오기
-void MY_Font::LoadText( const char *destString, 
+void MY_Font::LoadText( const TCHAR *destString, 
 						  const RECT ALIGN_RECT,
-						  const char *fontName,
+						  const TCHAR *fontName,
 						  const int fontSize, 
 						  const int ALIGN_TYPE,
 						  const int R_COLOR,
@@ -96,7 +96,7 @@ void MY_Font::LoadText( const char *destString,
 //< 스트링 빼고 정보 불러오기
 void MY_Font::LoadText( 
 	const RECT ALIGN_RECT,
-	const char *fontName,
+	const TCHAR *fontName,
 	const int fontSize, 
 	const int ALIGN_TYPE,
 	const int R_COLOR,
@@ -240,7 +240,7 @@ void MY_Font::OutputText( HDC hdc, int left, int top, int right, int bottom )
 void MY_Font::OutputStar( HDC hdc )
 {
 	//< 임시 버퍼
-	char tempBuff[_MAX_FNAME] = "";
+	TCHAR tempBuff[_MAX_FNAME] = L"";
 	//< 현재 최대 문자열 길이만큼 받기
 	int len = lstrlen( m_destString );
 
@@ -282,7 +282,7 @@ void MY_Font::OutputStar( HDC hdc )
 }
 
 //< 텍스트 받아서 출력
-void MY_Font::OutputText( HDC hdc, char *outputText )
+void MY_Font::OutputText( HDC hdc, TCHAR *outputText )
 {
 	//< 배경색 없음( 투명 )
 	SetBkMode( hdc, TRANSPARENT );

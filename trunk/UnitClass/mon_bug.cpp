@@ -18,11 +18,11 @@ mon_bug::~mon_bug(void)
 bool mon_bug::init(void)
 {
 	//< 이미지 추가
-	RC_MGR->addImage( imgID_MONSTER_3_IDLE, "Data/Resource/monster/monster_bug/003-idle.bmp", 0, 0 , RM_TRANS );
-	RC_MGR->addImage( imgID_MONSTER_3_MOVE, "Data/Resource/monster/monster_bug/003-walk.bmp", 0, 0 , RM_TRANS );
-	RC_MGR->addImage( imgID_MONSTER_3_ATK, "Data/Resource/monster/monster_bug/003-attack.bmp", 0, 0 , RM_TRANS );
-	RC_MGR->addImage( imgID_MONSTER_3_BEHIT, "Data/Resource/monster/monster_bug/003-gethit.bmp", 0, 0 , RM_TRANS );
-	RC_MGR->addImage( imgID_MONSTER_3_DIE, "Data/Resource/monster/monster_bug/003-die.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_MONSTER_3_IDLE, L"Data/Resource/monster/monster_bug/003-idle.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_MONSTER_3_MOVE, L"Data/Resource/monster/monster_bug/003-walk.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_MONSTER_3_ATK, L"Data/Resource/monster/monster_bug/003-attack.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_MONSTER_3_BEHIT, L"Data/Resource/monster/monster_bug/003-gethit.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_MONSTER_3_DIE, L"Data/Resource/monster/monster_bug/003-die.bmp", 0, 0 , RM_TRANS );
 	//< 상태
 	m_stateFlag = STATE_IDLE;
 	

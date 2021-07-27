@@ -562,21 +562,21 @@ enum AniEffect
     //궁수케릭
     //---이동모션---
     //아래
-    WCHAR_D,
+    TCHAR_D,
     //위
-    WCHAR_U,
+    TCHAR_U,
     //왼쪽
-    WCHAR_L,
+    TCHAR_L,
     //오른쪽
-    WCHAR_R,
+    TCHAR_R,
     //왼쪽 위
-    WCHAR_LU,
+    TCHAR_LU,
     //오른쪽 위
-    WCHAR_RU,
+    TCHAR_RU,
     //왼쪽 아래
-    WCHAR_LD,
+    TCHAR_LD,
     //오른쪽 아래
-    WCHAR_RD,
+    TCHAR_RD,
 
     //---공격모션---
     //왼쪽 공격
@@ -623,13 +623,13 @@ const int MAX_SKILL_COUNT = 4;
 typedef struct roomInfo
 {
     int  m_roomNum;
-    char m_roomName[64];
-    char m_roomPW[64];
+	TCHAR m_roomName[64];
+	TCHAR m_roomPW[64];
     bool m_isTrespass;
     bool m_isSecret;
     int m_userCount;
-    char m_hostIP[16];
+	TCHAR m_hostIP[16];
     unsigned short m_hostPort;
-    char m_userName[2][16];
+	TCHAR m_userName[2][16];
     bool m_isCharSelect;
 }ROOM_INFO, *LPROOM_INFO;

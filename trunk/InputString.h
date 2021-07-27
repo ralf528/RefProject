@@ -10,7 +10,7 @@ public:
 	~InputString(void);
 
 	//< 초기화
-	void init( RECT ALIGN_RECT, char *FontName, int FontSize, int ALIGN_TYPE, 
+	void init( RECT ALIGN_RECT, TCHAR *FontName, int FontSize, int ALIGN_TYPE,
 					   int Rcolor, int Gcolor, int Bcolor );
 	//< 업데이트
 	void update( void );
@@ -44,9 +44,9 @@ public :
 	}
 
 	//< 현재까지 입력된 스트링 받기
-	char* getString( void )
+	TCHAR* getString( void )
 	{
-		return const_cast<char*>(inputString.c_str());
+		return MY_Font::StringToTCHAR(inputString);
 	}
 	//< 스트링 받기
 	string getCharString( void )

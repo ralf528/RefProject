@@ -34,7 +34,7 @@ RoomClass::~RoomClass(void)
 void RoomClass::init( void )
 {
 	//< 배경 이미지 로드
-	m_image->loadImage( "Data/Resource/Image/Popup_Box3.bmp", 1170,350 );
+	m_image->loadImage( L"Data/Resource/Image/Popup_Box3.bmp", 1170,350 );
 
 	//< 고정 위치
 	m_image->setRectPos( WINSIZE_X/2, WINSIZE_Y/2-150, ALIGN_CENTER );
@@ -136,8 +136,10 @@ void RoomClass::makeRoom( int roomNumber )
                 newRoom.m_roomNum = 1;
                 newRoom.m_userCount = 1;
 
-                strcpy_s(newRoom.m_roomName, sizeof(newRoom.m_roomName), "방");
-                strcpy_s(newRoom.m_userName[0], sizeof(newRoom.m_userName[0]), "me");
+				lstrcpy(newRoom.m_roomName, L"방");
+				lstrcpy(newRoom.m_userName[0], L"me");
+                //strcpy_s(newRoom.m_roomName, sizeof(newRoom.m_roomName), L"방");
+                //strcpy_s(newRoom.m_userName[0], sizeof(newRoom.m_userName[0]), L"me");
 
 				//< 방버튼 할당
 				room[0] = new RoomButton;

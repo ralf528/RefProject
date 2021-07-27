@@ -22,25 +22,25 @@ void RoomButton::init( ROOM_INFO& makeRoom, int posX, int posY )
 {
 	//< 방 이미지
 	button_ROOM->init(
-		"Data/Resource/Image/room_none.bmp",
-		"Data/Resource/Image/room_none_02.bmp",540, 140);
+		L"Data/Resource/Image/room_none.bmp",
+		L"Data/Resource/Image/room_none_02.bmp",540, 140);
 
 	//< 방 위치 
 	button_ROOM->setRectPos( posX , posY, ALIGN_CENTER );
 
 	//< 공개 비공개 이미지
-	imageOpen.load( "Data/Resource/Image/roomInfo_open.bmp", 64, 24 );
-	imageClose.load( "Data/Resource/Image/roomInfo_close.bmp", 64, 24 );
+	imageOpen.load( L"Data/Resource/Image/roomInfo_open.bmp", 64, 24 );
+	imageClose.load( L"Data/Resource/Image/roomInfo_close.bmp", 64, 24 );
 
 	//< 임시 렉트 받기
 	RECT tempRect = button_ROOM->getRect();
-	char arr[256] = "";
+	TCHAR arr[256] = L"";
 
 	//< 방제
 	madeRoom.outputRoomName.LoadText(
 		makeRoom.m_roomName, 
 		tempRect, 
-		"HY헤드라인M",
+		L"HY헤드라인M",
 		40, ALIGN_CENTER, 255,255,255 );
 	madeRoom.outputRoomName.inSetRect(
 		tempRect.left	+100,
@@ -48,12 +48,12 @@ void RoomButton::init( ROOM_INFO& makeRoom, int posX, int posY )
 		tempRect.right	-90,
 		tempRect.bottom	-20 );
 
-	sprintf_s( arr, 256, "%d", makeRoom.m_roomNum );
+	swprintf_s( arr, 256, L"%d", makeRoom.m_roomNum );
 	//< 방번호
 	madeRoom.outputRoomNum.LoadText(
 		arr, 
 		tempRect, 
-		"HY헤드라인M",
+		L"HY헤드라인M",
 		50, ALIGN_CENTER, 255,255,255 );
 	madeRoom.outputRoomNum.inSetRect(
 		tempRect.left	+60,
@@ -61,12 +61,12 @@ void RoomButton::init( ROOM_INFO& makeRoom, int posX, int posY )
 		tempRect.left	+100,
 		tempRect.top	+100 );
 
-	sprintf_s( arr, 256, "%s의방 %d/2명 게임중", makeRoom.m_userName[0],makeRoom.m_userCount );
+	swprintf_s( arr, 256, L"%s의방 %d/2명 게임중", makeRoom.m_userName[0],makeRoom.m_userCount );
 	//< 방장
 	madeRoom.outputTobUser.LoadText(
 		arr, 
 		tempRect, 
-		"HY헤드라인M",
+		L"HY헤드라인M",
 		20, ALIGN_CENTER, 200,200,200 );
 	madeRoom.outputTobUser.inSetRect(
 		tempRect.left	+100,

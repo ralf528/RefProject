@@ -19,16 +19,16 @@ InputString::~InputString(void)
 
 
 //< 초기화
-void InputString::init( RECT ALIGN_RECT, char *FontName, int FontSize, int ALIGN_TYPE, 
+void InputString::init( RECT ALIGN_RECT, TCHAR *FontName, int FontSize, int ALIGN_TYPE,
 					   int Rcolor, int Gcolor, int Bcolor )
 {
 	//< 렉트 받기
 	rect = ALIGN_RECT;
 
 	//< 텍스트 로드
-	outputString->LoadText( inputString.c_str(), 
+	outputString->LoadText(getString(),
 		rect,
-		"HY헤드라인M",
+		L"HY헤드라인M",
 		FontSize, ALIGN_TYPE, Rcolor,Gcolor,Bcolor );
 }
 
@@ -86,7 +86,7 @@ void InputString::backSpace( void )
 	if( inputCheck == true )
 	{
 		//< 길이 측정
-		int len = inputString.size();
+		size_t len = inputString.size();
 
 		//< 문자열 길이가 0이면 실행하지 않음
 		if( 0 < len )

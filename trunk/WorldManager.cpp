@@ -36,31 +36,31 @@ bool WorldManager::init( void )
 	//< 타일 이미지
 	m_imgTile = new ImageNode[TILE_END];
 
-	m_imgTile[TILE_NORMAL].load("Data/Resource/tileMap/Tile_Nomal.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_CHAR	].load("Data/Resource/tileMap/Tile_Char.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_ITEM	].load("Data/Resource/tileMap/Tile_Item.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_NORMAL].load(L"Data/Resource/tileMap/Tile_Nomal.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_CHAR	].load(L"Data/Resource/tileMap/Tile_Char.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_ITEM	].load(L"Data/Resource/tileMap/Tile_Item.bmp",0,0,RM_TRANS);
 
-	m_imgTile[TILE_MON].load("Data/Resource/tileMap/Tile_Mon.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_MON_01].load("Data/Resource/tileMap/Mon01.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_MON_02].load("Data/Resource/tileMap/Mon02.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_MON_03].load("Data/Resource/tileMap/Mon03.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_MON_04].load("Data/Resource/tileMap/Mon04.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_MON_05].load("Data/Resource/tileMap/Mon05.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_MON_06].load("Data/Resource/tileMap/Mon06.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_MON_07].load("Data/Resource/tileMap/Mon07.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_MON].load(L"Data/Resource/tileMap/Tile_Mon.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_MON_01].load(L"Data/Resource/tileMap/Mon01.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_MON_02].load(L"Data/Resource/tileMap/Mon02.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_MON_03].load(L"Data/Resource/tileMap/Mon03.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_MON_04].load(L"Data/Resource/tileMap/Mon04.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_MON_05].load(L"Data/Resource/tileMap/Mon05.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_MON_06].load(L"Data/Resource/tileMap/Mon06.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_MON_07].load(L"Data/Resource/tileMap/Mon07.bmp",0,0,RM_TRANS);
 
-	m_imgTile[TILE_ALTAR].load("Data/Resource/tileMap/Tile_Altar.bmp",0,0,RM_TRANS);
-	m_imgTile[OBJ_BOOK_L].load("Data/Resource/tileMap/Wall_BOOK_Left.bmp",0,0,RM_TRANS);
-	m_imgTile[OBJ_BOOK_R].load("Data/Resource/tileMap/Wall_BOOK_Right.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_STAIR_F].load("Data/Resource/tileMap/Stair_Front.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_STAIR].load("Data/Resource/tileMap/Stair.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_STAIR_L].load("Data/Resource/tileMap/Stair_Left.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_STAIR_R].load("Data/Resource/tileMap/Stair_Right.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_COLLUM].load("Data/Resource/tileMap/Collum.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_L_WALL].load("Data/Resource/tileMap/Wall_Left.bmp",0,0,RM_TRANS);
-	m_imgTile[TILE_R_WALL].load("Data/Resource/tileMap/Wall_Right.bmp",0,0,RM_TRANS);
-	m_imgTile[OBJ_ALTAR].load("Data/Resource/tileMap/ALTAR.bmp",0,0,RM_TRANS);
-	m_imgTile[OBJ_ALTAR_DISABLE].load("Data/Resource/tileMap/ALTAR_disable.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_ALTAR].load(L"Data/Resource/tileMap/Tile_Altar.bmp",0,0,RM_TRANS);
+	m_imgTile[OBJ_BOOK_L].load(L"Data/Resource/tileMap/Wall_BOOK_Left.bmp",0,0,RM_TRANS);
+	m_imgTile[OBJ_BOOK_R].load(L"Data/Resource/tileMap/Wall_BOOK_Right.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_STAIR_F].load(L"Data/Resource/tileMap/Stair_Front.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_STAIR].load(L"Data/Resource/tileMap/Stair.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_STAIR_L].load(L"Data/Resource/tileMap/Stair_Left.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_STAIR_R].load(L"Data/Resource/tileMap/Stair_Right.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_COLLUM].load(L"Data/Resource/tileMap/Collum.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_L_WALL].load(L"Data/Resource/tileMap/Wall_Left.bmp",0,0,RM_TRANS);
+	m_imgTile[TILE_R_WALL].load(L"Data/Resource/tileMap/Wall_Right.bmp",0,0,RM_TRANS);
+	m_imgTile[OBJ_ALTAR].load(L"Data/Resource/tileMap/ALTAR.bmp",0,0,RM_TRANS);
+	m_imgTile[OBJ_ALTAR_DISABLE].load(L"Data/Resource/tileMap/ALTAR_disable.bmp",0,0,RM_TRANS);
 
 	return true;
 }

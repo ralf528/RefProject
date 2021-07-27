@@ -473,7 +473,7 @@ namespace myUTIL
 		//< 프레임 렌더링 하기
 		void renderFps( HDC hdc, unsigned long textColor )
 		{
-			char szBuf[_MAX_FNAME];
+			TCHAR szBuf[_MAX_FNAME];
 			//std::string strFrame;
 
 			//현재 색상
@@ -483,17 +483,17 @@ namespace myUTIL
 			SetTextColor( hdc, textColor );
 
             //프레임
-            sprintf_s(szBuf, "FramePerSec : %d", m_pTimer.getFrameRate());
-            TextOut(hdc, 0, 60, szBuf, strlen(szBuf));
+            swprintf_s(szBuf, L"FramePerSec : %d", m_pTimer.getFrameRate());
+            TextOut(hdc, 0, 60, szBuf, lstrlen(szBuf));
             //월드 타임
-            sprintf_s(szBuf, "WorldTime : %f", m_pTimer.getWorldTime());
-            TextOut(hdc, 0, 80, szBuf, strlen(szBuf));
+            swprintf_s(szBuf, L"WorldTime : %f", m_pTimer.getWorldTime());
+            TextOut(hdc, 0, 80, szBuf, lstrlen(szBuf));
             //프레임당 경과 시간
-            sprintf_s(szBuf, "ElapseTime : %f", m_pTimer.getElapsedTime());
-            TextOut(hdc, 0, 100, szBuf, strlen(szBuf));
+            swprintf_s(szBuf, L"ElapseTime : %f", m_pTimer.getElapsedTime());
+            TextOut(hdc, 0, 100, szBuf, lstrlen(szBuf));
             //동기화 비율
-            sprintf_s(szBuf, "TimeRate : %f", m_pTimer.getTimeRate());
-            TextOut(hdc, 0, 120, szBuf, strlen(szBuf));
+            swprintf_s(szBuf, L"TimeRate : %f", m_pTimer.getTimeRate());
+            TextOut(hdc, 0, 120, szBuf, lstrlen(szBuf));
 			
 			SetBkMode( hdc, OPAQUE );
 			SetTextColor( hdc, dwCurColor );

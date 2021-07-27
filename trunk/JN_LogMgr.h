@@ -18,7 +18,7 @@ using namespace std;
 #define JN_LOG_FILE				0x00000002
 #define JN_LOG_WINDOW			0x00000004
 #define JN_LOG_ALL				( JN_LOG_CONSOLE | JN_LOG_FILE | JN_LOG_WINDOW)
-#define JN_LOG_WINDOW_TITLE		"Log..."
+#define JN_LOG_WINDOW_TITLE		L"Log..."
 #define JN_LOG_WINDOW_CX		250
 #define JN_LOG_WINDOW_CY		768
 

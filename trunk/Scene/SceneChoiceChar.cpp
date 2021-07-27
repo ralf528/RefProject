@@ -73,123 +73,123 @@ SceneChoiceChar::~SceneChoiceChar(void)
 bool SceneChoiceChar::init( void ) 
 {
 	//< 배경이미지
-	m_image->init("Data/Resource/Image/background_Login.bmp",WINSIZE_X,WINSIZE_Y );
+	m_image->init(L"Data/Resource/Image/background_Login.bmp",WINSIZE_X,WINSIZE_Y );
 	m_image->setRectPos( 0,0, ALIGN_LEFT_TOP );
 	//----------------------------------------------------------------------------
 	//< 버튼 초기화
 	button_START_GAME->init(
-		"Data/Resource/Image/button_START.bmp",
-		"Data/Resource/Image/button_START_02.bmp",400, 130);
+		L"Data/Resource/Image/button_START.bmp",
+		L"Data/Resource/Image/button_START_02.bmp",400, 130);
 	//< 폰트
-	button_START_GAME->loadFont( "게임 시작", button_START_GAME->getRect(), 
-		"HY헤드라인M",
+	button_START_GAME->loadFont(L"게임 시작", button_START_GAME->getRect(),
+		L"HY헤드라인M",
 		60, ALIGN_CENTER, 255,255,255 );
 	button_START_GAME->setRectPos( WINSIZE_X/2, WINSIZE_Y/10 *9 -30, ALIGN_CENTER );
 
 	//< 버튼 확인
-	button_BACK->init("Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",
+	button_BACK->init(L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",
 		200, 50 );
-	button_BACK->loadFont("뒤로가기", button_BACK->getRect(), 
-		"HY헤드라인M",
+	button_BACK->loadFont(L"뒤로가기", button_BACK->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_BACK->setRectPos( WINSIZE_X -40, WINSIZE_Y -40, ALIGN_RIGHT_BOTTOM );
 	//---------------------------------------------------------------------------------
 	//< 입력판 
-	m_StateBox1->init("Data/Resource/Image/Popup_Box5.bmp", 540, 440 );
+	m_StateBox1->init(L"Data/Resource/Image/Popup_Box5.bmp", 540, 440 );
 	m_StateBox1->setRectPos( WINSIZE_X/2-300, WINSIZE_Y/2-70, ALIGN_CENTER );
 	//< 입력판 
-	m_StateBox2->init("Data/Resource/Image/Popup_Box5.bmp", 540, 440 );
+	m_StateBox2->init(L"Data/Resource/Image/Popup_Box5.bmp", 540, 440 );
 	m_StateBox2->setRectPos( WINSIZE_X/2+300, WINSIZE_Y/2-70, ALIGN_CENTER );
 
 	POINT inputBoard1 = m_StateBox1->getCenter();
 	POINT inputBoard2 = m_StateBox2->getCenter();
 	//---------------------------------------------------------------------------------
 	//< 버튼 체크박스 1
-	checkBox_Box1_01->init("Data/Resource/Image/on_off_choice.bmp",
-		"Data/Resource/Image/on_off_choice_02.bmp",
-		"Data/Resource/Image/on_off_choice2.bmp",
-		"Data/Resource/Image/on_off_choice2_02.bmp",
+	checkBox_Box1_01->init(L"Data/Resource/Image/on_off_choice.bmp",
+		L"Data/Resource/Image/on_off_choice_02.bmp",
+		L"Data/Resource/Image/on_off_choice2.bmp",
+		L"Data/Resource/Image/on_off_choice2_02.bmp",
 		430, 60 );
-	checkBox_Box1_01->loadFont("늑대인간", checkBox_Box1_01->getRect(), 
-		"HY헤드라인M",
+	checkBox_Box1_01->loadFont(L"늑대인간", checkBox_Box1_01->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_Box1_01->setRectPos( inputBoard1.x, inputBoard1.y -70, ALIGN_CENTER );
 
 	//< 버튼 체그박스 2
-	checkBox_Box1_02->init("Data/Resource/Image/on_off_choice.bmp",
-		"Data/Resource/Image/on_off_choice_02.bmp",
-		"Data/Resource/Image/on_off_choice2.bmp",
-		"Data/Resource/Image/on_off_choice2_02.bmp",
+	checkBox_Box1_02->init(L"Data/Resource/Image/on_off_choice.bmp",
+		L"Data/Resource/Image/on_off_choice_02.bmp",
+		L"Data/Resource/Image/on_off_choice2.bmp",
+		L"Data/Resource/Image/on_off_choice2_02.bmp",
 		430, 60  );
-	checkBox_Box1_02->loadFont("켄타우루스", checkBox_Box1_02->getRect(), 
-		"HY헤드라인M",
+	checkBox_Box1_02->loadFont(L"켄타우루스", checkBox_Box1_02->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_Box1_02->setRectPos( inputBoard1.x, inputBoard1.y , ALIGN_CENTER );
 
 	//< 버튼 체크박스 3
-	checkBox_Box1_03->init("Data/Resource/Image/on_off_choice.bmp",
-		"Data/Resource/Image/on_off_choice_02.bmp",
-		"Data/Resource/Image/on_off_choice2.bmp",
-		"Data/Resource/Image/on_off_choice2_02.bmp",
+	checkBox_Box1_03->init(L"Data/Resource/Image/on_off_choice.bmp",
+		L"Data/Resource/Image/on_off_choice_02.bmp",
+		L"Data/Resource/Image/on_off_choice2.bmp",
+		L"Data/Resource/Image/on_off_choice2_02.bmp",
 		430, 60 );
-	checkBox_Box1_03->loadFont("엘프", checkBox_Box1_03->getRect(), 
-		"HY헤드라인M",
+	checkBox_Box1_03->loadFont(L"엘프", checkBox_Box1_03->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_Box1_03->setRectPos( inputBoard1.x, inputBoard1.y + 70, ALIGN_CENTER );
 
 	//< 버튼 체그박스 4
-	checkBox_Box1_04->init("Data/Resource/Image/on_off_choice.bmp",
-		"Data/Resource/Image/on_off_choice_02.bmp",
-		"Data/Resource/Image/on_off_choice2.bmp",
-		"Data/Resource/Image/on_off_choice2_02.bmp",
+	checkBox_Box1_04->init(L"Data/Resource/Image/on_off_choice.bmp",
+		L"Data/Resource/Image/on_off_choice_02.bmp",
+		L"Data/Resource/Image/on_off_choice2.bmp",
+		L"Data/Resource/Image/on_off_choice2_02.bmp",
 		430, 60  );
-	checkBox_Box1_04->loadFont("언데드", checkBox_Box1_04->getRect(), 
-		"HY헤드라인M",
+	checkBox_Box1_04->loadFont(L"언데드", checkBox_Box1_04->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_Box1_04->setRectPos( inputBoard1.x, inputBoard1.y + 140, ALIGN_CENTER );
 	//---------------------------------------------------------------------------------
 	//< 버튼 체크박스 1
-	checkBox_Box2_01->init("Data/Resource/Image/on_off_choice.bmp",
-		"Data/Resource/Image/on_off_choice_02.bmp",
-		"Data/Resource/Image/on_off_choice2.bmp",
-		"Data/Resource/Image/on_off_choice2_02.bmp",
+	checkBox_Box2_01->init(L"Data/Resource/Image/on_off_choice.bmp",
+		L"Data/Resource/Image/on_off_choice_02.bmp",
+		L"Data/Resource/Image/on_off_choice2.bmp",
+		L"Data/Resource/Image/on_off_choice2_02.bmp",
 		430, 60 );
-	checkBox_Box2_01->loadFont("전사", checkBox_Box2_01->getRect(), 
-		"HY헤드라인M",
+	checkBox_Box2_01->loadFont(L"전사", checkBox_Box2_01->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_Box2_01->setRectPos( inputBoard2.x, inputBoard2.y -70, ALIGN_CENTER );
 
 	//< 버튼 체그박스 2
-	checkBox_Box2_02->init("Data/Resource/Image/on_off_choice.bmp",
-		"Data/Resource/Image/on_off_choice_02.bmp",
-		"Data/Resource/Image/on_off_choice2.bmp",
-		"Data/Resource/Image/on_off_choice2_02.bmp",
+	checkBox_Box2_02->init(L"Data/Resource/Image/on_off_choice.bmp",
+		L"Data/Resource/Image/on_off_choice_02.bmp",
+		L"Data/Resource/Image/on_off_choice2.bmp",
+		L"Data/Resource/Image/on_off_choice2_02.bmp",
 		430, 60  );
-	checkBox_Box2_02->loadFont("도둑", checkBox_Box2_02->getRect(), 
-		"HY헤드라인M",
+	checkBox_Box2_02->loadFont(L"도둑", checkBox_Box2_02->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_Box2_02->setRectPos( inputBoard2.x, inputBoard2.y , ALIGN_CENTER );
 
 	//< 버튼 체크박스 3
-	checkBox_Box2_03->init("Data/Resource/Image/on_off_choice.bmp",
-		"Data/Resource/Image/on_off_choice_02.bmp",
-		"Data/Resource/Image/on_off_choice2.bmp",
-		"Data/Resource/Image/on_off_choice2_02.bmp",
+	checkBox_Box2_03->init(L"Data/Resource/Image/on_off_choice.bmp",
+		L"Data/Resource/Image/on_off_choice_02.bmp",
+		L"Data/Resource/Image/on_off_choice2.bmp",
+		L"Data/Resource/Image/on_off_choice2_02.bmp",
 		430, 60 );
-	checkBox_Box2_03->loadFont("궁수", checkBox_Box2_03->getRect(), 
-		"HY헤드라인M",
+	checkBox_Box2_03->loadFont(L"궁수", checkBox_Box2_03->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_Box2_03->setRectPos( inputBoard2.x, inputBoard2.y + 70, ALIGN_CENTER );
 
 	//< 버튼 체그박스 4
-	checkBox_Box2_04->init("Data/Resource/Image/on_off_choice.bmp",
-		"Data/Resource/Image/on_off_choice_02.bmp",
-		"Data/Resource/Image/on_off_choice2.bmp",
-		"Data/Resource/Image/on_off_choice2_02.bmp",
+	checkBox_Box2_04->init(L"Data/Resource/Image/on_off_choice.bmp",
+		L"Data/Resource/Image/on_off_choice_02.bmp",
+		L"Data/Resource/Image/on_off_choice2.bmp",
+		L"Data/Resource/Image/on_off_choice2_02.bmp",
 		430, 60  );
-	checkBox_Box2_04->loadFont("마법사", checkBox_Box2_04->getRect(), 
-		"HY헤드라인M",
+	checkBox_Box2_04->loadFont(L"마법사", checkBox_Box2_04->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_Box2_04->setRectPos( inputBoard2.x, inputBoard2.y + 140, ALIGN_CENTER );
 	//---------------------------------------------------------------------------------
@@ -198,12 +198,12 @@ bool SceneChoiceChar::init( void )
 	checkBox_Box2_01->inCheckBox( CHECK_BOX_ON );
 	//---------------------------------------------------------------------------------
 	//< 폰트
-	m_fontBox1->LoadText( "종족", m_StateBox1->getRect(), 
-		"HY헤드라인M",
+	m_fontBox1->LoadText(L"종족", m_StateBox1->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	//< 폰트
-	m_fontBox2->LoadText( "직업", m_StateBox2->getRect(), 
-		"HY헤드라인M",
+	m_fontBox2->LoadText(L"직업", m_StateBox2->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 
 	return true;
@@ -503,20 +503,20 @@ void SceneChoiceChar::render( HDC hdc )
 	if( NULL != hdc )
 	{
 		m_font->OutputText( hdc, 
-			"캐릭터 선택 씬",
+			L"캐릭터 선택 씬",
 			0,0,
-			"HY얕은샘물M",
+			L"HY얕은샘물M",
 			65,
 			0,0,0 );
 	}
 	//< 마우스가 올라가 있는 상태면
 	if( button_START_GAME->getCheckMouseOn() == true )
 	{
-		TextOut( hdc, 200,0, "충돌",4);
+		TextOut( hdc, 200,0, L"충돌",4);
 	}
 	else
 	{
-		TextOut( hdc, 200,0, "비충돌",6);
+		TextOut( hdc, 200,0, L"비충돌",6);
 	}
 #endif
 	//-------------------------------------------------------------

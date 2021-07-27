@@ -36,7 +36,7 @@ ButtonClass::~ButtonClass(void)
 
 
 //< 초기화
-void ButtonClass::init( char *dest_FILE_NAME, char *overlap_FILE_NAME, int sizeX, int sizeY )
+void ButtonClass::init(TCHAR *dest_FILE_NAME, TCHAR *overlap_FILE_NAME, int sizeX, int sizeY )
 {
 	//< 이미지 로드
 	loadImage( dest_FILE_NAME, sizeX, sizeY );
@@ -44,7 +44,7 @@ void ButtonClass::init( char *dest_FILE_NAME, char *overlap_FILE_NAME, int sizeX
 	loadImage2( overlap_FILE_NAME, sizeX, sizeY );
 }
 //< 초기화
-void ButtonClass::init( char *dest_FILE_NAME, char *overlap_FILE_NAME, char *noChoice_FILE_NAME, int sizeX, int sizeY )
+void ButtonClass::init(TCHAR *dest_FILE_NAME, TCHAR *overlap_FILE_NAME, TCHAR *noChoice_FILE_NAME, int sizeX, int sizeY )
 {
 	//< 이미지 로드
 	loadImage( dest_FILE_NAME, sizeX, sizeY );
@@ -55,9 +55,9 @@ void ButtonClass::init( char *dest_FILE_NAME, char *overlap_FILE_NAME, char *noC
 }
 
 //< 폰트 불러오기
-void ButtonClass::loadFont( const char *destString, 
+void ButtonClass::loadFont( const TCHAR *destString,
 		const RECT ALIGN_RECT,
-		const char *fontName = "굴림",
+		const TCHAR *fontName = L"굴림",
 		const int fontSize = 10, 
 		const int ALIGN_TYPE = ALIGN_CENTER,
 		const int R_COLOR = 255,
@@ -203,7 +203,7 @@ void ButtonClass::release( void )
 
 //public :
 //< 버튼 이미지 불러오기
-void ButtonClass::loadImage( char *FILE_NAME, int sizeX, int sizeY )
+void ButtonClass::loadImage(TCHAR *FILE_NAME, int sizeX, int sizeY )
 {
 	//< 버튼 이미지 불러오기
 	buttonImage->load( FILE_NAME, sizeX, sizeY, RM_TRANS );
@@ -216,7 +216,7 @@ void ButtonClass::loadImage( char *FILE_NAME, int sizeX, int sizeY )
 }
 
 //< 버튼 마우스오버 이미지 불러오기
-void ButtonClass::loadImage2( char *FILE_NAME, int sizeX, int sizeY )
+void ButtonClass::loadImage2(TCHAR *FILE_NAME, int sizeX, int sizeY )
 {
 	//< 버튼 이미지 불러오기
 	buttonImage2->load( FILE_NAME, sizeX, sizeY, RM_TRANS );

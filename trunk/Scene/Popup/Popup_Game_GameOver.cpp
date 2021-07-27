@@ -44,7 +44,7 @@ void Popup_Game_GameOver::init( void )
 	loadImage();
 
 	//< 피 그림 불러오기
-	bloodAni->load("Data/Resource/Image/gameOver/blood.bmp",
+	bloodAni->load(L"Data/Resource/Image/gameOver/blood.bmp",
 		11520,720,RM_TRANS );
 	
 	//< 피애니 애니메이션 정보
@@ -59,7 +59,7 @@ void Popup_Game_GameOver::init( void )
 	bloodAniInfo->lastTime = GetTickCount();
 
 	//< 게임오버 그림 불러오기
-	gameOverAni->load("Data/Resource/Image/gameOver/gameover.bmp",
+	gameOverAni->load(L"Data/Resource/Image/gameOver/gameover.bmp",
 		19200,720,RM_TRANS );
 	
 	//< 게임오버 애니메이션 정보
@@ -74,11 +74,11 @@ void Popup_Game_GameOver::init( void )
 	gameOverAniInfo->lastTime = GetTickCount();
 
 	//< 버튼 확인
-	button_OK->init("Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",
+	button_OK->init(L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",
 		 200, 50 );
-	button_OK->loadFont("확인", button_OK->getRect(), 
-		"HY헤드라인M",
+	button_OK->loadFont(L"확인", button_OK->getRect(), 
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_OK->setRectPos( WINSIZE_X/2, WINSIZE_Y/2+100, ALIGN_CENTER );
 
@@ -272,7 +272,7 @@ void Popup_Game_GameOver::loadImage( void )
 {
 	//< 알파 이미지
 	//alpaImage->loadImage("Data/Resource/Image/Alpa_background.bmp", 1024, 768 );
-	alpaImage->load( "Data/Resource/Image/Alpa_background.bmp", 
+	alpaImage->load( L"Data/Resource/Image/Alpa_background.bmp", 
 		0, 0, RM_TRANS );
 }
 

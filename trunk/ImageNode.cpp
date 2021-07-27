@@ -42,12 +42,12 @@ void ImageNode::init( void )
 }
 
 //< 로딩
-unsigned int  ImageNode::load( const char *imagePath , int cx , int cy , BYTE mode )
+unsigned int  ImageNode::load( const TCHAR *imagePath , int cx , int cy , BYTE mode )
 {
 	if( NULL == imagePath )
 	{
 		//< 이미지 로딩 실패 메세지
-		MessageBox( g_hWnd, "imageLoadFail","ImageError",MB_OK );
+		MessageBox( g_hWnd, L"imageLoadFail", L"ImageError",MB_OK );
 		return Object::EMPTYOBJ;
 	}
 
@@ -79,7 +79,7 @@ unsigned int  ImageNode::load( const char *imagePath , int cx , int cy , BYTE mo
 	if( NULL == m_bit )
 	{
 		//< 이미지 로딩 실패 메세지
-		MessageBox( g_hWnd, "imageLoadFail","ImageError",MB_OK );
+		MessageBox( g_hWnd, L"imageLoadFail", L"ImageError",MB_OK );
 		return Object::EMPTYOBJ;;
 	}
 
@@ -117,7 +117,7 @@ unsigned int ImageNode::load( const int resourceID , BYTE mode )
 	if( NULL == m_bit )
 	{
 		//< 이미지 로딩 실패 메세지
-		MessageBox( g_hWnd, "imageLoadFail","ImageError",MB_OK );
+		MessageBox( g_hWnd, L"imageLoadFail", L"ImageError",MB_OK );
 		return Object::EMPTYOBJ;;
 	}
 
@@ -154,7 +154,7 @@ unsigned int ImageNode::load( int cx , int cy , BYTE mode )
 	if( NULL == m_bit )
 	{
 		//< 이미지 로딩 실패 메세지
-		MessageBox( g_hWnd, "imageLoadFail","ImageError",MB_OK );
+		MessageBox( g_hWnd, L"imageLoadFail", L"ImageError",MB_OK );
 		return Object::EMPTYOBJ;;
 	}
 

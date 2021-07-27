@@ -29,12 +29,12 @@ void TableManager::LoadTemplate(int TemplateID)
 		Data.m_SkillDatas.insert(make_pair(E_SkillType_ShootWhole, SkillTemplate{ E_SkillType_ShootWhole, E_ImageID::imgID_NONID }));
 		Data.m_SkillDatas.insert(make_pair(E_SkillType_Inbeatable, SkillTemplate{ E_SkillType_Inbeatable, E_ImageID::imgID_NONID }));
 
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Idle, AnimationTemplate{ imgID_WARRIOR_IDLE , "Data/Resource/Image/character/warrior/warrior_idle.bmp", SIZE{0, 0}, 8, 8, 50, true, true, true }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Move, AnimationTemplate{ imgID_WARRIOR_MOVE , "Data/Resource/Image/character/warrior/warrior_walk.bmp", SIZE{0, 0}, 8, 8, 50, false, false, true }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Attack, AnimationTemplate{ imgID_WARRIOR_ATK  , "Data/Resource/Image/character/warrior/warrior_atk.bmp", SIZE{0, 0}, 18, 8, 20, false, false, true }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Die, AnimationTemplate{ imgID_WARRIOR_DIE  , "Data/Resource/Image/character/warrior/warrior_die.bmp", SIZE{0, 0}, 20, 8, 200, false, false, false }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::BeHit, AnimationTemplate{ imgID_WARRIOR_BEHIT, "Data/Resource/Image/character/warrior/warrior-gethit.bmp", SIZE{0, 0}, 7, 8, 20, false, false, true }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Dash, AnimationTemplate{ imgID_WARRIOR_DASH , "Data/Resource/Image/character/dash.bmp", SIZE{0, 0}, 5, 1, 40, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Idle, AnimationTemplate{ imgID_WARRIOR_IDLE , L"Data/Resource/Image/character/warrior/warrior_idle.bmp", SIZE{0, 0}, 8, 8, 50, true, true, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Move, AnimationTemplate{ imgID_WARRIOR_MOVE , L"Data/Resource/Image/character/warrior/warrior_walk.bmp", SIZE{0, 0}, 8, 8, 50, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Attack, AnimationTemplate{ imgID_WARRIOR_ATK  , L"Data/Resource/Image/character/warrior/warrior_atk.bmp", SIZE{0, 0}, 18, 8, 20, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Die, AnimationTemplate{ imgID_WARRIOR_DIE  , L"Data/Resource/Image/character/warrior/warrior_die.bmp", SIZE{0, 0}, 20, 8, 200, false, false, false }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::BeHit, AnimationTemplate{ imgID_WARRIOR_BEHIT, L"Data/Resource/Image/character/warrior/warrior-gethit.bmp", SIZE{0, 0}, 7, 8, 20, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Dash, AnimationTemplate{ imgID_WARRIOR_DASH , L"Data/Resource/Image/character/dash.bmp", SIZE{0, 0}, 5, 1, 40, false, false, true }));
 
 		for (auto& each : Data.m_AnimationDatas)
 		{
@@ -59,12 +59,12 @@ void TableManager::LoadTemplate(int TemplateID)
 		Data.m_SkillDatas.insert(make_pair(E_SkillType_Inbeatable, SkillTemplate{ E_SkillType_Inbeatable, E_ImageID::imgID_NONID }));
 
 		// ±Ã¼ö ÀÌ¹ÌÁö
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Idle, AnimationTemplate{ imgID_ARCHER_IDLE , "Data/Resource/Image/character/archer/archer_idle.bmp", SIZE{0, 0}, 8, 8, 50, true, true, true }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Move, AnimationTemplate{ imgID_ARCHER_MOVE , "Data/Resource/Image/character/archer/archer_walk.bmp", SIZE{0, 0}, 8, 8, 50, false, false, true }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Attack, AnimationTemplate{ imgID_ARCHER_ATK  , "Data/Resource/Image/character/archer/archer_atk.bmp", SIZE{0, 0}, 12, 8, 20, false, false, true }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Die, AnimationTemplate{ imgID_ARCHER_DIE  , "Data/Resource/Image/character/warrior_die.bmp", SIZE{0, 0}, 20, 8, 200, false, false, false }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::BeHit, AnimationTemplate{ imgID_ARCHER_BEHIT, "Data/Resource/Image/character/archer/archer_behit.bmp", SIZE{0, 0}, 7, 8, 20, false, false, true }));
-		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Dash, AnimationTemplate{ imgID_ARCHER_DASH , "Data/Resource/Image/character/dash.bmp", SIZE{0, 0}, 5, 1, 40, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Idle, AnimationTemplate{ imgID_ARCHER_IDLE , L"Data/Resource/Image/character/archer/archer_idle.bmp", SIZE{0, 0}, 8, 8, 50, true, true, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Move, AnimationTemplate{ imgID_ARCHER_MOVE , L"Data/Resource/Image/character/archer/archer_walk.bmp", SIZE{0, 0}, 8, 8, 50, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Attack, AnimationTemplate{ imgID_ARCHER_ATK  , L"Data/Resource/Image/character/archer/archer_atk.bmp", SIZE{0, 0}, 12, 8, 20, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Die, AnimationTemplate{ imgID_ARCHER_DIE  , L"Data/Resource/Image/character/warrior_die.bmp", SIZE{0, 0}, 20, 8, 200, false, false, false }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::BeHit, AnimationTemplate{ imgID_ARCHER_BEHIT, L"Data/Resource/Image/character/archer/archer_behit.bmp", SIZE{0, 0}, 7, 8, 20, false, false, true }));
+		Data.m_AnimationDatas.insert(make_pair(E_AnimationType::Dash, AnimationTemplate{ imgID_ARCHER_DASH , L"Data/Resource/Image/character/dash.bmp", SIZE{0, 0}, 5, 1, 40, false, false, true }));
 
 		for (auto& each : Data.m_AnimationDatas)
 		{

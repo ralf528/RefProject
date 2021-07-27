@@ -30,7 +30,7 @@ sceneLoading::~sceneLoading()
 bool sceneLoading::init()
 {
 	//> 이미지 할당
-	RC_MGR->addImage( imgID_GAME_LOADING , "Data/Resource/gameUI/loading.bmp");
+	RC_MGR->addImage( imgID_GAME_LOADING , L"Data/Resource/gameUI/loading.bmp");
 	//> 배경 이미지 초기화
 
 	m_loadScene = *STATE_MGR->getLoadID();
@@ -90,8 +90,8 @@ void sceneLoading::drawLoadingBar(HDC hdc)
 	//< 로딩 배경화면
 //> 로딩율 문자
 	TCHAR szBuf[_MAX_FNAME];
-	sprintf_s(szBuf, _MAX_FNAME, _T("%.1f"), STATE_MGR->getLoading());
-//	sprintf_s(szBuf, _MAX_FNAME, _T("%.1f"), 100.f);
+	swprintf_s(szBuf, _MAX_FNAME, _T("%.1f"), STATE_MGR->getLoading());
+//	swprintf_s(szBuf, _MAX_FNAME, _T("%.1f"), 100.f);
 
 	float percent = (LOADBAR_WIDTH / 100.f) * STATE_MGR->getLoading();
 

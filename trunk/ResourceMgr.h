@@ -23,7 +23,7 @@ private:
 //< 인터페이스
 public:
 	//< 파일에서 추가
-	unsigned int addImage( const unsigned int UID, const char *filePath,
+	unsigned int addImage( const unsigned int UID, const TCHAR *filePath,
 		int cx = 0, int cy = 0, BYTE loadType = RM_NORMAL );
 	//< rc파일에서 추가
 	unsigned int addImage( const unsigned int ResouceID, BYTE loadType = RM_NORMAL );

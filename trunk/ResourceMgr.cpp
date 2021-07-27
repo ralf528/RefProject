@@ -14,7 +14,7 @@ ResourceMgr::~ResourceMgr(void)
 
 
 //< 파일에서 추가
-unsigned int ResourceMgr::addImage( const unsigned int UID, const char *filePath,
+unsigned int ResourceMgr::addImage( const unsigned int UID, const TCHAR *filePath,
 								   int cx, int cy, BYTE loadType )
 {
 	//< 리스트에서 ID 검색

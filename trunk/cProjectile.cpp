@@ -131,7 +131,7 @@ void cProjectile::SetImage(E_ImageID InImgID, string InPath)
 
 	SAFE_DELETE(m_Animation);
 	m_Animation = new ANI_INFO;
-	RC_MGR->addImage(m_ImgID, InPath.c_str(), 0, 0, RM_TRANS);
+	RC_MGR->addImage(m_ImgID, MY_Font::StringToTCHAR(InPath), 0, 0, RM_TRANS);
 	//< 이미지 사이즈
 	SIZE idleAniSize = RC_MGR->findImage(m_ImgID)->getSize();
 	//< 프레임 수

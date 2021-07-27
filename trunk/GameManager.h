@@ -29,7 +29,7 @@ public:
     HINSTANCE	m_mainInstance;
 
     POINT m_mousePos;
-    char m_path[_MAX_FNAME];
+    TCHAR m_path[_MAX_FNAME];
 };
 
 #define GAME_MGR Singleton<GameManager>::GetInstance()

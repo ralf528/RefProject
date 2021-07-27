@@ -4,6 +4,7 @@
 #include "../../ImageNode.h"
 #include "../../PopupBox.h"
 #include "../../CheckBox.h"
+#include "../../ButtonClass.h"
 
 Popup_Lobby_MakeRoom_Open::Popup_Lobby_MakeRoom_Open(void)
 {
@@ -63,82 +64,82 @@ void Popup_Lobby_MakeRoom_Open::init( void )
 	POINT tempPoint = popupImage->getCenter();
 	//----------------------------------------------------------------------------
 	//< 정보표시 방이름
-	inputInfo_ID->init( "Data/Resource/Image/board_join.bmp",
-		"Data/Resource/Image/board_join.bmp",200, 60 );
+	inputInfo_ID->init( L"Data/Resource/Image/board_join.bmp",
+		L"Data/Resource/Image/board_join.bmp",200, 60 );
 	inputInfo_ID->setRectPos( tempPoint.x -150, tempPoint.y - 66 +30, ALIGN_CENTER );
 	//< 정보표시 비밀번호
-	inputInfo_PASS->init( "Data/Resource/Image/board_join.bmp",
-		"Data/Resource/Image/board_join.bmp",200, 60 );
+	inputInfo_PASS->init(L"Data/Resource/Image/board_join.bmp",
+		L"Data/Resource/Image/board_join.bmp",200, 60 );
 	inputInfo_PASS->setRectPos( tempPoint.x -150, tempPoint.y - 2 +30, ALIGN_CENTER );
 	//< 정보표시 난입허용
-	inputInfo_REPASS->init( "Data/Resource/Image/board_join.bmp",
-		"Data/Resource/Image/board_join.bmp",200, 60 );
+	inputInfo_REPASS->init(L"Data/Resource/Image/board_join.bmp",
+		L"Data/Resource/Image/board_join.bmp",200, 60 );
 	inputInfo_REPASS->setRectPos( tempPoint.x -150, tempPoint.y + 62 +30, ALIGN_CENTER );
 
 	//< 정보표시 방이름
-	inputInfo_ID->loadFont( "방이름",
+	inputInfo_ID->loadFont(L"방이름",
 		inputInfo_ID->getRect(), 
-		"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
+		L"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
 	//< 정보표시 비밀번호
-	inputInfo_PASS->loadFont( "비밀번호",
+	inputInfo_PASS->loadFont(L"비밀번호",
 		inputInfo_PASS->getRect(), 
-		"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
+		L"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
 	//< 정보표시 난입허용
-	inputInfo_REPASS->loadFont( "난입",
+	inputInfo_REPASS->loadFont(L"난입",
 		inputInfo_REPASS->getRect(), 
-		"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
+		L"HY헤드라인M", 30, ALIGN_CENTER, 255,255,255 );
 	//----------------------------------------------------------------------------
 	//< 입력판 ID
-	m_inputID_Board->init( "Data/Resource/Image/button_INPUT.bmp",
-		"Data/Resource/Image/button_INPUT_02.bmp",300, 60 );
+	m_inputID_Board->init(L"Data/Resource/Image/button_INPUT.bmp",
+		L"Data/Resource/Image/button_INPUT_02.bmp",300, 60 );
 	m_inputID_Board->setRectPos( tempPoint.x +110, tempPoint.y - 66 +30, ALIGN_CENTER );
 	//< 입력판 PASS
-	m_inputPass_Board->init( "Data/Resource/Image/button_INPUT_ROCK.bmp",
-		"Data/Resource/Image/button_INPUT_ROCK.bmp",300, 60 );
+	m_inputPass_Board->init(L"Data/Resource/Image/button_INPUT_ROCK.bmp",
+		L"Data/Resource/Image/button_INPUT_ROCK.bmp",300, 60 );
 	m_inputPass_Board->setRectPos( tempPoint.x+110, tempPoint.y - 2 +30, ALIGN_CENTER );
 
 	//< 입력 방이름
 	inputRoomName->init( m_inputID_Board->getRect(), 
-		"HY헤드라인M", 30, ALIGN_CENTER, 0,0,0 );
+		L"HY헤드라인M", 30, ALIGN_CENTER, 0,0,0 );
 	//---------------------------------------------------------------------------
 	//< 버튼 MAKEROOM
-	button_MAKEROOM->init("Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",
+	button_MAKEROOM->init(L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",
 		200, 50 );
-	button_MAKEROOM->loadFont("방만들기", button_MAKEROOM->getRect(), 
-		"HY헤드라인M",
+	button_MAKEROOM->loadFont(L"방만들기", button_MAKEROOM->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_MAKEROOM->setRectPos( tempPoint.x+160, tempPoint.y+130 +20, ALIGN_CENTER );
 
 	//< 버튼 취소
-	button_CANCEL->init("Data/Resource/Image/button_OK.bmp",
-		"Data/Resource/Image/button_OK_02.bmp",
+	button_CANCEL->init(L"Data/Resource/Image/button_OK.bmp",
+		L"Data/Resource/Image/button_OK_02.bmp",
 		200, 50 );
-	button_CANCEL->loadFont("취소", button_CANCEL->getRect(), 
-		"HY헤드라인M",
+	button_CANCEL->loadFont(L"취소", button_CANCEL->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_CANCEL->setRectPos( tempPoint.x-150, tempPoint.y+130 +20, ALIGN_CENTER );
 	//---------------------------------------------------------------------------
 	
 	//< 버튼 공개
-	button_OPEN->init("Data/Resource/Image/button_top.bmp",
-		"Data/Resource/Image/button_top_02.bmp",
-		"Data/Resource/Image/button_top2.bmp",
-		"Data/Resource/Image/button_top2_02.bmp",
+	button_OPEN->init(L"Data/Resource/Image/button_top.bmp",
+		L"Data/Resource/Image/button_top_02.bmp",
+		L"Data/Resource/Image/button_top2.bmp",
+		L"Data/Resource/Image/button_top2_02.bmp",
 		200, 50 );
-	button_OPEN->loadFont("공개방", button_OPEN->getRect(), 
-		"HY헤드라인M",
+	button_OPEN->loadFont(L"공개방", button_OPEN->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_OPEN->setRectPos( popupImage->getRect().left +100, popupImage->getRect().top-40 +160, ALIGN_LEFT_TOP );
 
 	//< 버튼 비공개
-	button_CLOSE->init("Data/Resource/Image/button_top.bmp",
-		"Data/Resource/Image/button_top_02.bmp",
-		"Data/Resource/Image/button_top2.bmp",
-		"Data/Resource/Image/button_top2_02.bmp",
+	button_CLOSE->init(L"Data/Resource/Image/button_top.bmp",
+		L"Data/Resource/Image/button_top_02.bmp",
+		L"Data/Resource/Image/button_top2.bmp",
+		L"Data/Resource/Image/button_top2_02.bmp",
 		200, 50  );
-	button_CLOSE->loadFont("비공개방", button_CLOSE->getRect(), 
-		"HY헤드라인M",
+	button_CLOSE->loadFont(L"비공개방", button_CLOSE->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	button_CLOSE->setRectPos( popupImage->getRect().left+200 +100, popupImage->getRect().top-40 +160, ALIGN_LEFT_TOP );
 
@@ -146,24 +147,24 @@ void Popup_Lobby_MakeRoom_Open::init( void )
 	button_OPEN->inCheckBox( CHECK_BOX_ON );
 	//--------------------------------------------------------------
 	//< 버튼 체크박스 허용
-	checkBox_OK->init("Data/Resource/Image/on_off.bmp",
-		"Data/Resource/Image/on_off_02.bmp",
-		"Data/Resource/Image/on_off2.bmp",
-		"Data/Resource/Image/on_off2_02.bmp",
+	checkBox_OK->init(L"Data/Resource/Image/on_off.bmp",
+		L"Data/Resource/Image/on_off_02.bmp",
+		L"Data/Resource/Image/on_off2.bmp",
+		L"Data/Resource/Image/on_off2_02.bmp",
 		145, 60 );
-	checkBox_OK->loadFont("허용", checkBox_OK->getRect(), 
-		"HY헤드라인M",
+	checkBox_OK->loadFont(L"허용", checkBox_OK->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_OK->setRectPos( tempPoint.x+35, tempPoint.y + 62 +30, ALIGN_CENTER );
 
 	//< 버튼 체그박스 비허용
-	checkBox_NO->init("Data/Resource/Image/on_off.bmp",
-		"Data/Resource/Image/on_off_02.bmp",
-		"Data/Resource/Image/on_off2.bmp",
-		"Data/Resource/Image/on_off2_02.bmp",
+	checkBox_NO->init(L"Data/Resource/Image/on_off.bmp",
+		L"Data/Resource/Image/on_off_02.bmp",
+		L"Data/Resource/Image/on_off2.bmp",
+		L"Data/Resource/Image/on_off2_02.bmp",
 		145, 60  );
-	checkBox_NO->loadFont("비허용", checkBox_NO->getRect(), 
-		"HY헤드라인M",
+	checkBox_NO->loadFont(L"비허용", checkBox_NO->getRect(),
+		L"HY헤드라인M",
 		30, ALIGN_CENTER, 255,255,255 );
 	checkBox_NO->setRectPos( tempPoint.x+185, tempPoint.y + 62 +30, ALIGN_CENTER );
 
@@ -257,7 +258,7 @@ void Popup_Lobby_MakeRoom_Open::update( POINT mousePos )
 		button_MAKEROOM->inPlayButtonAni( false );
 
 		//< 임시 복사
-		string tempID = inputRoomName->getString();
+		string tempID(inputRoomName->getCharString());
 		
 		//< 입력 부족 확인
 		if( tempID.size() <= 0 )
@@ -467,10 +468,10 @@ void Popup_Lobby_MakeRoom_Open::loadImage( void )
 {
 	//< 알파 이미지
 	//alpaImage->loadImage("Data/Resource/Image/Alpa_background.bmp", 1024, 768 );
-	alpaImage->load( "Data/Resource/Image/Alpa_background.bmp", 
+	alpaImage->load(L"Data/Resource/Image/Alpa_background.bmp",
 		0, 0, RM_TRANS );
 	//< 팝업창
-	popupImage->init("Data/Resource/Image/Popup_Box.bmp", 700, 500 );
+	popupImage->init(L"Data/Resource/Image/Popup_Box.bmp", 700, 500 );
 }
 
 //< 이벤트처리
