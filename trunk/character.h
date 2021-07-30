@@ -47,7 +47,7 @@ public:
 	bool IsPlayingAnimation(E_AnimationType eType);
 
 	//< 아이템 사용
-	virtual void useItem( void );
+	virtual void useItem(int nIndex);
 	//< 인벤토리 랜더
 	virtual void renderInven(HDC hdc);
 	//< 경험치 획득
@@ -73,7 +73,7 @@ public:
 	virtual int getDamage(void);
 
 	//< 충돌체(아이템 등) 얻기
-	virtual void gainCollider(E_TileBrush &obj);
+	virtual void gainCollider(E_TileBrush obj);
 
 	//< 충돌체 상태
 	void setBallFlag( bool flag );

@@ -46,22 +46,23 @@ public :
 	//< 현재까지 입력된 스트링 받기
 	TCHAR* getString( void )
 	{
-		return MY_Font::StringToTCHAR(inputString);
+		//return MY_Font::StringToTCHAR(inputString);
+		return (TCHAR*)inputString.c_str();
 	}
 	//< 스트링 받기
-	string getCharString( void )
+	wstring getCharString( void )
 	{
 		return inputString;
 	}
 
-	void setString(const char* buf)
+	void setString(const TCHAR* buf)
 	{
 		inputString = buf;
 	}
 
 private :
 	//< 스트링 입력
-	string inputString;
+	wstring inputString;
 	//< 입력 스트링 표시 폰트
 	MY_Font* outputString;
 	//< 기준 렉트

@@ -117,10 +117,10 @@ void MY_Font::LoadText(
 }
 
 //< 텍스트만 받아오기
-void MY_Font::inChar( string& inputChar )
+void MY_Font::inChar( wstring& inputChar )
 {
 	//< 스트링 정보 저장
-	memmove_s( m_destString, _MAX_FNAME, inputChar.c_str(), inputChar.size()+1 );
+	wmemmove_s( m_destString, _MAX_FNAME, inputChar.c_str(), inputChar.size()+1 );
 }
 
 //< 불러온 텍스트로 출력

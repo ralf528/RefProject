@@ -26,11 +26,13 @@ private:
 	string ToLowerString(string str);
 
 public:
+	bool ProcessCheat(const TCHAR* InputMessage);
 	bool ProcessCheat(const char* InputMessage);
 
 	// Cheat Function
 	void SetPosition(Parser CheatMessage);
 	void SwitchCharacter(Parser CheatMessage);
+	void AddItem(Parser CheatMessage);
 
 private:
 	map<string, FuncPointer> m_Functions;

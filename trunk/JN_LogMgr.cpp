@@ -71,7 +71,7 @@ int		 JN_LogMgr::addLog(char* strmsg, ... )
 	if( m_target & JN_LOG_WINDOW )
 	{
 		TCHAR MessageBuffer[1024] = { 0, };
-		MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szBuff, strlen(szBuff), MessageBuffer, 1024);
+		MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szBuff, int(strlen(szBuff)), MessageBuffer, 1024);
 
 		SendMessage( m_wndListBox, LB_ADDSTRING, 0, (LPARAM)MessageBuffer);
 		LRESULT n = SendMessage( m_wndListBox, LB_GETCOUNT, 0, 0L ) - 1;

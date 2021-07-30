@@ -26,8 +26,6 @@ public:
 private:
 	//< 아이템 리스트
 	itemList m_itemList;
-	//< 아이템 창 활성화 여부
-	bool m_flag;
 
 	//< 인벤 칸
 	ButtonClass m_m_button_Item[4];

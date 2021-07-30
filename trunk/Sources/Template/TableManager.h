@@ -30,6 +30,14 @@ struct CharacterTemplate
 	std::map<E_AnimationType, AnimationTemplate> m_AnimationDatas;
 };
 
+struct ItemTemplate
+{
+	int ItemID;
+	int ResourceID;
+	int AgumentA;
+	int AgumentB;
+};
+
 class TableManager
 {
 public:
@@ -41,12 +49,15 @@ private:
 
 public:
 	void Load();
-	void LoadTemplate(int TemplateID);
+	void LoadCharacterTemplate(int TemplateID);
+	void LoadItemTemplate(int ItemID);
 
 	const CharacterTemplate* GetCharacterTemplate(int TemplateID);
+	const ItemTemplate* GetItemTemplate(int ItemID);
 	
 private:
 	std::map<int, CharacterTemplate> m_CharacterDatas;
+	std::map<int, ItemTemplate> m_ItemDatas;
 };
 
 #define TABLE_MGR Singleton<TableManager>::GetInstance()

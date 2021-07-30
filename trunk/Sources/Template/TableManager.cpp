@@ -11,7 +11,7 @@ void TableManager::Load()
 	// 필요한 데이터만 즉시 로드
 }
 
-void TableManager::LoadTemplate(int TemplateID)
+void TableManager::LoadCharacterTemplate(int TemplateID)
 {
 	auto Found = m_CharacterDatas.find(TemplateID);
 	if (Found != m_CharacterDatas.end())
@@ -19,9 +19,11 @@ void TableManager::LoadTemplate(int TemplateID)
 		return;
 	}
 
+	CharacterTemplate Data;
+	Data.TemplateID = 0;
+
 	if (TemplateID == JOB_KNIGHT)
 	{
-		CharacterTemplate Data;
 		Data.TemplateID = TemplateID;
 
 		Data.m_SkillDatas.insert(make_pair(E_SkillType_NormalAttack, SkillTemplate{ E_SkillType_NormalAttack, E_ImageID::imgID_NONID}));
@@ -45,12 +47,9 @@ void TableManager::LoadTemplate(int TemplateID)
 				each.second.size = img->getSize();
 			}
 		}
-
-		m_CharacterDatas.insert(make_pair(TemplateID, Data));
 	}
 	else if (TemplateID == JOB_ARCHER)
 	{
-		CharacterTemplate Data;
 		Data.TemplateID = TemplateID;
 
 		Data.m_SkillDatas.insert(make_pair(E_SkillType_NormalAttack, SkillTemplate{ E_SkillType_NormalAttack, E_ImageID::imgID_ARCHER_ARROW }));
@@ -75,8 +74,38 @@ void TableManager::LoadTemplate(int TemplateID)
 				each.second.size = img->getSize();
 			}
 		}
+	}
 
+	if (Data.TemplateID != 0)
+	{
 		m_CharacterDatas.insert(make_pair(TemplateID, Data));
+	}
+}
+
+void TableManager::LoadItemTemplate(int ItemID)
+{
+	auto Found = m_ItemDatas.find(ItemID);
+	if (Found != m_ItemDatas.end())
+	{
+		return;
+	}
+
+	ItemTemplate Data;
+	Data.ItemID = 0;
+	
+	switch (ItemID)
+	{
+	case ITEM_POTION_VENOM:
+		Data.ItemID = ItemID;
+		Data.ResourceID = 0;
+		Data.AgumentA = 0;
+		Data.AgumentB = 0;
+		break;
+	}
+
+	if (ItemID != 0)
+	{
+		m_ItemDatas.insert(make_pair(ItemID, Data));
 	}
 }
 
@@ -85,10 +114,27 @@ const CharacterTemplate* TableManager::GetCharacterTemplate(int TemplateID)
 	auto Found = m_CharacterDatas.find(TemplateID);
 	if (Found == m_CharacterDatas.end())
 	{
-		LoadTemplate(TemplateID);
+		LoadCharacterTemplate(TemplateID);
 
 		Found = m_CharacterDatas.find(TemplateID);
 		if (Found == m_CharacterDatas.end())
+		{
+			return nullptr;
+		}
+	}
+
+	return &(Found->second);
+}
+
+const ItemTemplate* TableManager::GetItemTemplate(int ItemID)
+{
+	auto Found = m_ItemDatas.find(ItemID);
+	if (Found == m_ItemDatas.end())
+	{
+		LoadItemTemplate(ItemID);
+
+		Found = m_ItemDatas.find(ItemID);
+		if (Found == m_ItemDatas.end())
 		{
 			return nullptr;
 		}

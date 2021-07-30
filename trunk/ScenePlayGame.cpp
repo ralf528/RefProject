@@ -126,7 +126,7 @@ void ScenePlayGame::update(float fDeltaTime)
         }
 
         //< 몬스터와 맵의 충돌 체크
-        for (size_t i = 0; i < MON_MGR->getSize(); i++)
+        for (int i = 0; i < (int)MON_MGR->getSize(); i++)
         {
             //< 주위의 선(벽) 찾기
             m_World->aroundLine(MON_MGR->getMonster(i)->getPos(), MON_MGR->getMonster(i)->getAroundVertex());

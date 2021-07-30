@@ -154,8 +154,8 @@ void ChattingGame::init( void )
 
 	//---------------------------------------------------------------------------------------------
 	//< 유저 이름 받기
-	userName = "[user]";
-	m_font->LoadText(MY_Font::StringToTCHAR(userName), userNameRect, L"HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
+	userName = L"[user]";
+	m_font->LoadText(userName.c_str(), userNameRect, L"HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
 	//---------------------------------------------------------------------------------------------
 
 	//< 켜지는 시간 받기
@@ -287,6 +287,16 @@ LRESULT	ChattingGame::StateProc( HWND wnd, UINT msg, WPARAM wparam, LPARAM lpara
 			{
 				//< 입력받기
 				inputChar->getChar( wparam );
+			}
+			else
+			{
+				switch (wparam)
+				{
+				case '`':
+					inChatingView();
+					changeChattingOn();
+					break;
+				}
 			}
 		}
 		break;
@@ -488,7 +498,7 @@ void ChattingGame::StringUpdate( void )
 //< 스트링 저장
 void ChattingGame::StringPush( void )
 {
-	if (CHEAT_MGR->ProcessCheat((char*)inputChar->getString()) == true)
+	if (CHEAT_MGR->ProcessCheat(inputChar->getString()) == true)
 	{
 		return;
 	}

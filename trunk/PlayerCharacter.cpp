@@ -86,6 +86,13 @@ LRESULT PlayerCharacter::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpa
         case 'Z':
             SetAutoMode(!IsAutoMode());
         break;
+
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+			m_character->useItem((int)(wparam - '0'));
+			break;
         }
     }
     break;

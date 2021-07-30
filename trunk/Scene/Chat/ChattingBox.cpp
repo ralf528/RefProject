@@ -148,7 +148,7 @@ void ChattingBox::init( void )
 	//---------------------------------------------------------------------------------------------
 	//< 유저 이름 받기
 	//userName = GAME_DATA->getUserId();
-	m_font->LoadText(MY_Font::StringToTCHAR(userName), userNameRect, L"HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
+	m_font->LoadText(userName.c_str(), userNameRect, L"HY헤드라인M", 20, ALIGN_CENTER, 255,255,255 );
 	//---------------------------------------------------------------------------------------------
 }
 

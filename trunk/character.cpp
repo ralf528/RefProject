@@ -203,9 +203,6 @@ void character::update(float fDeltaTime)
 	//< 공격
 	attack();
 
-	//< 아이템
-	useItem();
-
 	UpdateDash();
 
 	//< 애니메이션 갱신
@@ -502,18 +499,19 @@ bool character::IsPlayingAnimation(E_AnimationType eType)
 }
 
 //< 아이템 사용
-void character::useItem( void )
+void character::useItem(int nIndex)
 {
-	int useIndex = 0;
+	/*int useIndex = 0;
 	if( onceKeyDown( '1' ) )	{		useIndex = 1;	}
 	if( onceKeyDown( '2' ) )	{		useIndex = 2;	}
 	if( onceKeyDown( '3' ) )	{		useIndex = 3;	}
-	if( onceKeyDown( '4' ) )	{		useIndex = 4;	}
+	if( onceKeyDown( '4' ) )	{		useIndex = 4;	}*/
 	//< 키가 눌리면 아이템 사용
-	if( 0 != useIndex )
+
+	if (0 != nIndex)
 	{
 		//< 해당 인덱스의 아이템 ID
-        unsigned int itemID = m_inventory->useItem(useIndex);
+        unsigned int itemID = m_inventory->useItem(nIndex);
 		//< 아이템이 있다면 사용
 		if( ITEM_END != itemID )
 		{
@@ -522,6 +520,7 @@ void character::useItem( void )
 			{
 				itemID = ITEM_FIRST + rand()%(ITEM_END-ITEM_FIRST);
 			}
+
 			switch( itemID )
 			{
 			case ITEM_POTION_CONFUSION:	//< 치유
@@ -634,7 +633,7 @@ int character::getDamage(void)
 }
 
 //< 충돌체 얻기 ( 아이템 획득 )
-void character::gainCollider(E_TileBrush &obj)
+void character::gainCollider(E_TileBrush obj)
 {
 	//< 오브젝트에 따른 반응
 	//< 아이템이면 인벤토리에 추가

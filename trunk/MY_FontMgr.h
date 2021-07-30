@@ -53,7 +53,7 @@ public:
 	void OutputText( HDC hdc, TCHAR *outputText );
 
 	//< 텍스트만 받아오기
-	void inChar( string& inputChar );
+	void inChar( wstring& inputChar );
 
 	//< 렉트받아오기
 	void inFontRect( RECT ButtonRect )
@@ -107,6 +107,13 @@ public:
 
 		return (TCHAR*)t;
 	}
+
+	/*static char* TCharToChar(TCHAR* str)
+	{
+		char cTemp[_MAX_FNAME];
+		WideCharToMultiByte(CP_ACP, 0, str, _MAX_FNAME, cTemp, _MAX_FNAME, NULL, NULL);
+		return cTemp;
+	}*/
 
 private :
 	TCHAR m_destString[_MAX_FNAME];

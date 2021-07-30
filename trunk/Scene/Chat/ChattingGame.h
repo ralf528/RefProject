@@ -80,7 +80,7 @@ private :
 	int nodePosition;
 
 	//< 유저 네임
-	string userName;
+	wstring userName;
 	RECT userNameRect;
 
 	//< 채팅입력 보드

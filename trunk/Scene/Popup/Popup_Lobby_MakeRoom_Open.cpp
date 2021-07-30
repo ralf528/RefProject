@@ -258,7 +258,7 @@ void Popup_Lobby_MakeRoom_Open::update( POINT mousePos )
 		button_MAKEROOM->inPlayButtonAni( false );
 
 		//< 임시 복사
-		string tempID(inputRoomName->getCharString());
+		wstring tempID(inputRoomName->getCharString());
 		
 		//< 입력 부족 확인
 		if( tempID.size() <= 0 )

@@ -20,6 +20,7 @@ void CheatManager::LoadFunctions()
 	m_Functions.clear();
 	m_Functions.insert(make_pair(ToLowerString("SetPosition"), &CheatManager::SetPosition));
 	m_Functions.insert(make_pair(ToLowerString("SwitchCharacter"), &CheatManager::SwitchCharacter));
+	m_Functions.insert(make_pair(ToLowerString("AddItem"), &CheatManager::AddItem));
 }
 
 vector<string> CheatManager::StringParse(const char* Message)
@@ -49,6 +50,14 @@ string CheatManager::ToLowerString(string str)
 {
 	std::transform(str.begin(), str.end(), str.begin(), ::tolower);
 	return str;
+}
+
+bool CheatManager::ProcessCheat(const TCHAR* InputMessage)
+{
+	char cTemp[_MAX_FNAME];
+	WideCharToMultiByte(CP_ACP, 0, InputMessage, _MAX_FNAME, cTemp, _MAX_FNAME, NULL, NULL);
+
+	return ProcessCheat(cTemp);
 }
 
 bool CheatManager::ProcessCheat(const char* InputMessage)
@@ -142,4 +151,38 @@ void CheatManager::SwitchCharacter(Parser CheatMessage)
 	Character->SetJobType(static_cast<E_JobType>(TemplateID));
 	Character->init();
 	Character->setPos(pos);
+}
+
+void CheatManager::AddItem(Parser CheatMessage)
+{
+	LOG_MGR->addLog("%s", CheatMessage[0].c_str());
+
+	if (CheatMessage.size() < 2)
+	{
+		return;
+	}
+
+	ScenePlayGame* nowState = static_cast<ScenePlayGame*>(STATE_MGR->nowScene());
+	if (nowState == nullptr)
+	{
+		return;
+	}
+
+	PlayerCharacter* Player = nowState->GetPlayer();
+	if (Player == nullptr)
+	{
+		return;
+	}
+
+	character* Character = Player->GetCharacter();
+	if (Character == nullptr)
+	{
+		return;
+	}
+
+	int ItemTemplateID = atoi(CheatMessage[1].c_str());
+	if (ItemTemplateID >= ITEM_FIRST && ItemTemplateID < ITEM_END)
+	{
+		Character->gainCollider((E_TileBrush)ItemTemplateID);
+	}
 }
