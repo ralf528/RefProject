@@ -1,17 +1,19 @@
 #pragma once
 
 class character;
+class Inventory;
 
-class PlayerCharacter
+class PlayerController
 {
 public:
-    PlayerCharacter() {}
-    ~PlayerCharacter() {}
+	PlayerController();
+	~PlayerController();
 
     void Init();
     void Release();
     void Update(float fDeltaTime);
     void Render(HDC hdc);
+	void RenderInventory(HDC hdc);
 
     character* GetCharacter();
 
@@ -21,11 +23,17 @@ public:
     void SetAutoMode(bool AutoMode) { m_bAutoMode = AutoMode; }
     bool IsAutoMode() { return m_bAutoMode; }
 
+	void AddItem(int InObjectID);
+	bool UseItem(int InItemID);
+
 private:
     void ProcessInputKey();
 
 private:
     character* m_character;
+
+	//< 인벤토리
+	Inventory *m_inventory;
 
     //< 자동모드
     bool m_bAutoMode;

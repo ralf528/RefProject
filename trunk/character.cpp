@@ -1,15 +1,19 @@
 #include "stdafx.h"
 #include "skillWhole.h"
-#include "inventory.h"
 #include "Sources/Template/TableManager.h"
+#include "ScenePlayGame.h"
+#include "PlayerController.h"
 #include "character.h"
 
 using namespace keyInput;
 
 character::character(void)
-	: AttackProjectile(NULL), SkillProjectile(NULL), m_inventory(NULL)
+	: AttackProjectile(NULL), SkillProjectile(NULL)
 {
 	m_JobType = JOB_ARCHER;
+
+	static int CreatedObjectID = 0;
+	ObjectID = ++CreatedObjectID;
 }
 character::~character(void)
 {
@@ -85,10 +89,6 @@ bool character::init(void)
 	m_inbeatDeley.m_deley = 10000;
 	m_inbeatDeley.m_lastTime = 0;
 
-	//< 인벤토리 생성
-	SAFE_DELETE(m_inventory);
-	m_inventory = new Inventory;
-
 	//< 일반 공격
 	SAFE_DELETE(AttackProjectile);
 	if (m_JobType == JOB_ARCHER)
@@ -125,7 +125,6 @@ void character::release(void)
 {
 	m_Skills.clear();
 
-	SAFE_DELETE( m_inventory );
 	SAFE_DELETE( AttackProjectile );
 	SAFE_DELETE( SkillProjectile );
 
@@ -498,85 +497,6 @@ bool character::IsPlayingAnimation(E_AnimationType eType)
 	return found->second->flag;
 }
 
-//< 아이템 사용
-void character::useItem(int nIndex)
-{
-	/*int useIndex = 0;
-	if( onceKeyDown( '1' ) )	{		useIndex = 1;	}
-	if( onceKeyDown( '2' ) )	{		useIndex = 2;	}
-	if( onceKeyDown( '3' ) )	{		useIndex = 3;	}
-	if( onceKeyDown( '4' ) )	{		useIndex = 4;	}*/
-	//< 키가 눌리면 아이템 사용
-
-	if (0 != nIndex)
-	{
-		//< 해당 인덱스의 아이템 ID
-        unsigned int itemID = m_inventory->useItem(nIndex);
-		//< 아이템이 있다면 사용
-		if( ITEM_END != itemID )
-		{
-			//<혼돈이면 랜덤 발동
-			if( ITEM_POTION_VENOM == itemID)
-			{
-				itemID = ITEM_FIRST + rand()%(ITEM_END-ITEM_FIRST);
-			}
-
-			switch( itemID )
-			{
-			case ITEM_POTION_CONFUSION:	//< 치유
-				//SOUND_MGR->soundPlay(SOUND_BGM9); //< 아이템이 있으면 효과음
-				//< 체력 증가
-				incHP( 20 );
-				if( getHP() > getMaxHP() )
-				{
-					setHP( getMaxHP() );
-				}
-				//< 상태이상 치유
-				m_state.m_condition = CONDITION_NORMAL;
-				break;
-			case ITEM_POSION_CURE:	//< 재생
-				//SOUND_MGR->soundPlay(SOUND_BGM9);
-				//< 체력 증가
-				incHP( 60 );
-				if( getHP() > getMaxHP() )
-				{
-					setHP( getMaxHP() );
-				}
-				break;
-			case ITEM_POTION_IDENTFY:	//< 독
-				//SOUND_MGR->soundPlay(SOUND_BGM9);
-				//< 독 상태
-				m_state.m_condition = CONDITION_POISON;
-				m_conDeley.m_deley = 6000;
-				m_conDeley.m_lastTime = GetTickCount();
-				break;
-			case ITEM_POTION_REGEN: //< 약화
-				//SOUND_MGR->soundPlay(SOUND_BGM9);
-				m_state.m_str -= 3;
-				if( getStrong() < 0 ) m_state.m_str = 1;
-				m_state.m_agl -= 3;
-				if( getAgility() < 0 ) m_state.m_agl = 1;
-				m_state.m_int -= 3;
-				if( getIntel() < 0 ) m_state.m_int = 1;
-				break;
-			case ITEM_POTION_UNKNOWN: //< 강화
-				//SOUND_MGR->soundPlay(SOUND_BGM9);
-				m_state.m_str += 3;
-				m_state.m_agl += 3;
-				m_state.m_int += 3;
-				break;
-			}
-		}
-	}
-}
-
-//< 인벤토리 랜더
-void character::renderInven(HDC hdc)
-{
-	//< 인벤토리 랜더
-	m_inventory->renderInven(hdc);
-}
-
 //< 좌표 설정
 void character::setPos( POINT &pos )
 {
@@ -635,12 +555,23 @@ int character::getDamage(void)
 //< 충돌체 얻기 ( 아이템 획득 )
 void character::gainCollider(E_TileBrush obj)
 {
-	//< 오브젝트에 따른 반응
 	//< 아이템이면 인벤토리에 추가
 	if (obj >= ITEM_FIRST && obj < ITEM_END)
 	{
-		//m_state.m_nowHP+=10;
-		m_inventory->addItem(obj);
+		// 플레이어 컨트롤러를 어딘가에서 구해와
+		ScenePlayGame* nowState = static_cast<ScenePlayGame*>(STATE_MGR->nowScene());
+		if (nowState == nullptr)
+		{
+			return;
+		}
+
+		PlayerController* Player = nowState->GetPlayerController();
+		if (Player == nullptr)
+		{
+			return;
+		}
+
+		Player->AddItem((int)obj);
 	}
 	//< 그 외에는 충돌체크
 	else

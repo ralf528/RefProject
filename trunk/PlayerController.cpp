@@ -1,21 +1,38 @@
 #include "stdafx.h"
-#include "PlayerCharacter.h"
+#include "inventory.h"
+#include "PlayerController.h"
 
-void PlayerCharacter::Init()
+PlayerController::PlayerController()
+{
+	m_inventory = nullptr;
+}
+
+PlayerController::~PlayerController()
+{
+
+}
+
+void PlayerController::Init()
 {
     m_character = new character();
     m_character->init();
+
+	//< 인벤토리 생성
+	SAFE_DELETE(m_inventory);
+	m_inventory = new Inventory;
+
     SetAutoMode(false);
     SAFE_DELETE(m_pTarget);
 }
 
-void PlayerCharacter::Release()
+void PlayerController::Release()
 {
     SAFE_DELETE(m_character);
+	SAFE_DELETE(m_inventory);
     SAFE_DELETE(m_pTarget);
 }
 
-void PlayerCharacter::Update(float fDeltaTime)
+void PlayerController::Update(float fDeltaTime)
 {
     if (m_character)
     {
@@ -37,7 +54,7 @@ void PlayerCharacter::Update(float fDeltaTime)
     }
 }
 
-void PlayerCharacter::Render(HDC hdc)
+void PlayerController::Render(HDC hdc)
 {
     if (!hdc)
     {
@@ -51,12 +68,12 @@ void PlayerCharacter::Render(HDC hdc)
 #endif
 }
 
-character* PlayerCharacter::GetCharacter()
+character* PlayerController::GetCharacter()
 {
     return m_character;
 }
 
-LRESULT PlayerCharacter::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT PlayerController::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     if (!m_character)
         return DefWindowProc(wnd, msg, wparam, lparam);
@@ -91,7 +108,7 @@ LRESULT PlayerCharacter::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpa
 		case '2':
 		case '3':
 		case '4':
-			m_character->useItem((int)(wparam - '0'));
+			UseItem((int)(wparam - '0'));
 			break;
         }
     }
@@ -120,7 +137,43 @@ LRESULT PlayerCharacter::StateProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lpa
     return (DefWindowProc(wnd, msg, wparam, lparam));
 }
 
-void PlayerCharacter::ProcessInputKey()
+void PlayerController::AddItem(int InObjectID)
 {
+	if (m_inventory != nullptr)
+	{
+		m_inventory->addItem(InObjectID);
+	}
+}
 
+bool PlayerController::UseItem(int InItemID)
+{
+	if (m_character == nullptr || m_inventory == nullptr)
+	{
+		return false;
+	}
+
+	if (InItemID <= 0)
+	{
+		return false;
+	}
+
+	m_inventory->useItem(m_character, InItemID);
+
+	return true;
+}
+
+void PlayerController::ProcessInputKey()
+{
+	/*
+	if( onceKeyDown( '1' ) )	{		useIndex = 1;	}
+	if( onceKeyDown( '2' ) )	{		useIndex = 2;	}
+	if( onceKeyDown( '3' ) )	{		useIndex = 3;	}
+	if( onceKeyDown( '4' ) )	{		useIndex = 4;	}*/
+}
+
+//< 인벤토리 랜더
+void PlayerController::RenderInventory(HDC hdc)
+{
+	//< 인벤토리 랜더
+	m_inventory->renderInven(hdc);
 }

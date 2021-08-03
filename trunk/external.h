@@ -57,6 +57,9 @@ using namespace myUTIL;
 //#include "other_mgr.h"
 //#include "SoundMgr.h"
 #include "AniMgr.h"
+#include "Sources/Manager/CheatManager.h"
+#include "SkillManager.h"
+#include "SkillModuleManager.h"
 
 #include "ButtonClass.h"
 #include "Scene/Popup/Popup_Loot.h"

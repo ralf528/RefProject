@@ -3,6 +3,8 @@
 #include "Singleton.h"
 #include "ButtonClass.h"
 
+class character;
+
 class Inventory
 {
 	typedef std::list<unsigned int>		itemList;
@@ -12,16 +14,16 @@ public:
 	~Inventory(void);
 
 public:
-	//<초기화
 	bool init(void);
-	//<삭제
 	void release(void);
-	//<인벤토리 랜더
 	void renderInven(HDC hdc);
-	//<아이템 보관
+	
 	bool addItem(unsigned int item);
+	int RemoveItem(unsigned int index);
+
 	//<아이템 사용
-	unsigned int useItem(unsigned int index);
+	unsigned int useItem(character* OwnerCharacter, unsigned int index);
+
 
 private:
 	//< 아이템 리스트

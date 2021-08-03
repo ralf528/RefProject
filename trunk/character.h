@@ -6,8 +6,6 @@
 //< 공격 충돌체
 class cProjectile;
 class skillWhole;
-//< 인벤토리
-class Inventory;
 struct CharacterTemplate;
 
 //< 게임 캐릭터 클래스
@@ -38,6 +36,8 @@ public:
 	//< 이동
 	virtual void move(float fDeltaTime);
 
+	FORCEINLINE int GetObjectID() { return ObjectID; }
+
 	// 애니메이션
 	void InitAnimInfo(const CharacterTemplate* Template);
 	void releaseAniInfo();
@@ -46,14 +46,12 @@ public:
 	void StartAnimation(E_AnimationType eType);
 	bool IsPlayingAnimation(E_AnimationType eType);
 
-	//< 아이템 사용
-	virtual void useItem(int nIndex);
-	//< 인벤토리 랜더
-	virtual void renderInven(HDC hdc);
 	//< 경험치 획득
 	void gainExp( unsigned int exp ){ m_level.incExp( exp ); }
 	//< 레벨 정보 얻기
 	Level& getLevelInfo(void) { return m_level; }
+
+	void SetJobType(E_JobType JobType) { m_JobType = JobType; }
 
 	//< 좌표 설정
 	virtual void setPos( POINT &pos );
@@ -114,9 +112,12 @@ public:
 	void DashTrigger();
 	void ShootWholeSkill();
 
-	void SetJobType(E_JobType JobType) { m_JobType = JobType; }
+	// 상태이상
 
-protected:
+
+private:
+	int ObjectID;
+	
 	E_JobType m_JobType;
 
 	Level m_level;
@@ -130,8 +131,6 @@ protected:
 	//< 애니메이션 정보
 	std::map<E_AnimationType, LPANI_INFO> m_Animations;
 
-	//< 인벤토리
-	Inventory *m_inventory;
 
 	//< 주위의 맵 정보
 	POINT vertex[8];

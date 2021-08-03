@@ -2,12 +2,6 @@
 
 #include "Singleton.h"
 
-struct SkillModule
-{
-	int SkillID;
-	int SkillType;
-};
-
 class SkillManager
 {
 private:

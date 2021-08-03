@@ -40,7 +40,7 @@ public:
 	//< 체력
 	inline int		getHP(void) { return m_state.m_nowHP; }
 	inline void		setHP(int hp) { m_state.m_nowHP = hp; }
-	inline void		incHP(int offset) { m_state.m_nowHP += offset; } 
+	void			incHP(int offset);
 	
 	//< 최대 체력
 	inline int		getMaxHP(void) { return m_state.m_maxHP; }

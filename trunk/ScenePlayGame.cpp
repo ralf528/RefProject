@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "PlayerCharacter.h"
+#include "PlayerController.h"
 //#include "goblin.h"
 //#include "mon_bug.h"
 //#include "Boss_naid.h"
@@ -59,7 +59,7 @@ bool ScenePlayGame::init(void)
     STATE_MGR->setLoading(80);
 
     //캐릭터 정보 초기화
-    m_player = new PlayerCharacter();
+    m_player = new PlayerController();
     m_player->Init();
     //< 몬스터 매니저에 캐릭터 연결
     MON_MGR->setDestPlayer(m_player->GetCharacter());
@@ -451,7 +451,7 @@ void ScenePlayGame::renderUI(HDC hdc)
         m_stage.OutputText(hdc, tempStr);
 
         //< 플레이어 인벤토리 표시
-        m_player->GetCharacter()->renderInven(hdc);
+        m_player->RenderInventory(hdc);
     }
 }
 

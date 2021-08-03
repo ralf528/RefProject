@@ -165,7 +165,7 @@
     <ClInclude Include="MY_FontMgr.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="other_mgr.h" />
-    <ClInclude Include="PlayerCharacter.h" />
+    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PopupBox.h" />
     <ClInclude Include="PopupMgr.h" />
     <ClInclude Include="RenderMgr.h" />
@@ -190,12 +190,15 @@
     <ClInclude Include="Scene\sceneLoading.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SkillManager.h" />
+    <ClInclude Include="SkillModuleManager.h" />
     <ClInclude Include="skillWhole.h" />
     <ClInclude Include="SoundMgr.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="cProjectile.h" />
+    <ClInclude Include="Sources\Character\CharacterState\CharacterStateBase.h" />
+    <ClInclude Include="Sources\Character\CharacterState\CharacterState_Stun.h" />
     <ClInclude Include="Sources\Manager\CheatManager.h" />
     <ClInclude Include="Sources\Template\TableManager.h" />
     <ClInclude Include="State.h" />
@@ -229,7 +232,7 @@
     <ClCompile Include="MY_FontMgr.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="other_mgr.cpp" />
-    <ClCompile Include="PlayerCharacter.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PopupBox.cpp" />
     <ClCompile Include="PopupMgr.cpp" />
     <ClCompile Include="RenderMgr.cpp" />
@@ -253,6 +256,7 @@
     <ClCompile Include="Scene\sceneLoading.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="skillWhole.cpp" />
+    <ClCompile Include="SkilModuleManager.cpp" />
     <ClCompile Include="SoundMgr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -267,6 +271,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="unit.cpp" />
     <ClCompile Include="WorldManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UnitClass\Boss_gyuriel.cpp" />

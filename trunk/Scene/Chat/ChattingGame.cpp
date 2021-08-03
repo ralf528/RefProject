@@ -4,7 +4,6 @@
 #include "../../PopupBox.h"
 #include "../../InputString.h"
 #include "../../ButtonClass.h"
-#include "../../Sources/Manager/CheatManager.h"
 #include "ChattingGame.h"
 
 

@@ -107,6 +107,9 @@
     <Filter Include="01_CORE\02_MANAGER\CHEAT">
       <UniqueIdentifier>{d9f697fc-f063-4fb8-b258-0f7bb28b913f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99_APP\04_CHARACTER\CHARACTER_STATE">
+      <UniqueIdentifier>{21c66cca-05f1-47f6-9332-6ea5031d2001}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -232,9 +235,6 @@
     <ClInclude Include="cProjectile.h">
       <Filter>99_APP\03_SKILL</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerCharacter.h">
-      <Filter>99_APP\04_CHARACTER</Filter>
-    </ClInclude>
     <ClInclude Include="RoomButton.h">
       <Filter>01_CORE\01_COMMON\ROOM</Filter>
     </ClInclude>
@@ -297,6 +297,18 @@
     </ClInclude>
     <ClInclude Include="Sources\Manager\CheatManager.h">
       <Filter>01_CORE\02_MANAGER\CHEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillModuleManager.h">
+      <Filter>99_APP\03_SKILL</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Character\CharacterState\CharacterState_Stun.h">
+      <Filter>99_APP\04_CHARACTER\CHARACTER_STATE</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Character\CharacterState\CharacterStateBase.h">
+      <Filter>99_APP\04_CHARACTER\CHARACTER_STATE</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>99_APP\04_CHARACTER</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -399,9 +411,6 @@
     <ClCompile Include="cProjectile.cpp">
       <Filter>99_APP\03_SKILL</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerCharacter.cpp">
-      <Filter>99_APP\04_CHARACTER</Filter>
-    </ClCompile>
     <ClCompile Include="RoomButton.cpp">
       <Filter>01_CORE\01_COMMON\ROOM</Filter>
     </ClCompile>
@@ -461,6 +470,15 @@
     </ClCompile>
     <ClCompile Include="Sources\Manager\CheatManager.cpp">
       <Filter>01_CORE\02_MANAGER\CHEAT</Filter>
+    </ClCompile>
+    <ClCompile Include="SkilModuleManager.cpp">
+      <Filter>99_APP\03_SKILL</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>99_APP\04_CHARACTER</Filter>
+    </ClCompile>
+    <ClCompile Include="unit.cpp">
+      <Filter>99_APP\04_CHARACTER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

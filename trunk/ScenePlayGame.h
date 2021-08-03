@@ -6,7 +6,7 @@
 //< 맵
 class WorldManager;
 //< 플레이어 캐릭터
-class PlayerCharacter;
+class PlayerController;
 //< 채팅창
 class ChattingGame;
 
@@ -32,7 +32,7 @@ public :
 	//< 포탈 후 초기화
 	void initByPortal(POINT &destPos);
 
-	PlayerCharacter* GetPlayer() { return m_player; }
+	PlayerController* GetPlayerController() { return m_player; }
 
 private:
 	//< UI 로딩
@@ -48,7 +48,7 @@ private :
 	bool m_playingGame;
 
 	//< 캐릭터 정보
-    PlayerCharacter *m_player;
+    PlayerController *m_player;
 
 	//타일맵 정보
 	WorldManager *m_World;

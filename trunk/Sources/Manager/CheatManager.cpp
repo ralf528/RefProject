@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "../../ScenePlayGame.h"
-#include "../../PlayerCharacter.h"
+#include "../../PlayerController.h"
 #include "../../character.h"
 
 #include "CheatManager.h"
@@ -100,7 +100,7 @@ void CheatManager::SetPosition(Parser CheatMessage)
 		return;
 	}
 
-	PlayerCharacter* Player = nowState->GetPlayer();
+	PlayerController* Player = nowState->GetPlayerController();
 	if (Player == nullptr)
 	{
 		return;
@@ -133,7 +133,7 @@ void CheatManager::SwitchCharacter(Parser CheatMessage)
 		return;
 	}
 
-	PlayerCharacter* Player = nowState->GetPlayer();
+	PlayerController* Player = nowState->GetPlayerController();
 	if (Player == nullptr)
 	{
 		return;
@@ -168,7 +168,7 @@ void CheatManager::AddItem(Parser CheatMessage)
 		return;
 	}
 
-	PlayerCharacter* Player = nowState->GetPlayer();
+	PlayerController* Player = nowState->GetPlayerController();
 	if (Player == nullptr)
 	{
 		return;
