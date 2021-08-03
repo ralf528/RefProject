@@ -64,9 +64,9 @@ const char *imgPath = "Data/Image/";
 //< 몬스터 등장 확률
 #define		MONSTER_APPEAR_PROB 1
 //< 몬스터 이동속도
-#define		BOSS_1_MOVE_SPEED 2.f
-#define		MON1_MOVE_SPEED 2.f
-#define		MON2_MOVE_SPEED 1.1f
+#define		BOSS_1_MOVE_SPEED 2
+#define		MON1_MOVE_SPEED 2
+#define		MON2_MOVE_SPEED 1
 
 ////////////////////////////////////////////////////////////////////////
 //< 맵 관련

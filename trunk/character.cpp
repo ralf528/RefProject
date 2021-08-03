@@ -50,9 +50,9 @@ bool character::init(void)
 	}
 
 	//< 캐릭터 스테이터스
-	setMaxHP( CHARACTER_HP );
+	setMaxHP(EStatus_Base, CHARACTER_HP);
 	setHP( CHARACTER_HP );
-	setMaxMP( CHARACTER_MP );
+	setMaxMP(EStatus_Base, CHARACTER_MP);
 	setMP( CHARACTER_MP );
 
 	//< 신념, 종족, 직업
@@ -61,15 +61,15 @@ bool character::init(void)
 	setJob(m_JobType);
 
 	//< 힘,민,지
-	setStrong(3);
-	setAgility(3);
-	setIntel(3);
+	setStrong(EStatus_Base, 3);
+	setAgility(EStatus_Base, 3);
+	setIntel(EStatus_Base, 3);
 	
 	//< 상태이상
 	setCondition(CONDITION_NORMAL);
 
 	//< 캐릭터 속도 설정
-	setMoveSpeed(10.f);
+	setMoveSpeed(EStatus_Base, 10);
 
 	//< 이동 딜레이
 	m_moveDeley.m_lastTime = GetTickCount();
@@ -161,13 +161,13 @@ void character::update(float fDeltaTime)
 		switch (stt)
 		{
 		case 0: case 1: case 2: case 3:
-			incStrong(1);
+			incStrong(EStatus_Base, 1);
 			break;
 		case 4:
-			incAgility(1);
+			incAgility(EStatus_Base, 1);
 			break;
 		case 5:
-			incIntel(1);
+			incIntel(EStatus_Base, 1);
 			break;
 		}
 		m_PrefLevel = curLevel;
@@ -298,7 +298,7 @@ bool character::beHit(int damage)
 	if (getCondition() != CONDITION_INBEAT)
 	{
 
-		m_state.m_nowHP -= damage;
+		incHP(-damage);
 		//< 카메라 흔들리기
 		if (damage > 10 && rand() % 3 == 0)
 		{
@@ -313,7 +313,7 @@ bool character::beHit(int damage)
 		}
 		StartAnimation(E_AnimationType::BeHit);
 
-		LOG_MGR->addLog("m_state.m_nowHP : %d", m_state.m_nowHP);
+		LOG_MGR->addLog("m_state.m_nowHP : %d", getHP());
 		if (getHP() <= 0 && m_nowState != STATE_DIE)
 		{
 			LOG_MGR->addLog("PLAYER_DIE");

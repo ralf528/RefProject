@@ -159,9 +159,7 @@ unsigned int Inventory::useItem(character* OwnerCharacter, unsigned int index)
 	//	if (getIntel() < 0) m_state.m_int = 1;
 	//	break;
 	case ITEM_POTION_UNKNOWN: //< °­È­
-		/*OwnerCharacter->m_state.m_str += 3;
-		OwnerCharacter->m_state.m_agl += 3;
-		OwnerCharacter->m_state.m_int += 3;*/
+		OwnerCharacter->setMaxHP(EStatus_Item, 100);
 		break;
 	}
 

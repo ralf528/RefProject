@@ -53,8 +53,16 @@ enum DIR
 // ☆━─ 2015.04, 캐릭터 스테이터스, Ackashic. ─━☆
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+enum ESTATUS_TYPE
+{
+	EStatus_None = -1,
+	EStatus_Base = 0,
+	EStatus_Skill,
+	EStatus_Item,
+};
+
 //< 스테이터스
-typedef struct tagStates
+typedef struct tagStatus
 {
     //< 신념
     unsigned int m_belief;
@@ -63,29 +71,10 @@ typedef struct tagStates
     //< 직업
     unsigned int m_job;
 
-    //< 최대 체력
-    unsigned int m_maxHP;
-    //< 현재 체력
-    unsigned int m_nowHP;
-    //< 최대 마력
-    unsigned int m_maxMP;
-    //< 현재 마력
-    unsigned int m_nowMP;
-
-    //< 힘
-    unsigned int m_str;
-    //< 민
-    unsigned int m_agl;
-    //< 지
-    unsigned int m_int;
-
-    //< 이동속도
-    float m_moveSpeed;
-
     //< 상태이상
     unsigned int m_condition;
 
-}STATES;
+}UNIT_STATUS;
 
 //< 딜레이
 typedef struct tagDeley

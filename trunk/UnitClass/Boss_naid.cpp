@@ -30,10 +30,10 @@ bool boss_naid::init(void)
 
 	//< 스테이터스
 	//< 체력
-	setMaxHP( 200 );
-	setHP( 200 );
+	setMaxHP(EStatus_Base, 200);
+	setHP(getMaxHP());
 	//< 마력
-	setMaxMP( 100 );
+	setMaxMP(EStatus_Base, 100);
 	setMP( 100 );
 	//< 경험치
 	m_exp = 100;
@@ -43,7 +43,7 @@ bool boss_naid::init(void)
 	//< 공격 사거리
 	m_attRange = 70;
 	//< 이동 속도
-	setMoveSpeed( BOSS_1_MOVE_SPEED );
+	setMoveSpeed(EStatus_Base, BOSS_1_MOVE_SPEED);
 	m_moveDeley.m_lastTime = GetTickCount();
 	m_moveDeley.m_deley = static_cast<unsigned int>(getMoveSpeed());
 
@@ -259,7 +259,7 @@ bool boss_naid::beHit(int damage)
 		return false;
 	}
 	//< 살아있다면 HP 감소
-	m_state.m_nowHP -= damage;  
+	incHP(-damage);  
 	//피격 사운드
 	//SOUND_MGR->soundPlay(NAID_HIT);
 	//< 피격 이펙트

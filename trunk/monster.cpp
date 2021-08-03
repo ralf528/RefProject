@@ -28,7 +28,7 @@ void Monster::move( POINT &destPos )
 		//< 목표(플레이어)를 향해 이동
 		if( m_moveDeley.m_lastTime + m_moveDeley.m_deley < GetTickCount() )
 		{
-			math::moveToPt( &m_pos, &destPos , getMoveSpeed() );
+			math::moveToPt( &m_pos, &destPos , (float)getMoveSpeed() );
 			m_moveDeley.m_lastTime = GetTickCount();
 		}
 		m_MoveAni_Info->flag=true;

@@ -28,10 +28,10 @@ bool mon_bug::init(void)
 	
 	//< 스테이터스
 	//< 체력
-	setMaxHP( 10 );
-	setHP( 10 );
+	setMaxHP(EStatus_Base, 10);
+	setHP(getMaxHP());
 	//< 마력
-	setMaxMP( 50 );
+	setMaxMP(EStatus_Base, 50);
 	setMP( 50 );
 	//< 경험치
 	m_exp = 3;
@@ -41,7 +41,7 @@ bool mon_bug::init(void)
 	//< 공격 사거리
 	m_attRange = 55;
 	//< 이동 속도
-	setMoveSpeed( 2 );
+	setMoveSpeed(EStatus_Base, 2);
 	m_moveDeley.m_lastTime = GetTickCount();
 	m_moveDeley.m_deley = static_cast<unsigned int>(getMoveSpeed());
 
@@ -236,7 +236,7 @@ bool mon_bug::beHit(int damage)
 		return false;
 	}
 	//< 살아있다면 HP 감소
-	m_state.m_nowHP -= damage; 
+	incHP(-damage); 
 	//SOUND_MGR->soundPlay(BUG_HIT);
 	//< 피격 이펙트
 	m_HitAni_Info->flag=true;
