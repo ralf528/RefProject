@@ -46,5 +46,5 @@ private:
 	//< 공격 충돌체
 	cProjectile *ball;
 	//< 공격 딜레이
-	DELEY attDeley;
+	DELAY_TIME attDeley;
 };

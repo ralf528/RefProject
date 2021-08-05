@@ -61,21 +61,6 @@ enum ESTATUS_TYPE
 	EStatus_Item,
 };
 
-//< 스테이터스
-typedef struct tagStatus
-{
-    //< 신념
-    unsigned int m_belief;
-    //< 종족
-    unsigned int m_tribe;
-    //< 직업
-    unsigned int m_job;
-
-    //< 상태이상
-    unsigned int m_condition;
-
-}UNIT_STATUS;
-
 //< 딜레이
 typedef struct tagDeley
 {
@@ -83,7 +68,7 @@ typedef struct tagDeley
     unsigned int m_deley;
     //< 카운트
     unsigned int m_lastTime;
-}DELEY;
+}DELAY_TIME;
 
 
 #endif

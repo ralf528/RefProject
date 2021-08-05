@@ -79,15 +79,15 @@ bool character::init(void)
 	m_isAttacking = false;
 
 	//< 공격 딜레이
-	attDeley.m_deley = attDeley.m_lastTime = 50;
+	NormalAttackCooltime.m_deley = NormalAttackCooltime.m_lastTime = 50;
 
 	//< 컨디션 딜레이
 	m_conDeley.m_deley = 0;
 	m_conDeley.m_lastTime = 0;
 
 	//< 무적스킬 딜레이
-	m_inbeatDeley.m_deley = 10000;
-	m_inbeatDeley.m_lastTime = 0;
+	InbeatCoolTime.m_deley = 10000;
+	InbeatCoolTime.m_lastTime = 0;
 
 	//< 일반 공격
 	SAFE_DELETE(AttackProjectile);
@@ -134,10 +134,7 @@ void character::release(void)
 
 void character::update(float fDeltaTime)
 {
-	if (m_conDeley.m_lastTime + m_conDeley.m_deley < GetTickCount())
-	{
-		setCondition(CONDITION_NORMAL);
-	}
+	UpdateCondition();
 
 	if (m_nowState == STATE_DIE)
 	{
@@ -669,7 +666,7 @@ void character::AttackTrigger()
 		destPos.y = m_pos.y + dist;
 		break;
 	}
-	attDeley.m_lastTime = 0;
+	NormalAttackCooltime.m_lastTime = 0;
 	//공격 사운드
 	//SOUND_MGR->soundPlay(SOUND_BGM4);
 	AttackProjectile->shoot(m_pos, destPos, m_dir);
@@ -722,13 +719,11 @@ void character::UpdateDash(void)
 
 void character::Inbeatable(void)
 {
-	if (m_inbeatDeley.m_lastTime + m_inbeatDeley.m_deley < GetTickCount() && getMP() >= 10)
+	if (InbeatCoolTime.m_lastTime + InbeatCoolTime.m_deley < GetTickCount() && getMP() >= 10)
 	{
 		incMP(-10);
-		setCondition(CONDITION_INBEAT);
-		m_conDeley.m_deley = 300;
-		m_conDeley.m_lastTime = GetTickCount();
-		m_inbeatDeley.m_lastTime = GetTickCount();
+		setCondition(CONDITION_INBEAT, 300);
+		InbeatCoolTime.m_lastTime = GetTickCount();
 	}
 }
 
@@ -747,7 +742,7 @@ void character::DashTrigger()
 void character::ShootWholeSkill()
 {
 	//< 스킬 가능 상태
-	if (wholeSkillDeley.m_deley <= wholeSkillDeley.m_lastTime++)
+	if (wholeSkillCoolTime.m_deley <= wholeSkillCoolTime.m_lastTime++)
 	{
 		// 구체 이동
 		if (getMP() >= 50)
@@ -755,7 +750,7 @@ void character::ShootWholeSkill()
 			incMP(-50);
 			POINT pos = m_pos;
 			//< 딜레이 카운트
-			wholeSkillDeley.m_lastTime = 0;
+			wholeSkillCoolTime.m_lastTime = 0;
 			//공격 사운드
 			//SOUND_MGR->soundPlay(SOUND_BGM4);
 			//< 스킬 발동

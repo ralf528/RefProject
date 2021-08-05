@@ -51,3 +51,25 @@ void Unit::incHP(int offset)
 		setHP(getMaxHP());
 	}
 }
+
+void Unit::setCondition(int cond, int delay)
+{
+	m_Abnormal.AbnormalType = cond;
+	m_Abnormal.Delay.m_deley = delay;
+	m_Abnormal.Delay.m_lastTime = GetTickCount();
+}
+
+void Unit::UpdateCondition()
+{
+	if (m_Abnormal.AbnormalType == CONDITION_NORMAL)
+	{
+		return;
+	}
+
+	if (m_Abnormal.Delay.m_lastTime + m_Abnormal.Delay.m_deley >= GetTickCount())
+	{
+		m_Abnormal.AbnormalType = CONDITION_NORMAL;
+		m_Abnormal.Delay.m_deley = 0;
+		m_Abnormal.Delay.m_lastTime = 0;
+	}
+}

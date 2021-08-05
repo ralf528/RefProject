@@ -46,10 +46,10 @@ private:
 	//< 공격 충돌체
 	cProjectile *ball;
 	//< 공격 딜레이
-	DELEY attDeley;	
+	DELAY_TIME attDeley;	
 
 	//< 스킬 충돌체
 	//skill_naid_collum *m_skill_collum;
 	//< 스킬 딜레이
-	DELEY m_collum_deley;
+	DELAY_TIME m_collum_deley;
 };

@@ -11,6 +11,13 @@ struct StatusType
 	void AddValue(ESTATUS_TYPE eType, int value);
 };
 
+struct Abnormal
+{
+	int AbnormalType;
+
+	DELAY_TIME Delay;
+};
+
 class Unit
 {
 public:
@@ -80,18 +87,19 @@ public:
 	inline void		incIntel(ESTATUS_TYPE type, int offset) { m_int.AddValue(type, offset); }
 
 	//< 신념
-	inline void		setBelief(int belief) { m_status.m_belief = belief; }
-	inline int		getBelief(void) { return m_status.m_belief; }
+	inline void		setBelief(int belief) { m_belief = belief; }
+	inline int		getBelief(void) { return m_belief; }
 	//< 종족
-	inline void		setTribe(int tribe) { m_status.m_tribe = tribe; }
-	inline int		getTribe(void) { return m_status.m_tribe; }
+	inline void		setTribe(int tribe) { m_tribe = tribe; }
+	inline int		getTribe(void) { return m_tribe; }
 	//< 직업
-	inline void		setJob(int job) { m_status.m_job = job; }
-	inline int		getJob(void) { return m_status.m_job; }
+	inline void		setJob(int job) { m_job = job; }
+	inline int		getJob(void) { return m_job; }
 
 	//< 상태이상
-	inline void		setCondition(int cond) { m_status.m_condition = cond; }
-	inline int		getCondition(void) { return m_status.m_condition; }
+	void			setCondition(int cond, int delay = 0);
+	inline int		getCondition(void) { return m_Abnormal.AbnormalType; }
+	void			UpdateCondition();
 
 
 	//< 중점 반환
@@ -105,8 +113,15 @@ protected:
 	//< 방향정보
 	int m_dir;
 
-	//< 스테이터스
-	UNIT_STATUS m_status;
+	//< 신념
+	unsigned int m_belief;
+	//< 종족
+	unsigned int m_tribe;
+	//< 직업
+	unsigned int m_job;
+
+	//< 상태이상
+	Abnormal m_Abnormal;
 
 	StatusType m_maxHP;
 	int m_nowHP;

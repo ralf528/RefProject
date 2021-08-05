@@ -124,10 +124,10 @@ protected:
 
 	//< hp바 표시 딜레이
 	bool hpRenderFlag;
-	DELEY hpRenderDeley;
+	DELAY_TIME hpRenderDeley;
 
 	//< 이동 딜레이
-	DELEY m_moveDeley;
+	DELAY_TIME m_moveDeley;
 
 	//< 애니메이션 정보
 	LPANI_INFO		m_IdleAni_Info;

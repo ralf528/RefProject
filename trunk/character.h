@@ -95,10 +95,6 @@ public:
 	//< 살았는지 플래그
 	inline bool getIsLive(void){ return m_isLive; }
 
-	//< 상태 딜레이 셋
-	void setStateDelay(unsigned int deley) { m_conDeley.m_deley = deley; }
-	void setDelayTick(void) { m_conDeley.m_lastTime = GetTickCount(); }
-
 	//< 스킬
     virtual void ProcessSkill(unsigned int nIndex);
 
@@ -148,15 +144,15 @@ private:
 	cProjectile *SkillProjectile;
 
 	//< 이동 딜레이
-	DELEY m_moveDeley;
+	DELAY_TIME m_moveDeley;
 	//< 상태 딜레이
-	DELEY m_conDeley;
-	//< 공격 딜레이
-	DELEY attDeley;
-	//< 전체 마법 딜레이
-	DELEY wholeSkillDeley;
-	//< 무적모드 딜레이
-	DELEY m_inbeatDeley;
+	DELAY_TIME m_conDeley;
+	//< 공격 쿨타임
+	DELAY_TIME NormalAttackCooltime;
+	//< 전체 마법 쿨타임
+	DELAY_TIME wholeSkillCoolTime;
+	//< 무적모드 쿨타임
+	DELAY_TIME InbeatCoolTime;
 	
 	//< 대쉬
 	unsigned int dash_count;
