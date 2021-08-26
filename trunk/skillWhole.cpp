@@ -5,7 +5,7 @@
 skillWhole::skillWhole(void)
 	: cProjectile( SCREEN_X/2 , 50 )
 {
-	RC_MGR->addImage( imgID_SKILL_SCREEN, L"Data/Resource/Image/skill/전체스킬.bmp", 0, 0 , RM_TRANS );
+	RC_MGR->addImage( imgID_SKILL_SCREEN, L"Data/Resource/Image/skill/WholeSkill.bmp", 0, 0 , RM_TRANS );
 	m_count = m_speed;
 	m_AniFlag = false;
 	setAniInfo();
@@ -64,7 +64,7 @@ void skillWhole::render(HDC hdc)
 }
 
 //< 발사 (방향 지정)
-void skillWhole::shoot( POINT &startPoint, POINT &destPos )
+void skillWhole::shoot(POINT &startPoint, POINT &destPos, int dir)
 {
 	if( false == m_AniFlag )
 	{				

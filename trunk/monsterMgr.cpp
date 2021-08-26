@@ -175,7 +175,7 @@ bool MonsterMgr::collision( character &player )
 bool MonsterMgr::beShotCheck( character &player )
 {
 	//< 캐릭터 공격 충돌체가 비활성화 상태면 종료
-	if( false == player.getBallFlag() )
+	if (false == player.IsPlayingProjectile(E_SkillType_NormalAttack))
 	{
 		return false;
 	}
@@ -203,7 +203,7 @@ bool MonsterMgr::beShotCheck( character &player )
                         }
                     }
 
-					player.setBallFlag( false );
+					player.SetBallFlag(E_SkillType_NormalAttack, false);
 					//< 한마리만 피격 받고 종료
 					return true;
 				}

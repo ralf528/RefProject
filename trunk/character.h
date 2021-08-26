@@ -46,6 +46,17 @@ public:
 	void StartAnimation(E_AnimationType eType);
 	bool IsPlayingAnimation(E_AnimationType eType);
 
+	// 투사체
+	cProjectile* GetProjectile(E_SkillType SkillType);
+	bool CreateProjectile(E_SkillType SkillType, POINT StartPos, POINT TargetPos, int Direction = 6);
+	void ClearProjectile();
+	void RemoveProjectile(E_SkillType SkillType);
+	void UpdateProjectile();
+	void RenderProjectile(HDC hdc);
+	RECT GetProjectileRect(E_SkillType SkillType);
+	bool IsPlayingProjectile(E_SkillType SkillType);
+	void SetBallFlag(E_SkillType SkillType, bool flag);
+
 	//< 경험치 획득
 	void gainExp( unsigned int exp ){ m_level.incExp( exp ); }
 	//< 레벨 정보 얻기
@@ -72,10 +83,6 @@ public:
 
 	//< 충돌체(아이템 등) 얻기
 	virtual void gainCollider(E_TileBrush obj);
-
-	//< 충돌체 상태
-	void setBallFlag( bool flag );
-	bool getBallFlag( void );
 
 	//< 마법 충돌체 상태
 	void setSkillBallFlag( bool flag );
@@ -138,8 +145,8 @@ private:
 	bool m_isLive;
 	bool m_isAttacking;
 
-	//< 공격 투사체
-	cProjectile *AttackProjectile;
+	std::map<int, cProjectile*> ProjectileMap;
+
 	//< 스킬 투사체
 	cProjectile *SkillProjectile;
 

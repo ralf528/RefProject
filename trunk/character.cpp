@@ -8,7 +8,7 @@
 using namespace keyInput;
 
 character::character(void)
-	: AttackProjectile(NULL), SkillProjectile(NULL)
+	: SkillProjectile(NULL)
 {
 	m_JobType = JOB_ARCHER;
 
@@ -89,18 +89,6 @@ bool character::init(void)
 	InbeatCoolTime.m_deley = 10000;
 	InbeatCoolTime.m_lastTime = 0;
 
-	//< 일반 공격
-	SAFE_DELETE(AttackProjectile);
-	if (m_JobType == JOB_ARCHER)
-	{
-		AttackProjectile = new cProjectile(6, BOW_ATTACK_RANGE, 10);
-		AttackProjectile->SetImage(imgID_ARCHER_ARROW, "Data/Resource/Image/character/archer/arrow.bmp");
-	}
-	else
-	{
-		AttackProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
-	}
-
 	//< 전체 스킬
 	SAFE_DELETE(SkillProjectile);
 	SkillProjectile = new skillWhole();
@@ -125,7 +113,8 @@ void character::release(void)
 {
 	m_Skills.clear();
 
-	SAFE_DELETE( AttackProjectile );
+	ClearProjectile();
+
 	SAFE_DELETE( SkillProjectile );
 
 	//< 애니메이션 삭제
@@ -135,6 +124,7 @@ void character::release(void)
 void character::update(float fDeltaTime)
 {
 	UpdateCondition();
+	UpdateProjectile();
 
 	if (m_nowState == STATE_DIE)
 	{
@@ -253,8 +243,8 @@ void character::render(HDC hdc)
 		RenderAnimation(hdc, E_AnimationType::HitEff);
 	}
 
-	//마법 구체 렌더
-	AttackProjectile->render(hdc);
+	RenderProjectile(hdc);
+
 	//< 스킬 랜더
 	SkillProjectile->render(hdc);
 
@@ -284,7 +274,6 @@ void character::attack(void)
 	}
 
 	//충돌체 갱신
-	AttackProjectile->update();
 	SkillProjectile->update();
 }
 
@@ -494,6 +483,118 @@ bool character::IsPlayingAnimation(E_AnimationType eType)
 	return found->second->flag;
 }
 
+cProjectile* character::GetProjectile(E_SkillType SkillType)
+{
+	auto found = ProjectileMap.find(SkillType);
+	if (found != ProjectileMap.end())
+	{
+		return found->second;
+	}
+
+	return nullptr;
+}
+
+bool character::CreateProjectile(E_SkillType SkillType, POINT StartPos, POINT TargetPos, int Direction)
+{
+	cProjectile* NewProjectile = nullptr;
+	if (m_JobType == JOB_ARCHER)
+	{
+		NewProjectile = new cProjectile(6, BOW_ATTACK_RANGE, 10);
+		NewProjectile->SetImage(imgID_ARCHER_ARROW, "Data/Resource/Image/character/archer/arrow.bmp");
+	}
+	else
+	{
+		NewProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
+	}
+
+	NewProjectile->shoot(StartPos, TargetPos, Direction);
+
+	ProjectileMap.insert(std::make_pair(SkillType, NewProjectile));
+
+	return true;
+}
+
+void character::ClearProjectile()
+{
+	for (auto EachProjectile : ProjectileMap)
+	{
+		SAFE_DELETE(EachProjectile.second);
+	}
+
+	ProjectileMap.clear();
+}
+
+void character::RemoveProjectile(E_SkillType SkillType)
+{
+	if (cProjectile* found = GetProjectile(SkillType))
+	{
+		SAFE_DELETE(found);
+	}
+
+	ProjectileMap.erase(SkillType);
+}
+
+void character::UpdateProjectile()
+{
+	std::vector<int> RemoveIndex;
+
+	for (auto EachProjectile : ProjectileMap)
+	{
+		EachProjectile.second->update();
+
+		if (EachProjectile.second->getFlag() == false)
+		{
+			RemoveIndex.push_back(EachProjectile.first);
+		}
+	}
+
+	for (int index : RemoveIndex)
+	{
+		RemoveProjectile(static_cast<E_SkillType>(index));
+	}
+}
+
+void character::RenderProjectile(HDC hdc)
+{
+	for (auto EachProjectile : ProjectileMap)
+	{
+		EachProjectile.second->render(hdc);
+	}
+}
+
+RECT character::GetProjectileRect(E_SkillType SkillType)
+{
+	if (cProjectile* found = GetProjectile(SkillType))
+	{
+		return found->getRect();
+	}
+
+	RECT rect = { 0, 0, 0, 0};
+	return rect;
+}
+
+bool character::IsPlayingProjectile(E_SkillType SkillType)
+{
+	if (cProjectile* NormalAttackProj = GetProjectile(SkillType))
+	{
+		return NormalAttackProj->getFlag();
+	}
+	return false;
+}
+
+void character::SetBallFlag(E_SkillType SkillType, bool flag)
+{
+	if (cProjectile* NormalAttackProj = GetProjectile(SkillType))
+	{
+		NormalAttackProj->setFlag(flag);
+	}
+
+	if (flag == false)
+	{
+		RemoveProjectile(SkillType);
+	}
+}
+
 //< 좌표 설정
 void character::setPos( POINT &pos )
 {
@@ -535,7 +636,7 @@ void character::setRect( void )
 //< 공격 충돌체 렉트 반환
 RECT character::getBallRect(void)	
 {
-	return AttackProjectile->getRect();	
+	return GetProjectileRect(E_SkillType_NormalAttack);
 }
 
 //< 스킬 렉트 반환
@@ -546,7 +647,12 @@ RECT character::getSkillRect(void)
 
 int character::getDamage(void)
 {
-	return (AttackProjectile->getDamage() + getStrong());
+	if (cProjectile* NormalAttackProj = GetProjectile(E_SkillType_NormalAttack))
+	{
+		return NormalAttackProj->getDamage() + getStrong();
+	}
+
+	return 0;
 }
 
 //< 충돌체 얻기 ( 아이템 획득 )
@@ -575,16 +681,6 @@ void character::gainCollider(E_TileBrush obj)
 	{
 		setPosToPrev();
 	}
-}
-
-//< 충돌체 상태
-void character::setBallFlag( bool flag )
-{
-	AttackProjectile->setFlag( flag );
-}
-bool character::getBallFlag( void )	
-{
-	return AttackProjectile->getFlag();
 }
 
 //< 마법 충돌체 상태
@@ -669,7 +765,8 @@ void character::AttackTrigger()
 	NormalAttackCooltime.m_lastTime = 0;
 	//공격 사운드
 	//SOUND_MGR->soundPlay(SOUND_BGM4);
-	AttackProjectile->shoot(m_pos, destPos, m_dir);
+
+	CreateProjectile(E_SkillType_NormalAttack, m_pos, destPos, m_dir);
 
 	//< 공격중
 	m_isAttacking = true;
@@ -755,6 +852,7 @@ void character::ShootWholeSkill()
 			//SOUND_MGR->soundPlay(SOUND_BGM4);
 			//< 스킬 발동
 			SkillProjectile->shoot(m_pos, pos);
+			//CreateProjectile(E_SkillType_ShootWhole, m_pos, m_pos);
 		}
 	}
 }

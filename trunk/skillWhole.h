@@ -15,7 +15,7 @@ public:
 	virtual void render(HDC hdc);
 
 	//발사
-	virtual void shoot( POINT &startPoint, POINT &destPos );
+	virtual void shoot( POINT &startPoint, POINT &destPos, int dir = DIR_D) override;
 
 	//애니메이션 설정
 	void setAniInfo(void);

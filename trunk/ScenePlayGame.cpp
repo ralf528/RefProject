@@ -92,6 +92,7 @@ void ScenePlayGame::update(float fDeltaTime)
         ffff = GetTickCount();
     }
 
+	SKILL_MGR->Update();
     CAMERA->update();
 
     //< 팝업창이 없을때 갱신
