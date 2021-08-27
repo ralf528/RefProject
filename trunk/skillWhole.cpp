@@ -24,7 +24,7 @@ void skillWhole::update(void)
 	if( true == m_AniFlag )
 	{
 		//< 카운트 (마지막 순간에만 발동)
-		if(m_Ani_Info->flag == false)
+		if(m_Animation->flag == false)
 		{
 			
 			//< 스킬 활성화
@@ -44,7 +44,7 @@ void skillWhole::update(void)
 		m_flag = false;
 	}
 	
-	updateAni( m_Ani_Info );
+	updateAni( m_Animation );
 }
 //그리기
 void skillWhole::render(HDC hdc)
@@ -54,10 +54,10 @@ void skillWhole::render(HDC hdc)
 	{
 		//< 전체 스킬화면
 		RENDER_MGR->render( hdc, imgID_SKILL_SCREEN,
-				m_pos.x - m_Ani_Info->aniSize.cx/2 - CAMERA->getX() +50, m_pos.y - m_Ani_Info->aniSize.cy/2 - RENDER_OFFSET_Y - CAMERA->getY()+50,
-				m_Ani_Info->aniSize.cx, 	m_Ani_Info->aniSize.cy,
-				m_Ani_Info->nowFrame * m_Ani_Info->aniSize.cx,	m_Ani_Info->nowFrameY * m_Ani_Info->aniSize.cy,
-				m_Ani_Info->aniSize.cx, m_Ani_Info->aniSize.cy);
+				m_pos.x - m_Animation->aniSize.cx/2 - CAMERA->getX() +50, m_pos.y - m_Animation->aniSize.cy/2 - RENDER_OFFSET_Y - CAMERA->getY()+50,
+				m_Animation->aniSize.cx, 	m_Animation->aniSize.cy,
+				m_Animation->nowFrame * m_Animation->aniSize.cx,	m_Animation->nowFrameY * m_Animation->aniSize.cy,
+				m_Animation->aniSize.cx, m_Animation->aniSize.cy);
 		//< 스킬 영역
 		//Rectangle(hdc, m_rect.left - CAMERA->getX() , m_rect.top - CAMERA->getY(), m_rect.right - CAMERA->getX(), m_rect. bottom - CAMERA->getY() );
 	}
@@ -77,7 +77,7 @@ void skillWhole::shoot(POINT &startPoint, POINT &destPos, int dir)
 		//애니메이션 시작
 		m_AniFlag = true;		
 		
-		m_Ani_Info->flag = true;
+		m_Animation->flag = true;
 	}
 }
 
@@ -93,18 +93,18 @@ void skillWhole::setRect(void)
 
 void skillWhole::setAniInfo( void )
 {
-	SAFE_DELETE( m_Ani_Info );
-	m_Ani_Info = new ANI_INFO;
-	m_Ani_Info->aniSize.cx = 1280;
-	m_Ani_Info->aniSize.cy = 720;
-	m_Ani_Info->frameCntX = 23;
-	m_Ani_Info->frameCntY = 1;
-	m_Ani_Info->frameSpeed = 100;
-	m_Ani_Info->nowFrame = 0;
-	m_Ani_Info->nowFrameY = 0;
-	m_Ani_Info->lastTime = GetTickCount();
-	m_Ani_Info->flag=false;
-	m_Ani_Info->playAni=false;
+	SAFE_DELETE( m_Animation );
+	m_Animation = new ANI_INFO;
+	m_Animation->aniSize.cx = 1280;
+	m_Animation->aniSize.cy = 720;
+	m_Animation->frameCntX = 23;
+	m_Animation->frameCntY = 1;
+	m_Animation->frameSpeed = 100;
+	m_Animation->nowFrame = 0;
+	m_Animation->nowFrameY = 0;
+	m_Animation->lastTime = GetTickCount();
+	m_Animation->flag=false;
+	m_Animation->playAni=false;
 }
 
 void skillWhole::updateAni( LPANI_INFO info )
@@ -132,5 +132,5 @@ void skillWhole::updateAni( LPANI_INFO info )
 }
 void skillWhole::releaseAniInfo(void)
 {
-	SAFE_DELETE( m_Ani_Info );
+	SAFE_DELETE( m_Animation );
 }

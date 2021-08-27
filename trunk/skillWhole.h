@@ -35,7 +35,4 @@ public:
 	int m_count;
 	//< 애니메이션 플래그
 	bool m_AniFlag;
-
-	//< 애니메이션 정보
-	LPANI_INFO m_Ani_Info;
 };
