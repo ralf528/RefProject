@@ -8,7 +8,6 @@
 using namespace keyInput;
 
 character::character(void)
-	: SkillProjectile(NULL)
 {
 	m_JobType = JOB_ARCHER;
 
@@ -89,10 +88,6 @@ bool character::init(void)
 	InbeatCoolTime.m_deley = 10000;
 	InbeatCoolTime.m_lastTime = 0;
 
-	//< 전체 스킬
-	SAFE_DELETE(SkillProjectile);
-	SkillProjectile = new skillWhole();
-
 	//< 현재 레벨 저장
 	m_PrefLevel = getLevelInfo().getNowLevel();
 
@@ -114,8 +109,6 @@ void character::release(void)
 	m_Skills.clear();
 
 	ClearProjectile();
-
-	SAFE_DELETE( SkillProjectile );
 
 	//< 애니메이션 삭제
 	releaseAniInfo();
@@ -245,9 +238,6 @@ void character::render(HDC hdc)
 
 	RenderProjectile(hdc);
 
-	//< 스킬 랜더
-	SkillProjectile->render(hdc);
-
 #ifdef _DEBUG
 	//주위 타일
 	MoveToEx(hdc, vertex[3].x - CAMERA->getX(), vertex[3].y - CAMERA->getY(), NULL);
@@ -272,9 +262,6 @@ void character::attack(void)
 		//< 공격중 아님
 		m_isAttacking = false;
 	}
-
-	//충돌체 갱신
-	SkillProjectile->update();
 }
 
 //< 타격
@@ -497,14 +484,24 @@ cProjectile* character::GetProjectile(E_SkillType SkillType)
 bool character::CreateProjectile(E_SkillType SkillType, POINT StartPos, POINT TargetPos, int Direction)
 {
 	cProjectile* NewProjectile = nullptr;
-	if (m_JobType == JOB_ARCHER)
+
+	switch (SkillType)
 	{
-		NewProjectile = new cProjectile(6, BOW_ATTACK_RANGE, 10);
-		NewProjectile->SetImage(imgID_ARCHER_ARROW, "Data/Resource/Image/character/archer/arrow.bmp");
-	}
-	else
-	{
-		NewProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
+	case E_SkillType_NormalAttack:
+		if (m_JobType == JOB_ARCHER)
+		{
+			NewProjectile = new cProjectile(6, BOW_ATTACK_RANGE, 10);
+			NewProjectile->SetImage(imgID_ARCHER_ARROW, "Data/Resource/Image/character/archer/arrow.bmp");
+		}
+		else
+		{
+			NewProjectile = new cProjectile(6, NORMAL_ATTACK_RANGE, 10, 0.3f);
+		}
+		break;
+
+	case E_SkillType_ShootWhole:
+		NewProjectile = new skillWhole();
+		break;
 	}
 
 	NewProjectile->shoot(StartPos, TargetPos, Direction);
@@ -542,7 +539,7 @@ void character::UpdateProjectile()
 	{
 		EachProjectile.second->update();
 
-		if (EachProjectile.second->getFlag() == false)
+		if (EachProjectile.second->IsPlaying() == false)
 		{
 			RemoveIndex.push_back(EachProjectile.first);
 		}
@@ -577,12 +574,12 @@ bool character::IsPlayingProjectile(E_SkillType SkillType)
 {
 	if (cProjectile* NormalAttackProj = GetProjectile(SkillType))
 	{
-		return NormalAttackProj->getFlag();
+		return NormalAttackProj->IsPlaying();
 	}
 	return false;
 }
 
-void character::SetBallFlag(E_SkillType SkillType, bool flag)
+void character::SetProjectileFlag(E_SkillType SkillType, bool flag)
 {
 	if (cProjectile* NormalAttackProj = GetProjectile(SkillType))
 	{
@@ -593,6 +590,15 @@ void character::SetBallFlag(E_SkillType SkillType, bool flag)
 	{
 		RemoveProjectile(SkillType);
 	}
+}
+
+bool character::GetProjectileFlag(E_SkillType SkillType)
+{
+	if (cProjectile* NormalAttackProj = GetProjectile(SkillType))
+	{
+		return NormalAttackProj->getFlag();
+	}
+	return false;
 }
 
 //< 좌표 설정
@@ -633,18 +639,6 @@ void character::setRect( void )
 		m_pos.x + CHARACTER_SIZE, m_pos.y + CHARACTER_SIZE);
 }
 
-//< 공격 충돌체 렉트 반환
-RECT character::getBallRect(void)	
-{
-	return GetProjectileRect(E_SkillType_NormalAttack);
-}
-
-//< 스킬 렉트 반환
-RECT character::getSkillRect(void)
-{
-	return SkillProjectile->getRect();
-}
-
 int character::getDamage(void)
 {
 	if (cProjectile* NormalAttackProj = GetProjectile(E_SkillType_NormalAttack))
@@ -681,16 +675,6 @@ void character::gainCollider(E_TileBrush obj)
 	{
 		setPosToPrev();
 	}
-}
-
-//< 마법 충돌체 상태
-void character::setSkillBallFlag( bool flag )	
-{
-	SkillProjectile->setFlag( flag );	
-}
-bool character::getSkillBallFlag( void )	
-{	
-	return SkillProjectile->getFlag();
 }
 
 void character::ProcessSkill(unsigned int nIndex)
@@ -841,18 +825,19 @@ void character::ShootWholeSkill()
 	//< 스킬 가능 상태
 	if (wholeSkillCoolTime.m_deley <= wholeSkillCoolTime.m_lastTime++)
 	{
+		static const int AmountMP = 1;
+
 		// 구체 이동
-		if (getMP() >= 50)
+		if (getMP() >= AmountMP)
 		{
-			incMP(-50);
+			incMP(-AmountMP);
 			POINT pos = m_pos;
 			//< 딜레이 카운트
 			wholeSkillCoolTime.m_lastTime = 0;
 			//공격 사운드
 			//SOUND_MGR->soundPlay(SOUND_BGM4);
 			//< 스킬 발동
-			SkillProjectile->shoot(m_pos, pos);
-			//CreateProjectile(E_SkillType_ShootWhole, m_pos, m_pos);
+			CreateProjectile(E_SkillType_ShootWhole, m_pos, m_pos);
 		}
 	}
 }

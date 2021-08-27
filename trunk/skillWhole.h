@@ -10,13 +10,16 @@ public:
 
 //< 인터페이스	
 	//업데이트
-	virtual void update(void);
+	virtual void update(void) override;
 	//그리기
-	virtual void render(HDC hdc);
+	virtual void render(HDC hdc) override;
 
 	//발사
 	virtual void shoot( POINT &startPoint, POINT &destPos, int dir = DIR_D) override;
 
+	virtual bool IsPlaying() override { return m_AniFlag; }
+
+private:
 	//애니메이션 설정
 	void setAniInfo(void);
 	//갱신

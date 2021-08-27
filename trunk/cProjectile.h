@@ -43,6 +43,8 @@ public:
 	//< ·ºÆ®
 	virtual RECT getRect(void) { return m_rect; }
 
+	virtual bool IsPlaying() { return m_flag; }
+
 	void SetPrevDelay(float prevDelay) { m_fPrevDelay = prevDelay; }
 
 	void SetImage(E_ImageID InImgID, string InPath);

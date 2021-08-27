@@ -184,7 +184,7 @@ bool MonsterMgr::beShotCheck( character &player )
 	{
 		if( NULL != m_monsterList[i] )
 		{
-			if( true == collision::isColCirAndRect( m_monsterList[i]->getRect(), player.getBallRect() ) )
+			if (true == collision::isColCirAndRect(m_monsterList[i]->getRect(), player.GetProjectileRect(E_SkillType_NormalAttack)))
 			{
 				//< 몬스터가 살아있다면 검사	
 				if( m_monsterList[i]->getStateFlag() != STATE_DIE )
@@ -203,7 +203,7 @@ bool MonsterMgr::beShotCheck( character &player )
                         }
                     }
 
-					player.SetBallFlag(E_SkillType_NormalAttack, false);
+					player.SetProjectileFlag(E_SkillType_NormalAttack, false);
 					//< 한마리만 피격 받고 종료
 					return true;
 				}
@@ -217,7 +217,7 @@ bool MonsterMgr::beShotCheck( character &player )
 bool MonsterMgr::beShotSkillCheck( character &player )
 {
 	//< 캐릭터 공격 충돌체가 비활성화 상태면 종료
-	if( false == player.getSkillBallFlag() )
+	if (false == player.IsPlayingProjectile(E_SkillType_ShootWhole))
 	{
 		return false;
 	}
@@ -225,7 +225,7 @@ bool MonsterMgr::beShotSkillCheck( character &player )
 	{
 		if( NULL != m_monsterList[i] )
 		{
-			if( true == collision::isColCirAndRect( m_monsterList[i]->getRect(), player.getSkillRect() ) )
+			if (true == collision::isColCirAndRect(m_monsterList[i]->getRect(), player.GetProjectileRect(E_SkillType_ShootWhole)))
 			{
 				//< 몬스터가 살아있다면 검사
 				if( m_monsterList[i]->getStateFlag() != STATE_DIE )

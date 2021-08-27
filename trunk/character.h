@@ -55,7 +55,8 @@ public:
 	void RenderProjectile(HDC hdc);
 	RECT GetProjectileRect(E_SkillType SkillType);
 	bool IsPlayingProjectile(E_SkillType SkillType);
-	void SetBallFlag(E_SkillType SkillType, bool flag);
+	void SetProjectileFlag(E_SkillType SkillType, bool flag);
+	bool GetProjectileFlag(E_SkillType SkillType);
 
 	//< 경험치 획득
 	void gainExp( unsigned int exp ){ m_level.incExp( exp ); }
@@ -73,20 +74,11 @@ public:
 	//< 렉트 설정
 	virtual void setRect(void);
 
-	//< 공격 충돌체 렉트 반환
-	RECT getBallRect(void);
-	//< 스킬 렉트 반환
-	RECT getSkillRect(void);
-
 	//< 데미지 얻기
 	virtual int getDamage(void);
 
 	//< 충돌체(아이템 등) 얻기
 	virtual void gainCollider(E_TileBrush obj);
-
-	//< 마법 충돌체 상태
-	void setSkillBallFlag( bool flag );
-	bool getSkillBallFlag( void );
 
 	//< 렉트 얻기
 	RECT getRect(void) { return m_rect; }
@@ -94,8 +86,6 @@ public:
 	//< 주위의 맵 정보
 	POINT *getAroundVertex(void) { return vertex; }
 
-	//< skill 얻기
-	inline cProjectile *getSkill(void) { return SkillProjectile; }
 	//< 공격중 얻기
 	virtual inline bool isAttack(void) { return m_isAttacking; }
 
@@ -146,9 +136,6 @@ private:
 	bool m_isAttacking;
 
 	std::map<int, cProjectile*> ProjectileMap;
-
-	//< 스킬 투사체
-	cProjectile *SkillProjectile;
 
 	//< 이동 딜레이
 	DELAY_TIME m_moveDeley;
