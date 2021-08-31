@@ -41,11 +41,19 @@ bool character::init(void)
 		return false;
 	}
 
+	SkillComponent.Initialize(this);
+
 	m_Skills.clear();
 	for (auto Each : Template->m_SkillDatas)
 	{
-		SkillTemplate& Template = Each.second;
 		m_Skills.push_back(Each.first);
+		if (Each.first >= E_SkillSlot::Passive_Skill1)
+		{
+			if (const SkillTemplate* SkillTemplate = TABLE_MGR->GetSkillTemplate(Each.second))
+			{
+				SkillComponent.AddSkillModule(SkillTemplate);
+			}
+		}
 	}
 
 	//< 캐릭터 스테이터스
@@ -107,6 +115,7 @@ bool character::init(void)
 void character::release(void)
 {
 	m_Skills.clear();
+	SkillComponent.Release();
 
 	ClearProjectile();
 
@@ -116,6 +125,7 @@ void character::release(void)
 
 void character::update(float fDeltaTime)
 {
+	SkillComponent.Update();
 	UpdateCondition();
 	UpdateProjectile();
 
@@ -164,13 +174,6 @@ void character::update(float fDeltaTime)
 		if (getCondition() == CONDITION_POISON)
 		{
 			incHP(-5);
-		}
-	}
-	if ((m_mpCount++ % 60) == 0)
-	{
-		if (getMP() < getMaxMP() - 1)
-		{
-			incMP(2);
 		}
 	}
 
@@ -470,7 +473,7 @@ bool character::IsPlayingAnimation(E_AnimationType eType)
 	return found->second->flag;
 }
 
-cProjectile* character::GetProjectile(E_SkillType SkillType)
+cProjectile* character::GetProjectile(E_SkillSlot::Type SkillType)
 {
 	auto found = ProjectileMap.find(SkillType);
 	if (found != ProjectileMap.end())
@@ -481,13 +484,13 @@ cProjectile* character::GetProjectile(E_SkillType SkillType)
 	return nullptr;
 }
 
-bool character::CreateProjectile(E_SkillType SkillType, POINT StartPos, POINT TargetPos, int Direction)
+bool character::CreateProjectile(E_SkillSlot::Type SkillType, POINT StartPos, POINT TargetPos, int Direction)
 {
 	cProjectile* NewProjectile = nullptr;
 
 	switch (SkillType)
 	{
-	case E_SkillType_NormalAttack:
+	case E_SkillSlot::NormalAttack:
 		if (m_JobType == JOB_ARCHER)
 		{
 			NewProjectile = new cProjectile(6, BOW_ATTACK_RANGE, 10);
@@ -499,7 +502,7 @@ bool character::CreateProjectile(E_SkillType SkillType, POINT StartPos, POINT Ta
 		}
 		break;
 
-	case E_SkillType_ShootWhole:
+	case E_SkillSlot::Active_ShootWhole:
 		NewProjectile = new skillWhole();
 		break;
 	}
@@ -521,7 +524,7 @@ void character::ClearProjectile()
 	ProjectileMap.clear();
 }
 
-void character::RemoveProjectile(E_SkillType SkillType)
+void character::RemoveProjectile(E_SkillSlot::Type SkillType)
 {
 	if (cProjectile* found = GetProjectile(SkillType))
 	{
@@ -547,7 +550,7 @@ void character::UpdateProjectile()
 
 	for (int index : RemoveIndex)
 	{
-		RemoveProjectile(static_cast<E_SkillType>(index));
+		RemoveProjectile(static_cast<E_SkillSlot::Type>(index));
 	}
 }
 
@@ -559,7 +562,7 @@ void character::RenderProjectile(HDC hdc)
 	}
 }
 
-RECT character::GetProjectileRect(E_SkillType SkillType)
+RECT character::GetProjectileRect(E_SkillSlot::Type SkillType)
 {
 	if (cProjectile* found = GetProjectile(SkillType))
 	{
@@ -570,7 +573,7 @@ RECT character::GetProjectileRect(E_SkillType SkillType)
 	return rect;
 }
 
-bool character::IsPlayingProjectile(E_SkillType SkillType)
+bool character::IsPlayingProjectile(E_SkillSlot::Type SkillType)
 {
 	if (cProjectile* NormalAttackProj = GetProjectile(SkillType))
 	{
@@ -579,7 +582,7 @@ bool character::IsPlayingProjectile(E_SkillType SkillType)
 	return false;
 }
 
-void character::SetProjectileFlag(E_SkillType SkillType, bool flag)
+void character::SetProjectileFlag(E_SkillSlot::Type SkillType, bool flag)
 {
 	if (cProjectile* NormalAttackProj = GetProjectile(SkillType))
 	{
@@ -592,7 +595,7 @@ void character::SetProjectileFlag(E_SkillType SkillType, bool flag)
 	}
 }
 
-bool character::GetProjectileFlag(E_SkillType SkillType)
+bool character::GetProjectileFlag(E_SkillSlot::Type SkillType)
 {
 	if (cProjectile* NormalAttackProj = GetProjectile(SkillType))
 	{
@@ -641,7 +644,7 @@ void character::setRect( void )
 
 int character::getDamage(void)
 {
-	if (cProjectile* NormalAttackProj = GetProjectile(E_SkillType_NormalAttack))
+	if (cProjectile* NormalAttackProj = GetProjectile(E_SkillSlot::NormalAttack))
 	{
 		return NormalAttackProj->getDamage() + getStrong();
 	}
@@ -684,23 +687,33 @@ void character::ProcessSkill(unsigned int nIndex)
 		return;
 	}
 
-	E_SkillType SkillType = m_Skills[nIndex];
+	E_SkillSlot::Type SkillType = m_Skills[nIndex];
 
 	switch (SkillType)
 	{
-	case E_SkillType_NormalAttack:
+	case E_SkillSlot::NormalAttack:
 		AttackTrigger();
 		break;
-	case E_SkillType_Dash:
+	case E_SkillSlot::Active_Dash:
 		DashTrigger();
 		break;
-	case E_SkillType_ShootWhole:
+	case E_SkillSlot::Active_ShootWhole:
 		ShootWholeSkill();
 		break;
-	case E_SkillType_Inbeatable:
+	case E_SkillSlot::Active_Inbeatable:
 		Inbeatable();
 		break;
 	}
+}
+
+bool character::ProcessPassiveSkill()
+{
+	for (auto EachSkill : m_Skills)
+	{
+
+	}
+
+	return true;
 }
 
 void character::AttackTrigger()
@@ -750,7 +763,7 @@ void character::AttackTrigger()
 	//공격 사운드
 	//SOUND_MGR->soundPlay(SOUND_BGM4);
 
-	CreateProjectile(E_SkillType_NormalAttack, m_pos, destPos, m_dir);
+	CreateProjectile(E_SkillSlot::NormalAttack, m_pos, destPos, m_dir);
 
 	//< 공격중
 	m_isAttacking = true;
@@ -825,7 +838,7 @@ void character::ShootWholeSkill()
 	//< 스킬 가능 상태
 	if (wholeSkillCoolTime.m_deley <= wholeSkillCoolTime.m_lastTime++)
 	{
-		static const int AmountMP = 1;
+		static const int AmountMP = 50;
 
 		// 구체 이동
 		if (getMP() >= AmountMP)
@@ -837,7 +850,7 @@ void character::ShootWholeSkill()
 			//공격 사운드
 			//SOUND_MGR->soundPlay(SOUND_BGM4);
 			//< 스킬 발동
-			CreateProjectile(E_SkillType_ShootWhole, m_pos, m_pos);
+			CreateProjectile(E_SkillSlot::Active_ShootWhole, m_pos, m_pos);
 		}
 	}
 }

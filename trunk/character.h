@@ -2,6 +2,7 @@
 
 #include "unit.h"
 #include "level.h"
+#include "SkillModuleComponent.h"
 
 //< 공격 충돌체
 class cProjectile;
@@ -47,16 +48,16 @@ public:
 	bool IsPlayingAnimation(E_AnimationType eType);
 
 	// 투사체
-	cProjectile* GetProjectile(E_SkillType SkillType);
-	bool CreateProjectile(E_SkillType SkillType, POINT StartPos, POINT TargetPos, int Direction = 6);
+	cProjectile* GetProjectile(E_SkillSlot::Type SkillType);
+	bool CreateProjectile(E_SkillSlot::Type SkillType, POINT StartPos, POINT TargetPos, int Direction = 6);
 	void ClearProjectile();
-	void RemoveProjectile(E_SkillType SkillType);
+	void RemoveProjectile(E_SkillSlot::Type SkillType);
 	void UpdateProjectile();
 	void RenderProjectile(HDC hdc);
-	RECT GetProjectileRect(E_SkillType SkillType);
-	bool IsPlayingProjectile(E_SkillType SkillType);
-	void SetProjectileFlag(E_SkillType SkillType, bool flag);
-	bool GetProjectileFlag(E_SkillType SkillType);
+	RECT GetProjectileRect(E_SkillSlot::Type SkillType);
+	bool IsPlayingProjectile(E_SkillSlot::Type SkillType);
+	void SetProjectileFlag(E_SkillSlot::Type SkillType, bool flag);
+	bool GetProjectileFlag(E_SkillSlot::Type SkillType);
 
 	//< 경험치 획득
 	void gainExp( unsigned int exp ){ m_level.incExp( exp ); }
@@ -94,6 +95,7 @@ public:
 
 	//< 스킬
     virtual void ProcessSkill(unsigned int nIndex);
+	virtual bool ProcessPassiveSkill();
 
 	//< 공격 트리거
 	void AttackTrigger();
@@ -154,5 +156,7 @@ private:
 	int m_hpCount;
 	int m_mpCount;
 
-	std::vector<E_SkillType> m_Skills;
+	std::vector<E_SkillSlot::Type> m_Skills;
+
+	SkillModuleComponent SkillComponent;
 };

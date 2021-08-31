@@ -18,15 +18,20 @@ struct AnimationTemplate
 
 struct SkillTemplate
 {
-	E_SkillType type;
-	E_ImageID rcid;
+	int SkillID;
+	E_ImageID IconID;
+	E_SkillModuleType::Type ModuleType;
+	int ArgumentA;
+	int ArgumentB;
+	int ArgumentC;
+	int ArgumentD;
 };
 
 struct CharacterTemplate
 {
 	int TemplateID;
 
-	std::map<E_SkillType, SkillTemplate> m_SkillDatas;
+	std::map<E_SkillSlot::Type, int> m_SkillDatas;
 	std::map<E_AnimationType, AnimationTemplate> m_AnimationDatas;
 };
 
@@ -49,13 +54,16 @@ private:
 
 public:
 	void Load();
+	void LoadSkillTemplate(int SkillID);
 	void LoadCharacterTemplate(int TemplateID);
 	void LoadItemTemplate(int ItemID);
 
+	const SkillTemplate* GetSkillTemplate(int SkillID);
 	const CharacterTemplate* GetCharacterTemplate(int TemplateID);
 	const ItemTemplate* GetItemTemplate(int ItemID);
 	
 private:
+	std::map<int, SkillTemplate> m_SkillDatas;
 	std::map<int, CharacterTemplate> m_CharacterDatas;
 	std::map<int, ItemTemplate> m_ItemDatas;
 };

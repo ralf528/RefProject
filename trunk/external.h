@@ -58,8 +58,8 @@ using namespace myUTIL;
 //#include "SoundMgr.h"
 #include "AniMgr.h"
 #include "Sources/Manager/CheatManager.h"
+#include "Sources/Template/TableManager.h"
 #include "SkillManager.h"
-#include "SkillModuleManager.h"
 
 #include "ButtonClass.h"
 #include "Scene/Popup/Popup_Loot.h"

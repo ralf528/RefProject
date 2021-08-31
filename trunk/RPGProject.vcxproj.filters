@@ -298,9 +298,6 @@
     <ClInclude Include="Sources\Manager\CheatManager.h">
       <Filter>01_CORE\02_MANAGER\CHEAT</Filter>
     </ClInclude>
-    <ClInclude Include="SkillModuleManager.h">
-      <Filter>99_APP\03_SKILL</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\Character\CharacterState\CharacterState_Stun.h">
       <Filter>99_APP\04_CHARACTER\CHARACTER_STATE</Filter>
     </ClInclude>
@@ -309,6 +306,12 @@
     </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>99_APP\04_CHARACTER</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillModuleComponent.h">
+      <Filter>99_APP\03_SKILL</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillDefineEnum.h">
+      <Filter>99_APP\03_SKILL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -471,14 +474,14 @@
     <ClCompile Include="Sources\Manager\CheatManager.cpp">
       <Filter>01_CORE\02_MANAGER\CHEAT</Filter>
     </ClCompile>
-    <ClCompile Include="SkilModuleManager.cpp">
-      <Filter>99_APP\03_SKILL</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>99_APP\04_CHARACTER</Filter>
     </ClCompile>
     <ClCompile Include="unit.cpp">
       <Filter>99_APP\04_CHARACTER</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillModuleComponent.cpp">
+      <Filter>99_APP\03_SKILL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

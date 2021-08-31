@@ -1,10 +1,29 @@
 #pragma once
 
-enum E_SkillType
+namespace E_SkillSlot
 {
-	E_SkillType_None = 0,
-	E_SkillType_NormalAttack,
-	E_SkillType_Dash,
-	E_SkillType_ShootWhole,
-	E_SkillType_Inbeatable,
+	enum Type
+	{
+		None = 0,
+		NormalAttack,
+		Active_Dash,
+		Active_ShootWhole,
+		Active_Inbeatable,
+		Passive_Skill1,
+	};
 };
+
+namespace E_SkillModuleType
+{
+	enum Type
+	{
+		None = 0,
+		NormalAttack,
+		Dash,
+		ShootWhole,
+		Inbeatable,
+		DotHeal,
+	};
+};
+
+// 스킬 타입은 ..
